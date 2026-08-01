@@ -516,6 +516,7 @@ html.js .fn-f.on{transform:scaleX(1)}
   background:rgba(46,107,255,.18);color:var(--b300);border:1px solid rgba(147,186,255,.16)}
 .aic h3{color:#fff;margin-bottom:8px}
 .aic p{font-size:14.2px;color:var(--steel2);line-height:1.62}
+.aic p+p{margin-top:11px}
 .aic p b{color:#CFDEFF;font-weight:600}
 
 .srv{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -829,7 +830,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
             "itemOffered": {
               "@type": "Service",
               "name": "AI and machine learning trading systems",
-              "description": "Machine learning signal models, feature pipelines, regime classifiers and large-scale automated strategy search with walk-forward validation and overfitting checks."
+              "description": "Models that learn a trading signal from data, systems that detect market conditions, and large-scale automated strategy search with testing on unseen data and checks against results that only look good by chance."
             }
           }
         ]
@@ -900,7 +901,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
           "name": "Do you use AI or machine learning in your trading systems?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, in the research loop. Millions of parameter configurations are generated and tested automatically against years of tick-level option data, then filtered by walk-forward validation and an overfitting check before anything is kept. The engines that go live stay deterministic: every entry, stop and exit is a fixed rule you can read in the code, so no model decides on its own when capital moves. We also build machine learning systems for clients, including signal models, feature pipelines and regime classifiers."
+            "text": "Yes, but in the research, not in the trading. Millions of versions of a strategy are generated and tested automatically against years of real market data, then filtered down to the few that still work on data they have never seen. The engines that go live are fixed rules: every entry, stop and exit is written in plain code you can read, so no model decides on its own when money moves. We also build learning systems for clients, including models that predict a signal and systems that detect which market conditions you are in."
           }
         },
         {
@@ -908,7 +909,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
           "name": "How do you stop an AI search from overfitting?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "By testing whether the search's own ranking has any predictive power. Candidates are ranked on in-sample data, then that ranking is compared against out-of-sample results. On our SENSEX sleeve search across 3.2 million configurations the rank correlation came out at −0.001, meaning the in-sample score predicted nothing. So the final basket was picked on structure and membership frequency instead of score. Walk-forward validation, realistic slippage on both sides of every trade and full statutory charges are applied throughout."
+            "text": "Test three million settings and one will look brilliant purely by chance, the same way someone in a big enough crowd flips ten heads in a row. So we check whether the winners on old data are still winners on data they have never seen. On our SENSEX search across 3.2 million versions, they were not: finishing first on the old data told us nothing about what happened next. So the basket was not picked by taking the best score. It was picked from the setups that kept appearing across thousands of good results, because a pattern that repeats is much harder to fake than one lucky number. Every test also charges realistic slippage on both sides of a trade plus full statutory costs, so nothing looks good only because the costs were left out."
           }
         },
         {
@@ -1337,7 +1338,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
     <div class="ai-h rv">
       <span class="eyebrow">AI and machine learning</span>
       <h2>AI does the searching.<br>Rules do the trading.</h2>
-      <p class="lede">Every engine on this page survived a machine that spent weeks trying to kill it. Millions of configurations get generated, tested against years of tick data and thrown away. What reaches a live account is the handful that would not break.</p>
+      <p class="lede">Every engine on this page survived a machine that spent weeks trying to break it. Millions of versions get built, tested against years of real market data, and thrown away. What we actually trade is the small handful that held up.</p>
     </div>
 
     <div class="fn rv" id="fn">
@@ -1350,7 +1351,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
         <div class="fn-t"><div class="fn-f" style="width:100%;background:linear-gradient(90deg,var(--b700),var(--b500))"></div></div>
       </div>
       <div class="fn-s">
-        <div><span class="fn-n num">20,000</span><span class="fn-l">cleared the walk-forward gate</span></div>
+        <div><span class="fn-n num">20,000</span><span class="fn-l">still worked on data they had never seen</span></div>
         <div class="fn-t"><div class="fn-f" style="width:38%;background:linear-gradient(90deg,var(--b600),var(--b400))"></div></div>
       </div>
     </div>
@@ -1359,17 +1360,17 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       <div class="aic rv">
         <div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></div>
         <h3>Search at scale</h3>
-        <p>A person can test twenty ideas in a week. A machine tests three million. We generate the whole parameter space, timeframe, stop level, entry window, strike offset, and run it against years of tick-level option data with real slippage and real charges.</p>
+        <p>A person can test twenty ideas in a week. A machine tests three million. Every combination of timing, stop level and entry window gets tried against years of real minute-by-minute option prices, with the brokerage and slippage you would actually pay.</p>
       </div>
       <div class="aic rv">
         <div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.4 9.3-8 10-4.6-.7-8-5-8-10V7l8-4z"/><path d="M9.2 12.4l1.9 1.9 3.7-3.9"/></svg></div>
-        <h3>Overfitting defence</h3>
-        <p>The dangerous result is the one that looks perfect. So we rank every candidate in sample, then check whether that ranking predicts anything out of sample. On the SENSEX search it predicted <b>nothing</b>, rank correlation −0.001, so we picked by structure instead of by score. Most searches never run that check.</p>
+        <h3>We assume it was luck</h3>
+        <p>Test three million settings and one of them will look brilliant by pure chance, the same way someone in a big enough crowd flips ten heads in a row. So we check what almost nobody checks: do the winners on old data stay winners on data they have never seen? On the SENSEX search, <b>they did not</b>. Coming first meant nothing.</p><p>So we never ship the best backtest. We ship the setups that keep turning up across thousands of good results, because a pattern that repeats is much harder to fake than one lucky score.</p>
       </div>
       <div class="aic rv">
         <div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 9h6v6H9z"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg></div>
         <h3>AI systems we build</h3>
-        <p>Machine learning signal models, feature pipelines, regime classifiers and the research tooling around them. If the edge you want needs learning rather than fixed rules, that is a system we can build and test the same way.</p>
+        <p>Models that learn a signal from data, systems that spot which market conditions you are in, and the tooling to research all of it. If your edge needs a model rather than a fixed rule, we build that too, and hold it to the same test.</p>
       </div>
     </div>
   </div>
@@ -1511,12 +1512,12 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
 
       <details class="qa">
         <summary>Do you use AI or machine learning in your trading systems?</summary>
-        <p>Yes, in the research loop. Millions of parameter configurations are generated and tested automatically against years of tick-level option data, then filtered by walk-forward validation and an overfitting check before anything is kept. The engines that go live stay deterministic: every entry, stop and exit is a fixed rule you can read in the code, so no model decides on its own when capital moves. We also build machine learning systems for clients, including signal models, feature pipelines and regime classifiers.</p>
+        <p>Yes, but in the research, not in the trading. Millions of versions of a strategy are generated and tested automatically against years of real market data, then filtered down to the few that still work on data they have never seen. The engines that go live are fixed rules: every entry, stop and exit is written in plain code you can read, so no model decides on its own when money moves. We also build learning systems for clients, including models that predict a signal and systems that detect which market conditions you are in.</p>
       </details>
 
       <details class="qa">
         <summary>How do you stop an AI search from overfitting?</summary>
-        <p>By testing whether the search's own ranking has any predictive power. Candidates are ranked on in-sample data, then that ranking is compared against out-of-sample results. On our SENSEX sleeve search across 3.2 million configurations the rank correlation came out at −0.001, meaning the in-sample score predicted nothing. So the final basket was picked on structure and membership frequency instead of score. Walk-forward validation, realistic slippage on both sides of every trade and full statutory charges are applied throughout.</p>
+        <p>Test three million settings and one will look brilliant purely by chance, the same way someone in a big enough crowd flips ten heads in a row. So we check whether the winners on old data are still winners on data they have never seen. On our SENSEX search across 3.2 million versions, they were not: finishing first on the old data told us nothing about what happened next. So the basket was not picked by taking the best score. It was picked from the setups that kept appearing across thousands of good results, because a pattern that repeats is much harder to fake than one lucky number. Every test also charges realistic slippage on both sides of a trade plus full statutory costs, so nothing looks good only because the costs were left out.</p>
       </details>
 
       <details class="qa">
