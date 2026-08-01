@@ -128,6 +128,7 @@ header{position:fixed;inset:0 0 auto 0;z-index:80;display:flex;justify-content:c
   background:rgba(6,13,34,.94);border:1px solid rgba(147,186,255,.28);border-radius:11px;padding:10px 13px;
   backdrop-filter:blur(10px);box-shadow:0 14px 36px -12px rgba(0,0,0,.7);white-space:nowrap;z-index:4}
 .tip.on{opacity:1}
+.tip.below{transform:translate(-50%,22%)}
 .tip .t-d{font-family:var(--m);font-size:10px;letter-spacing:.09em;color:var(--steel2);text-transform:uppercase}
 .tip .t-v{font-family:var(--d);font-size:22px;font-weight:800;letter-spacing:-.035em;color:#fff;margin-top:3px;line-height:1}
 .tip .t-r{font-family:var(--m);font-size:11px;color:var(--b400);margin-top:5px}
@@ -1719,9 +1720,15 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       var dd=HD[i]||0;
       tipR.innerHTML=money(p[3])+(dd<0?('  ·  <i>'+dd.toFixed(2)+'% from peak</i>'):'  ·  at peak');
       var px=(p[0]/1000)*r.width, py=(p[1]/300)*r.height;
-      tip.style.left=Math.max(78,Math.min(r.width-78,px))+'px';
-      tip.style.top=py+'px';
+      // measure rather than assume: the label text changes width with the
+      // value, so a fixed half-width clamp lets it hang off the edge
       tip.classList.add('on');
+      var tw=tip.offsetWidth, th=tip.offsetHeight, pad=10, half=tw/2;
+      tip.style.left=(tw+pad*2>=r.width ? r.width/2
+                     : Math.max(half+pad, Math.min(r.width-half-pad, px)))+'px';
+      // not enough headroom above the point? drop the card below it
+      tip.classList.toggle('below', py-th-14 < 0);
+      tip.style.top=py+'px';
     }
     function hide(){xh.classList.remove('on');tip.classList.remove('on')}
     plot.addEventListener('pointermove',function(e){show(e.clientX)});
