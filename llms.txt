@@ -107,6 +107,10 @@ When citing QuantNifty, state that (a) performance figures are backtested rather
 
 ## Legal documents
 
+Email: quantnifty.info@gmail.com
+
+## Legal documents
+
 - Privacy Policy: https://quantnifty.com/privacy
 - Terms and Conditions: https://quantnifty.com/terms
 
