@@ -143,8 +143,8 @@ header{position:fixed;inset:0 0 auto 0;z-index:80;display:flex;justify-content:c
 
 /* ============ stat band ============ */
 .band{background:var(--n850);border-top:1px solid rgba(147,186,255,.1);position:relative;z-index:3}
-.band-in{display:grid;grid-template-columns:repeat(4,1fr)}
-.band-i{padding:26px 22px;border-right:1px solid rgba(147,186,255,.08)}
+.band-in{display:grid;grid-template-columns:repeat(5,1fr)}
+.band-i{padding:26px 20px;border-right:1px solid rgba(147,186,255,.08)}
 .band-i:last-child{border-right:0}
 .band-i b{font-family:var(--d);font-size:clamp(1.6rem,2.7vw,2.15rem);font-weight:800;letter-spacing:-.04em;color:#fff;display:block;line-height:1}
 .band-i b.mint{color:var(--mint)}
@@ -546,7 +546,8 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
   .ecards,.srv,.aig{grid-template-columns:1fr}
   .band-in{grid-template-columns:1fr 1fr}
   .band-i{border-bottom:1px solid rgba(147,186,255,.08)}
-  .band-i:nth-child(2){border-right:0}
+  .band-i:nth-child(even){border-right:0}
+  .band-i:last-child{border-bottom:0}
   .fg{grid-template-columns:1fr;gap:30px}
   .island nav,.island>.pill{display:none}
   .burger{display:block}
@@ -1034,9 +1035,10 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
 <div class="band">
   <div class="wrap"><div class="band-in">
     <div class="band-i"><b class="num mint" data-c="6.28" data-dec="2">0.00</b><span>Peak Sharpe ratio</span></div>
+    <div class="band-i"><b class="num" data-c="75.4" data-dec="1" data-suf="%">0.0%</b><span>Avg. ROI per year</span></div>
     <div class="band-i"><b class="num" data-c="1.5" data-dec="2" data-suf="%">0.00%</b><span>Drawdown, capped by design</span></div>
-    <div class="band-i"><b class="num" data-c="96" data-suf="%">0%</b><span>Months in profit</span></div>
-    <div class="band-i"><b class="num" data-c="2">0</b><span>Indices · NIFTY &amp; SENSEX</span></div>
+    <div class="band-i"><b class="num" data-c="94" data-suf="%">0%</b><span>Months in profit</span></div>
+    <div class="band-i"><b class="num" data-c="2">0</b><span>Indices &middot; NIFTY &amp; SENSEX</span></div>
   </div></div>
 </div>
 
