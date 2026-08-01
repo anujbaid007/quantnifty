@@ -247,6 +247,30 @@ section{padding:104px 0}
 .step h4{font-family:var(--d);font-size:16px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px}
 .step p{font-size:14px;color:var(--steel)}
 
+
+/* ---- proprietary banner ---- */
+.prop{text-align:center;max-width:62ch;margin:0 auto 50px}
+.prop-badge{display:inline-flex;align-items:center;gap:9px;padding:7px 16px;border-radius:999px;
+  background:var(--ink);color:#fff;font-family:var(--m);font-size:10.5px;letter-spacing:.15em;
+  text-transform:uppercase;font-weight:500;margin-bottom:22px}
+.prop-badge i{width:6px;height:6px;border-radius:50%;background:var(--mint);flex:none;
+  box-shadow:0 0 0 3px rgba(25,211,154,.25)}
+.prop h2{font-size:clamp(2.5rem,6vw,4.6rem);letter-spacing:-.05em;line-height:.98;margin-bottom:20px}
+.prop h2 span{background:linear-gradient(96deg,var(--b600),var(--b400) 46%,var(--mint));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.prop .lede{margin:0 auto}
+.prop-meta{display:grid;grid-template-columns:repeat(3,1fr);margin:32px auto 0;max-width:660px;
+  border:1px solid rgba(20,64,184,.12);border-radius:14px;overflow:hidden;background:var(--paper);
+  box-shadow:0 1px 2px rgba(8,16,42,.04),0 14px 36px -24px rgba(20,64,184,.3)}
+.pm{padding:18px 20px;border-right:1px solid rgba(20,64,184,.09);text-align:center}
+.pm:last-child{border-right:0}
+.pm b{display:block;font-family:var(--d);font-size:15px;font-weight:700;letter-spacing:-.02em}
+.pm span{display:block;font-family:var(--m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--steel);margin-top:5px}
+@media(max-width:640px){.prop-meta{grid-template-columns:1fr}
+  .pm{border-right:0;border-bottom:1px solid rgba(20,64,184,.09)}
+  .pm:last-child{border-bottom:0}}
+
 /* engine cards */
 .ecards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .ec{overflow:hidden;display:flex;flex-direction:column}
@@ -656,10 +680,15 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
 <!-- ══════════ ENGINES ══════════ -->
 <section id="engines">
   <div class="wrap">
-    <div class="sec-h rv">
-      <span class="eyebrow">The systems</span>
-      <h2>Three engines.<br>One design language.</h2>
-      <p class="lede">Each engine runs a basket of independent strategy sleeves rather than one setup. The sleeves disagree with each other by design, and that disagreement is what flattens the curve.</p>
+    <div class="prop rv">
+      <span class="prop-badge"><i></i>Built in-house · running on our own capital</span>
+      <h2>Our proprietary <span>algorithms</span></h2>
+      <p class="lede">Three engines, written from scratch and traded with our own money. Each runs a basket of independent strategy sleeves rather than one setup. The sleeves disagree with each other by design, and that disagreement is what flattens the curve.</p>
+      <div class="prop-meta">
+        <div class="pm"><b>Written by us</b><span>No third-party code</span></div>
+        <div class="pm"><b>Traded by us</b><span>Our own capital at risk</span></div>
+        <div class="pm"><b>Not for sale</b><span>Shown, not licensed</span></div>
+      </div>
     </div>
 
     <div class="ecards">
