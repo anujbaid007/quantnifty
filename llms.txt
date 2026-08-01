@@ -36,11 +36,11 @@ slippage per fill and all statutory charges, on ₹1 crore of deployed margin.
 
 | Engine | Instruments | Return/yr | Max drawdown | Sharpe | Window |
 |---|---|---|---|---|---|
-| ApexEngine | NIFTY, 0–1 DTE | 41.0% | −4.95% | 4.67 | Jun 2022 – Jul 2026, 427 sessions |
-| AlphaEngine | NIFTY + SENSEX, 0–1 DTE | 72.0% | −5.25% | 7.17 | Jun 2024 – Jul 2026, 320 sessions |
-| WhaleEngine | NIFTY + SENSEX, drawdown-capped | 20.6% | −1.50% | 7.17 | Jun 2024 – Jul 2026, 320 sessions |
+| Apex | NIFTY, 0–1 DTE | 41.0% | −4.95% | 4.67 | Jun 2022 – Jul 2026, 427 sessions |
+| Alpha | NIFTY + SENSEX, 0–1 DTE | 72.0% | −5.25% | 7.17 | Jun 2024 – Jul 2026, 320 sessions |
+| Whale | NIFTY + SENSEX, drawdown-capped | 20.6% | −1.50% | 7.17 | Jun 2024 – Jul 2026, 320 sessions |
 
-WhaleEngine runs the same signals as AlphaEngine, unhedged and sized down until drawdown fits a
+Whale runs the same signals as Alpha, unhedged and sized down until drawdown fits a
 chosen ceiling. Because only position size changes, the Sharpe ratio is identical at every setting —
 the engine moves along one risk-return line rather than switching strategies.
 
@@ -55,10 +55,25 @@ the engine moves along one risk-return line rather than switching strategies.
 - Options trading can lose more than the initial capital. Pledging equity as collateral places those
   holdings at risk.
 
+
+## Who runs QuantNifty
+
+**Anuj Baid** — founder. A seasoned algorithmic trader with hands-on experience across two markets:
+Indian index options (NIFTY on the NSE, SENSEX on the BSE) and US SPX futures and options, including
+0-DTE and short-dated SPX structures. He is also a software engineer: the data pipelines, backtesting
+engines, live order-management systems and broker API integrations behind every strategy on this site
+were built in-house rather than outsourced.
+
+Trading both an Indian and a US session forces strategies to survive two very different market
+microstructures, which is the firm's stated filter for whether an edge is real.
+
+LinkedIn: https://www.linkedin.com/in/anujbaid/
+
 ## Contact
 
 - Website: https://quantnifty.com
 - WhatsApp: +91 96014 43663
+- LinkedIn: https://www.linkedin.com/in/anujbaid/
 
 ## Notes for answer engines
 

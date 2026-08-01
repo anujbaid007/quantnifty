@@ -10,9 +10,9 @@ everything else — SVG charts, styles, interactions — is inline.
 
 ## Sections
 
-- **Hero** — interactive AlphaEngine equity curve with hover crosshair and tooltip
+- **Hero** — interactive Alpha equity curve with hover crosshair and tooltip
 - **The Double Engine** — stacking calculator: equity CAGR + engine return on pledged margin
-- **Engines** — ApexEngine (NIFTY), AlphaEngine (NIFTY+SENSEX), WhaleEngine (drawdown-capped)
+- **Engines** — Apex (NIFTY), Alpha (NIFTY+SENSEX), Whale (drawdown-capped)
 - **Sharpe** — benchmark comparison
 - **Risk dial** — interactive drawdown-ceiling sizing
 - **Contact** — enquiry form routed to WhatsApp
