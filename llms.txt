@@ -59,12 +59,12 @@ engine moves along one risk-return line rather than switching strategies.
 ## Who runs QuantNifty
 
 **Anuj Baid**, founder. A seasoned algorithmic trader with hands-on experience across two markets:
-Indian index options (NIFTY on the NSE, SENSEX on the BSE) and US SPX futures and options, including
-0-DTE and short-dated SPX structures. He is also a software engineer: the data pipelines, backtesting
+Indian index options (NIFTY on the NSE, SENSEX on the BSE) and US markets, where he trades SPX 0-DTE
+option structures and MNQ futures on the Nasdaq-100. He is also a software engineer: the data pipelines, backtesting
 engines, live order-management systems and broker API integrations behind every strategy on this site
 were built in-house rather than outsourced.
 
-Trading both an Indian and a US session forces strategies to survive two very different market
+Trading both an Indian and a US session forces strategies to survive very different market
 microstructures, which is the firm's stated filter for whether an edge is real.
 
 LinkedIn: https://www.linkedin.com/in/anujbaid/
