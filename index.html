@@ -496,9 +496,6 @@ input[type=range]:focus-visible{box-shadow:0 0 0 4px rgba(27,79,216,.24)}
 .fn-f{height:100%;border-radius:5px;transform-origin:left}
 html.js .fn-f{transform:scaleX(0);transition:transform 1.15s cubic-bezier(.19,1,.32,1)}
 html.js .fn-f.on{transform:scaleX(1)}
-.fn-s.last .fn-n{color:var(--mint)}
-.fn-note{padding:15px 24px;font-family:var(--m);font-size:11px;line-height:1.7;color:var(--steel);
-  border-top:1px solid rgba(147,186,255,.09);background:rgba(4,9,26,.35)}
 .aig{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:26px}
 .aic{padding:26px 24px;border-radius:var(--r);border:1px solid rgba(147,186,255,.13);background:rgba(147,186,255,.035)}
 .aic .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;margin-bottom:15px;
@@ -606,8 +603,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
   .de-title{font-size:clamp(2.1rem,9.6vw,3rem)}
   .calc-b,.calc-h{padding:20px}
   .fn-s{grid-template-columns:1fr;gap:13px;padding:18px 20px}
-  .fn-h,.fn-note{padding:14px 20px}
-  .aic{padding:24px 20px}
+  .fn-h,  .aic{padding:24px 20px}
     .rail-i,.sc{padding-left:20px;padding-right:20px}
 }
 @media(max-width:400px){
@@ -1339,13 +1335,8 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       </div>
       <div class="fn-s">
         <div><span class="fn-n num">20,000</span><span class="fn-l">cleared the walk-forward gate</span></div>
-        <div class="fn-t"><div class="fn-f" style="width:66%;background:linear-gradient(90deg,var(--b600),var(--b400))"></div></div>
+        <div class="fn-t"><div class="fn-f" style="width:38%;background:linear-gradient(90deg,var(--b600),var(--b400))"></div></div>
       </div>
-      <div class="fn-s last">
-        <div><span class="fn-n num">3</span><span class="fn-l">sleeves went live</span></div>
-        <div class="fn-t"><div class="fn-f" style="width:8%;background:linear-gradient(90deg,var(--b500),var(--mint))"></div></div>
-      </div>
-      <p class="fn-note">Bars are log scaled, because a linear one would render the last row invisible. That is the point of showing it. Roughly one idea in a million is worth funding, and you only find out which by testing all of them.</p>
     </div>
 
     <div class="aig">
