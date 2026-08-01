@@ -124,14 +124,19 @@ header{position:fixed;inset:0 0 auto 0;z-index:80;display:flex;justify-content:c
 .plot .hsvg{cursor:crosshair}
 #xh{opacity:0;transition:opacity .16s}
 #xh.on{opacity:1}
-.tip{position:absolute;pointer-events:none;opacity:0;transform:translate(-50%,-118%);transition:opacity .16s;
-  background:rgba(6,13,34,.94);border:1px solid rgba(147,186,255,.28);border-radius:11px;padding:10px 13px;
+/* Readout sits still in the top-left of the plot. The crosshair already says
+   where you are, so the card chasing the cursor only covered the curve. The
+   area above the line is empty for the whole series, so nothing is hidden. */
+.tip{position:absolute;left:58px;top:10px;pointer-events:none;opacity:0;transition:opacity .16s;
+  display:flex;align-items:baseline;gap:14px;
+  background:rgba(6,13,34,.9);border:1px solid rgba(147,186,255,.22);border-radius:11px;padding:9px 15px;
   backdrop-filter:blur(10px);box-shadow:0 14px 36px -12px rgba(0,0,0,.7);white-space:nowrap;z-index:4}
 .tip.on{opacity:1}
-.tip.below{transform:translate(-50%,22%)}
-.tip .t-d{font-family:var(--m);font-size:10px;letter-spacing:.09em;color:var(--steel2);text-transform:uppercase}
-.tip .t-v{font-family:var(--d);font-size:22px;font-weight:800;letter-spacing:-.035em;color:#fff;margin-top:3px;line-height:1}
-.tip .t-r{font-family:var(--m);font-size:11px;color:var(--b400);margin-top:5px}
+.tip .t-d{font-family:var(--m);font-size:10.5px;letter-spacing:.09em;color:var(--steel2);text-transform:uppercase;order:2}
+.tip .t-v{font-family:var(--d);font-size:21px;font-weight:800;letter-spacing:-.035em;color:#fff;line-height:1;order:1}
+.tip .t-r{font-family:var(--m);font-size:11px;color:var(--b400);order:3}
+@media(max-width:760px){.tip{left:44px;right:10px;flex-wrap:wrap;gap:6px 11px;white-space:normal;padding:8px 12px}
+  .tip .t-v{font-size:18px}.tip .t-d,.tip .t-r{font-size:10px}}
 .tip .t-r i{font-style:normal;color:var(--amber)}
 .xaxis{display:flex;justify-content:space-between;padding:9px 2px 14px;font-family:var(--m);font-size:10.5px;
   letter-spacing:.07em;color:rgba(147,186,255,.5);border-top:1px solid rgba(147,186,255,.1)}
@@ -1719,16 +1724,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       tipV.textContent='+'+p[3].toFixed(1)+'%';
       var dd=HD[i]||0;
       tipR.innerHTML=money(p[3])+(dd<0?('  ·  <i>'+dd.toFixed(2)+'% from peak</i>'):'  ·  at peak');
-      var px=(p[0]/1000)*r.width, py=(p[1]/300)*r.height;
-      // measure rather than assume: the label text changes width with the
-      // value, so a fixed half-width clamp lets it hang off the edge
       tip.classList.add('on');
-      var tw=tip.offsetWidth, th=tip.offsetHeight, pad=10, half=tw/2;
-      tip.style.left=(tw+pad*2>=r.width ? r.width/2
-                     : Math.max(half+pad, Math.min(r.width-half-pad, px)))+'px';
-      // not enough headroom above the point? drop the card below it
-      tip.classList.toggle('below', py-th-14 < 0);
-      tip.style.top=py+'px';
     }
     function hide(){xh.classList.remove('on');tip.classList.remove('on')}
     plot.addEventListener('pointermove',function(e){show(e.clientX)});
