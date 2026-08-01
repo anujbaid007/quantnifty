@@ -124,21 +124,24 @@ header{position:fixed;inset:0 0 auto 0;z-index:80;display:flex;justify-content:c
 .plot .hsvg{cursor:crosshair}
 #xh{opacity:0;transition:opacity .16s}
 #xh.on{opacity:1}
-/* Hover readout rides the axes, the way a trading chart does. The value
-   tracks the point vertically on the left, the date tracks it horizontally
-   along the bottom. Nothing floats over the curve. */
-.axv,.axd{position:absolute;pointer-events:none;opacity:0;transition:opacity .14s;z-index:4;
-  font-family:var(--m);white-space:nowrap;border-radius:7px;
-  background:var(--b600);box-shadow:0 6px 20px -6px rgba(0,0,0,.7)}
-.axv.on,.axd.on{opacity:1}
-.axv{left:0;padding:5px 9px;transform:translateY(-50%);display:flex;align-items:baseline;gap:8px}
-.axv b{font-family:var(--d);font-size:14px;font-weight:800;letter-spacing:-.02em;color:#fff;line-height:1}
-.axv span{font-size:10px;color:rgba(233,240,255,.72)}
-.axv i{font-style:normal;color:#FFD9B8}
+/* Value card rides with the pointer; the date stays pinned on the x axis so
+   the card can stay small. Placement is measured, not assumed: it prefers
+   above-right of the dot and flips on whichever edge it would otherwise
+   cross. */
+.pcard,.axd{position:absolute;pointer-events:none;opacity:0;transition:opacity .13s;z-index:4;
+  font-family:var(--m);white-space:nowrap;border-radius:9px;
+  box-shadow:0 10px 28px -8px rgba(0,0,0,.75)}
+.pcard.on,.axd.on{opacity:1}
+.pcard{padding:8px 12px;background:rgba(6,13,34,.95);border:1px solid rgba(147,186,255,.3);
+  backdrop-filter:blur(10px)}
+.pcard b{display:block;font-family:var(--d);font-size:19px;font-weight:800;letter-spacing:-.03em;
+  color:#fff;line-height:1}
+.pcard span{display:block;margin-top:5px;font-size:10.5px;color:var(--b400)}
+.pcard i{font-style:normal;color:var(--amber)}
 .axd{bottom:0;padding:4px 9px;transform:translateX(-50%);font-size:10px;letter-spacing:.06em;
-  text-transform:uppercase;color:#fff;background:var(--n700)}
+  text-transform:uppercase;color:#fff;background:var(--b600)}
 @media(max-width:760px){
-  .axv{padding:4px 7px;gap:6px}.axv b{font-size:12.5px}.axv span{font-size:9px}
+  .pcard{padding:6px 10px}.pcard b{font-size:15px}.pcard span{font-size:9.5px}
   .axd{font-size:9px;padding:3px 7px}
 }
 .xaxis{display:flex;justify-content:space-between;padding:9px 2px 14px;font-family:var(--m);font-size:10.5px;
@@ -1032,7 +1035,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
           <circle id="xhD" cx="0" cy="0" r="5.5" fill="#5A93FF" stroke="#04091A" stroke-width="2.5"/>
         </g>
       </svg>
-      <div class="axv" id="axv"><b id="tipV"></b><span id="tipR"></span></div>
+      <div class="pcard" id="axv"><b id="tipV"></b><span id="tipR"></span></div>
       <div class="axd" id="axd"><span id="tipD"></span></div>
       </div>
       <div class="xaxis">
@@ -1731,13 +1734,18 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       tipD.textContent=p[2];
       tipV.textContent=(p[3]<0?'':'+')+p[3].toFixed(1)+'%';
       var dd=HD[i]||0;
-      tipR.innerHTML=money(p[3])+(dd<0?(' · <i>'+dd.toFixed(2)+'%</i>'):' · at peak');
+      tipR.innerHTML=money(p[3])+(dd<0?(' · <i>'+dd.toFixed(2)+'% off peak</i>'):' · at peak');
       var px=(p[0]/1000)*r.width, py=(p[1]/300)*r.height;
-      axv.style.top=py+'px';
-      // keep the date chip inside the plot at both ends
+      axv.classList.add('on'); axd.classList.add('on');
+      var cw=axv.offsetWidth, ch=axv.offsetHeight, gap=16, pad=8;
+      var lf=px+gap;                                   // prefer to the right
+      if(lf+cw > r.width-pad) lf=px-gap-cw;            // ... flip left near the edge
+      var tp=py-ch-gap;                                // prefer above
+      if(tp < pad) tp=py+gap;                          // ... drop below near the top
+      axv.style.left=Math.max(pad,Math.min(r.width-cw-pad,lf))+'px';
+      axv.style.top =Math.max(pad,Math.min(r.height-ch-pad,tp))+'px';
       var half=axd.offsetWidth/2;
       axd.style.left=Math.max(half,Math.min(r.width-half,px))+'px';
-      axv.classList.add('on'); axd.classList.add('on');
     }
     function hide(){xh.classList.remove('on');axv.classList.remove('on');axd.classList.remove('on')}
     plot.addEventListener('pointermove',function(e){show(e.clientX)});
