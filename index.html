@@ -884,7 +884,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
           "name": "Are the returns on this page live or backtested?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Backtested. Every figure is simulated on historical 1-minute data over the window stated on each engine, net of 0.2% slippage per fill and all statutory charges. A backtest is not a live track record. Live results will differ because of execution, liquidity, latency and changing market regimes."
+            "text": "Backtested. Every figure is simulated on historical 1-minute data over the window stated on each engine, net of 0.2% slippage per fill, the cost of the protective hedge, and all statutory charges. A backtest is not a live track record. Live results will differ because of execution, liquidity, latency and changing market regimes."
           }
         },
         {
@@ -1193,7 +1193,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
           <div class="r"><dt>Return / drawdown</dt><dd>44.0</dd></div>
           <div class="r"><dt>Months in profit</dt><dd>94%</dd></div>
         </dl>
-        <div class="ec-foot">364 sessions, Jan 2024 to Jul 2026<br>Two indices with almost opposite expiry days. Unhedged, sized to a 4.4% drawdown ceiling.</div>
+        <div class="ec-foot">364 sessions, Jan 2024 to Jul 2026<br>Two indices with almost opposite expiry days. Every position carries a protective wing, which is what keeps the margin efficient.</div>
       </div>
 
       <!-- WHALE -->
@@ -1218,11 +1218,11 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
           <div class="r"><dt>Worst month</dt><dd>−0.47%</dd></div>
           <div class="r"><dt>Months in profit</dt><dd>94%</dd></div>
         </dl>
-        <div class="ec-foot">Same signals as Alpha, unhedged and sized down until drawdown fits the mandate.</div>
+        <div class="ec-foot">Same signals as Alpha, hedged the same way, then sized down until drawdown fits the mandate.</div>
       </div>
     </div>
 
-    <p class="fine">* Figures are <strong>backtested</strong> on ₹1 crore of deployed margin, net of 0.2% slippage per fill and all statutory charges. A backtest is not a live track record, and it is not a promise of future returns. These systems are built and run for our own capital. Full disclosures are below.</p>
+    <p class="fine">* Figures are <strong>backtested</strong> on ₹1 crore of deployed margin, net of 0.2% slippage per fill, the cost of the protective hedge, and all statutory charges. A backtest is not a live track record, and it is not a promise of future returns. These systems are built and run for our own capital. Full disclosures are below.</p>
   </div>
 </section>
 
@@ -1324,7 +1324,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       <input type="range" id="dial" min="10" max="44" step="1" value="15" aria-label="Maximum drawdown ceiling in tenths of a percent">
       <div class="ticks"><span>1.0%</span><span>2.5%</span><span>3.5%</span><span>4.4% uncapped</span></div>
       <p style="font-size:13px;color:var(--steel);margin-top:18px;padding-top:16px;border-top:1px solid rgba(20,64,184,.08)">
-        Unhedged, so the full margin is working rather than a slice of it. At 4.4% the engine runs unrestricted, with no size reduction at all.
+        Hedged the same way at every setting, so the margin per lot does not change. At 4.4% the engine runs unrestricted, with no size reduction at all.
       </p>
     </div>
   </div>
@@ -1501,7 +1501,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
 
       <details class="qa">
         <summary>Are the returns on this page live or backtested?</summary>
-        <p>Backtested. Every figure is simulated on historical 1-minute data over the window stated on each engine, net of 0.2% slippage per fill and all statutory charges. A backtest is not a live track record. Live results will differ because of execution, liquidity, latency and changing market regimes.</p>
+        <p>Backtested. Every figure is simulated on historical 1-minute data over the window stated on each engine, net of 0.2% slippage per fill, the cost of the protective hedge, and all statutory charges. A backtest is not a live track record. Live results will differ because of execution, liquidity, latency and changing market regimes.</p>
       </details>
 
       <details class="qa">
@@ -1640,7 +1640,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       <div class="dbody">
         <p><strong>We are not SEBI registered.</strong> QuantNifty is not a SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. Nothing on this website is investment advice, a research report, or a recommendation to buy or sell any security.</p>
         <p><strong>The engines shown are for our own use.</strong> Apex, Alpha and Whale are proprietary systems built and operated on our own capital. They are shown here to demonstrate engineering capability. They are not offered for subscription, licensing or sale, and we do not trade on anyone else's behalf.</p>
-        <p><strong>All figures are backtested.</strong> Performance shown is simulated on historical data over the windows stated on each engine, assuming ₹1 crore of deployed margin, 0.2% slippage per fill and all statutory charges. A backtest is not a live track record. Past or simulated performance does not indicate future results. Live results will differ because of execution, liquidity, latency and changes in market regime.</p>
+        <p><strong>All figures are backtested.</strong> Performance shown is simulated on historical data over the windows stated on each engine, assuming ₹1 crore of deployed margin, 0.2% slippage per fill, the cost of the protective hedge and all statutory charges. A backtest is not a live track record. Past or simulated performance does not indicate future results. Live results will differ because of execution, liquidity, latency and changes in market regime.</p>
         <p><strong>What we sell is engineering.</strong> We are an algorithm development and consulting firm. Clients engage us to build, test and automate trading systems to their own specification. The client owns the strategy decision and bears the risk of trading it.</p>
         <p><strong>Derivatives carry substantial risk.</strong> Options trading can result in losses exceeding your initial capital. Pledging equity as collateral places those holdings at risk. Consult a SEBI-registered adviser and evaluate your own suitability before deploying capital.</p>
         <p>The full documents live on their own pages: <a href="/privacy" style="color:var(--b300)">Privacy Policy</a> and <a href="/terms" style="color:var(--b300)">Terms and Conditions</a>.</p>

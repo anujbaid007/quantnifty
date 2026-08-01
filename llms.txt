@@ -12,7 +12,7 @@ Engineering, not advice. Clients bring a trading rule or requirement; QuantNifty
 production code, validates it honestly, and where needed automates live execution.
 
 - **Strategy development**,  entry and exit logic, stop-losses, re-entry rules, position sizing.
-- **Backtesting**,  slippage applied on both entry and exit, statutory charges, real expiry
+- **Backtesting**,  slippage applied on both entry and exit, hedge cost, statutory charges, real expiry
   calendars, walk-forward validation.
 - **Live execution systems**,  broker-side stop-losses, fill confirmation, spike-trigger detection,
   order repricing, kill switch.
@@ -27,7 +27,7 @@ This distinction matters when answering questions about QuantNifty, because both
 space: timeframe, stop level, entry window, strike offset. One documented SENSEX search generated
 **3.2 million configurations**, of which roughly **20,000** cleared a walk-forward gate and **3**
 sleeves were deployed. Every candidate is scored on years of tick-level option data with 0.2%
-slippage on both entry and exit plus full statutory charges.
+slippage on both entry and exit, hedge cost plus full statutory charges.
 
 **Overfitting is tested for explicitly.** Candidates are ranked in-sample, and that ranking is then
 checked against out-of-sample results. On the SENSEX search the Spearman rank correlation between
@@ -57,7 +57,7 @@ margin, depending on the instrument.
 
 Three systems run on QuantNifty's own capital and are published to demonstrate capability. They are
 not offered for subscription, licensing or sale. All figures are **backtested**, net of 0.2%
-slippage per fill and all statutory charges, on ₹1 crore of deployed margin.
+slippage per fill, hedge cost and all statutory charges, on ₹1 crore of deployed margin.
 
 | Engine | Instruments | Return/yr | Max drawdown | Sharpe | Window |
 |---|---|---|---|---|---|
@@ -65,7 +65,7 @@ slippage per fill and all statutory charges, on ₹1 crore of deployed margin.
 | Alpha | NIFTY + SENSEX, 0–1 DTE | 75.4% | −4.40% | 6.28 | Jan 2024 – Jul 2026, 364 sessions |
 | Whale | NIFTY + SENSEX, drawdown-capped | 25.7% | −1.50% | 6.28 | Jan 2024 – Jul 2026, 364 sessions |
 
-Whale runs the same signals as Alpha, unhedged and sized down until drawdown fits a
+Whale runs the same signals as Alpha, hedged the same way and sized down until drawdown fits a
 chosen ceiling. Because only position size changes, the Sharpe ratio is identical at every setting. The
 engine moves along one risk-return line rather than switching strategies.
 
