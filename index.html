@@ -407,6 +407,68 @@ input[type=range]:focus-visible{box-shadow:0 0 0 4px rgba(27,79,216,.24)}
 .ct-note b{color:var(--ink);font-weight:600}
 @media(max-width:960px){.ct2{grid-template-columns:1fr}.frow{grid-template-columns:1fr}}
 
+
+/* ---- scroll-reveal footer ---- */
+.page{position:relative;z-index:2;background:var(--paper);
+  border-radius:0 0 30px 30px;box-shadow:0 34px 60px -30px rgba(4,9,26,.55)}
+.rf{position:fixed;left:0;right:0;bottom:0;z-index:1;background:var(--n900);color:var(--steel2);
+  display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.rf-mesh{position:absolute;inset:0;pointer-events:none;opacity:.55}
+.rf-mesh i{position:absolute;border-radius:50%;filter:blur(100px)}
+.rfm1{width:760px;height:460px;bottom:-200px;left:-160px;background:radial-gradient(circle,#1B4FD8,transparent 66%);opacity:.45}
+.rfm2{width:680px;height:420px;top:-160px;right:-140px;background:radial-gradient(circle,#2E6BFF,transparent 68%);opacity:.3}
+.rf-in{position:relative;z-index:2;width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* CTA line + clock */
+.rf-cta{display:flex;justify-content:space-between;align-items:flex-end;gap:28px;flex-wrap:wrap;
+  padding:46px 0 30px;border-bottom:1px solid rgba(147,186,255,.1)}
+.rf-cta h3{font-family:var(--d);font-size:clamp(1.6rem,3.1vw,2.5rem);font-weight:800;letter-spacing:-.04em;
+  line-height:1.05;color:#fff;max-width:19ch}
+.rf-cta h3 span{background:linear-gradient(96deg,var(--b400),var(--mint));-webkit-background-clip:text;background-clip:text;color:transparent}
+.rf-side{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.clock{display:inline-flex;align-items:center;gap:10px;padding:9px 16px;border-radius:999px;
+  border:1px solid rgba(147,186,255,.2);background:rgba(147,186,255,.06);font-family:var(--m);font-size:12px;color:#D5E2FF}
+.clock i{width:6px;height:6px;border-radius:50%;background:var(--mint);flex:none;animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(25,211,154,.5)}50%{opacity:.7;box-shadow:0 0 0 5px rgba(25,211,154,0)}}
+
+/* nav columns */
+.rf-cols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;padding:34px 0 30px}
+.rf-cols h5{font-family:var(--d);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.02em;margin-bottom:13px}
+.rf-cols a{display:block;padding:5px 0;font-size:13.5px;color:var(--steel2);transition:color .2s}
+.rf-cols a:hover{color:var(--b400)}
+.rf-cols p{font-size:12.8px;color:#8FA0C2;max-width:34ch}
+
+/* disclosures accordion */
+.rf-disc{border-top:1px solid rgba(147,186,255,.1);padding:6px 0 0}
+.rf-disc summary{list-style:none;cursor:pointer;padding:18px 0;display:flex;justify-content:space-between;
+  align-items:center;font-family:var(--m);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--steel2)}
+.rf-disc summary::-webkit-details-marker{display:none}
+.rf-disc summary::after{content:"+";font-family:var(--m);font-size:17px;color:var(--b400);transition:transform .25s}
+.rf-disc[open] summary::after{transform:rotate(45deg)}
+.rf-disc .dbody{padding-bottom:22px;columns:2;column-gap:36px}
+.rf-disc p{font-size:11.5px;line-height:1.72;color:#8296BC;margin-bottom:11px;break-inside:avoid}
+.rf-disc strong{color:#C7D6F5;font-weight:600}
+@media(max-width:820px){.rf-disc .dbody{columns:1}}
+
+/* giant wordmark */
+.mark-wrap{position:relative;z-index:2;width:100%;overflow:hidden;padding:6px 0 0}
+.mark-word{display:block;width:100%;height:auto}
+.mark-word text{font-family:var(--d);font-weight:800;letter-spacing:-.045em;
+  fill:url(#markGrad);opacity:.92}
+
+/* bottom bar */
+.rf-btm{position:relative;z-index:2;border-top:1px solid rgba(147,186,255,.1);padding:16px 0 20px;
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:11.5px;color:#6B80A8}
+@media(max-width:900px){
+  .rf-cols{grid-template-columns:1fr 1fr;gap:26px}
+  .rf-cta{padding:34px 0 24px}
+  .rf-side{align-items:flex-start}
+  /* the reveal needs a viewport taller than the footer; on phones it would clip, so flow normally */
+  .rf{position:static}
+  .page{margin-bottom:0!important;border-radius:0;box-shadow:none}
+}
+@media(max-width:560px){.rf-cols{grid-template-columns:1fr}}
+
 /* faq */
 .faq{display:grid;grid-template-columns:1fr 1fr;gap:18px 26px;align-items:start}
 .qa{border-bottom:1px solid rgba(20,64,184,.1);padding:0}
@@ -519,6 +581,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
   <a href="#contact" class="pill">Talk to us</a>
 </div>
 
+<div class="page">
 <!-- ══════════ HERO ══════════ -->
 <div id="top" class="hero">
   <div class="mesh"><i class="m1"></i><i class="m2"></i><i class="m3"></i></div>
@@ -1089,28 +1152,70 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
   </div>
 </section>
 
-<!-- ══════════ FOOTER ══════════ -->
-<footer>
-  <div class="wrap">
-    <div class="fg">
+</div><!-- /.page -->
+
+<!-- ══════════ REVEAL FOOTER ══════════ -->
+<footer class="rf" id="rf">
+  <div class="rf-mesh"><i class="rfm1"></i><i class="rfm2"></i></div>
+
+  <div class="rf-in">
+    <div class="rf-cta">
+      <h3>Have a rule you trade by hand? <span>Let's automate it.</span></h3>
+      <div class="rf-side">
+        <span class="clock"><i></i><span id="clk">India, 00:00 IST</span></span>
+        <a href="https://wa.me/919601443663?text=Hi%20i%20want%20to%20know%20more%20about%20the%20Algo%20Quant%20systems." class="pill" target="_blank" rel="noopener">
+          Start on WhatsApp
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="rf-cols">
       <div>
         <h5>QuantNifty</h5>
-        <p style="color:#8FA0C2;max-width:36ch;font-size:12.5px">Algorithmic trading system development and consulting for Indian index derivatives.</p>
+        <p>Algorithmic trading system development and consulting for Indian index derivatives. Running on the NSE and BSE.</p>
       </div>
-      <div><h5>Explore</h5><a href="#concept">Double engine</a><a href="#engines">Quant</a><a href="#sharpe">Sharpe</a><a href="#whale">Risk dial</a><a href="#about">About</a><a href="#faq">FAQ</a></div>
-      <div><h5>Connect</h5><a href="https://www.linkedin.com/in/anujbaid/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://wa.me/919601443663?text=Hi%20i%20want%20to%20know%20more%20about%20the%20Algo%20Quant%20systems." target="_blank" rel="noopener">WhatsApp · +91 96014 43663</a><a href="#disclosures">Disclosures</a><a href="#disclosures">Terms &amp; conditions</a><a href="#contact">Contact</a></div>
+      <div><h5>Explore</h5>
+        <a href="#concept">Double engine</a><a href="#engines">Quant</a><a href="#sharpe">Sharpe</a><a href="#whale">Risk dial</a>
+      </div>
+      <div><h5>Company</h5>
+        <a href="#about">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="#rf-disc">Disclosures</a>
+      </div>
+      <div><h5>Connect</h5>
+        <a href="https://www.linkedin.com/in/anujbaid/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://wa.me/919601443663?text=Hi%20i%20want%20to%20know%20more%20about%20the%20Algo%20Quant%20systems." target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://wa.me/919601443663?text=Hi%20i%20want%20to%20know%20more%20about%20the%20Algo%20Quant%20systems." target="_blank" rel="noopener">+91 96014 43663</a>
+      </div>
     </div>
 
-    <div class="disc" id="disclosures">
-      <h5>Disclosures and terms</h5>
-      <p><strong>We are not SEBI registered.</strong> QuantNifty is not a SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. Nothing on this website is investment advice, a research report, or a recommendation to buy or sell any security.</p>
-      <p><strong>The engines shown are for our own use.</strong> Apex, Alpha and Whale are proprietary systems built and operated on our own capital. They are shown here to demonstrate engineering capability. They are not offered for subscription, licensing or sale, and we do not trade on anyone else's behalf.</p>
-      <p><strong>All figures are backtested.</strong> Performance shown is simulated on historical data over the windows stated on each engine, assuming ₹1 crore of deployed margin, 0.2% slippage per fill and all statutory charges. A backtest is not a live track record. Past or simulated performance does not indicate future results. Live results will differ because of execution, liquidity, latency and changes in market regime.</p>
-      <p><strong>What we sell is engineering.</strong> We are an algorithm development and consulting firm. Clients engage us to build, test and automate trading systems to their own specification. The client owns the strategy decision and bears the risk of trading it.</p>
-      <p><strong>Derivatives carry substantial risk.</strong> Options trading can result in losses exceeding your initial capital. Pledging equity as collateral places those holdings at risk. Consult a SEBI-registered adviser and evaluate your own suitability before deploying capital.</p>
-    </div>
+    <details class="rf-disc" id="rf-disc">
+      <summary>Disclosures and terms</summary>
+      <div class="dbody">
+        <p><strong>We are not SEBI registered.</strong> QuantNifty is not a SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. Nothing on this website is investment advice, a research report, or a recommendation to buy or sell any security.</p>
+        <p><strong>The engines shown are for our own use.</strong> Apex, Alpha and Whale are proprietary systems built and operated on our own capital. They are shown here to demonstrate engineering capability. They are not offered for subscription, licensing or sale, and we do not trade on anyone else's behalf.</p>
+        <p><strong>All figures are backtested.</strong> Performance shown is simulated on historical data over the windows stated on each engine, assuming ₹1 crore of deployed margin, 0.2% slippage per fill and all statutory charges. A backtest is not a live track record. Past or simulated performance does not indicate future results. Live results will differ because of execution, liquidity, latency and changes in market regime.</p>
+        <p><strong>What we sell is engineering.</strong> We are an algorithm development and consulting firm. Clients engage us to build, test and automate trading systems to their own specification. The client owns the strategy decision and bears the risk of trading it.</p>
+        <p><strong>Derivatives carry substantial risk.</strong> Options trading can result in losses exceeding your initial capital. Pledging equity as collateral places those holdings at risk. Consult a SEBI-registered adviser and evaluate your own suitability before deploying capital.</p>
+      </div>
+    </details>
+  </div>
 
-    <div class="fb">
+  <div class="mark-wrap">
+    <svg class="mark-word" id="markWord" viewBox="0 0 1000 132" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+      <defs>
+        <linearGradient id="markGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#1B4FD8"/><stop offset=".5" stop-color="#5A93FF"/><stop offset="1" stop-color="#19D39A"/>
+        </linearGradient>
+        <clipPath id="markClip"><rect x="0" y="0" width="1000" height="132"/></clipPath>
+      </defs>
+      <g clip-path="url(#markClip)">
+        <text id="markText" x="500" y="126" text-anchor="middle" font-size="150">QUANTNIFTY</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="rf-in">
+    <div class="rf-btm">
       <span>© 2026 QuantNifty. All rights reserved.</span>
       <span>Not a SEBI-registered Research Analyst or Investment Adviser.</span>
     </div>
@@ -1190,6 +1295,51 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
     plot.addEventListener('pointerleave',hide);
     plot.addEventListener('pointercancel',hide);
   }
+
+
+  // ── reveal footer: reserve space, drive the wordmark on scroll ──
+  var page=D.querySelector('.page'), rf=D.getElementById('rf'), mt=D.getElementById('markText');
+  if(page && rf){
+    var fh=0, mqFlow=matchMedia('(max-width:900px)');
+    function sizeFooter(){
+      if(mqFlow.matches){ page.style.marginBottom='0px'; fh=0; return; }
+      fh=rf.offsetHeight;
+      // never reserve more than the viewport, or short screens can't reach the page end
+      page.style.marginBottom=Math.min(fh,innerHeight)+'px';
+    }
+    var raf=0;
+    function onScroll(){
+      if(raf)return;
+      raf=requestAnimationFrame(function(){
+        raf=0;
+        if(!fh){ if(mt){mt.removeAttribute('transform');mt.style.opacity=1;} return; }
+        var pb=page.getBoundingClientRect().bottom;          // page bottom in viewport coords
+        var shown=Math.max(0,Math.min(innerHeight-pb,fh));   // px of footer revealed
+        var p=fh?Math.min(1,shown/Math.min(fh,innerHeight)):0;
+        if(mt){
+          mt.setAttribute('transform','translate(0,'+((1-p)*118).toFixed(1)+')');
+          mt.style.opacity=(0.15+0.85*p).toFixed(3);
+        }
+      });
+    }
+    addEventListener('resize',function(){sizeFooter();onScroll()});
+    mqFlow.addEventListener('change',function(){sizeFooter();onScroll()});
+    addEventListener('scroll',onScroll,{passive:true});
+    if(D.fonts&&D.fonts.ready)D.fonts.ready.then(function(){sizeFooter();onScroll()});
+    sizeFooter(); onScroll();
+    // footer height changes when the disclosures accordion opens
+    var dsc=D.getElementById('rf-disc');
+    if(dsc)dsc.addEventListener('toggle',function(){sizeFooter();onScroll()});
+  }
+
+  // ── IST clock ──
+  var clk=D.getElementById('clk');
+  function tick(){
+    if(!clk)return;
+    var t=new Date().toLocaleTimeString('en-IN',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit',hour12:false});
+    clk.textContent='India, '+t+' IST';
+  }
+  tick(); setInterval(tick,30000);
 
   // ── double-engine stack calculator ───────────────────────
   var EQ=12.0, ENG={apex:{n:'Apex',v:41.0,c:''},alpha:{n:'Alpha',v:72.0,c:''},whale:{n:'Whale',v:20.6,c:'mint'}};
