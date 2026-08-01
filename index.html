@@ -1555,13 +1555,25 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
             <div class="fld"><label for="f-contact">Phone or email</label>
               <input id="f-contact" type="text" autocomplete="tel" placeholder="+91 98765 43210" required></div>
           </div>
-          <div class="fld"><label for="f-topic">What do you need</label>
-            <select id="f-topic">
-              <option>A strategy built from my rules</option>
-              <option>Backtesting an existing idea</option>
-              <option>Live execution and automation</option>
-              <option>Something else</option>
-            </select></div>
+          <div class="frow">
+            <div class="fld"><label for="f-topic">What do you need</label>
+              <select id="f-topic">
+                <option>A strategy built from my rules</option>
+                <option>Backtesting an existing idea</option>
+                <option>Live execution and automation</option>
+                <option>Something else</option>
+              </select></div>
+            <div class="fld"><label for="f-cap">Capital you would deploy</label>
+              <select id="f-cap">
+                <option value="">Select</option>
+                <option>&#8377;25 lakh</option>
+                <option>&#8377;50 lakh</option>
+                <option>&#8377;1 crore</option>
+                <option>&#8377;2.5 crore</option>
+                <option>&#8377;5 crore</option>
+                <option>&#8377;10 crore and above</option>
+              </select></div>
+          </div>
           <div class="fld"><label for="f-msg">Tell us more <span style="text-transform:none;letter-spacing:0;font-family:var(--b)">(optional)</span></label>
             <textarea id="f-msg" placeholder="The rule, the market, the timeframe. Whatever you have."></textarea></div>
           <button type="submit" class="pill" style="border:0;cursor:pointer;font-family:var(--b);padding:15px 26px;font-size:15px;width:100%;justify-content:center">
@@ -1904,7 +1916,8 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
         note=D.getElementById('formNote');
     if(!n||!c){note.textContent='Add your name and a way to reach you.';note.style.color='#FF9A4D';return}
     note.style.color=''; note.textContent='Opening WhatsApp with your message.';
-    var msg='Hi i want to know more about the Algo Quant systems.\n\nName: '+n+'\nContact: '+c+'\nNeed: '+D.getElementById('f-topic').value+(D.getElementById('f-msg').value?('\nDetails: '+D.getElementById('f-msg').value):'');
+    var cap=D.getElementById('f-cap').value;
+    var msg='Hi i want to know more about the Algo Quant systems.\n\nName: '+n+'\nContact: '+c+'\nNeed: '+D.getElementById('f-topic').value+(cap?('\nCapital: '+cap):'')+(D.getElementById('f-msg').value?('\nDetails: '+D.getElementById('f-msg').value):'');
     open('https://wa.me/919601443663?text='+encodeURIComponent(msg),'_blank','noopener');
   });
 })();
