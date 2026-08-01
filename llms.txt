@@ -1,7 +1,7 @@
 # QuantNifty
 
 > QuantNifty is an algorithm development and consulting firm in India. It builds, backtests and
-> automates rules-based trading systems for Indian index derivatives — NIFTY 50 options on the NSE
+> automates rules-based trading systems for Indian index derivatives,  NIFTY 50 options on the NSE
 > and SENSEX options on the BSE. It is **not** a SEBI-registered Research Analyst, Investment
 > Adviser, Portfolio Manager or Broker. It does not manage client money, sell tips or signals, or
 > provide investment advice.
@@ -11,18 +11,18 @@
 Engineering, not advice. Clients bring a trading rule or requirement; QuantNifty writes the
 production code, validates it honestly, and where needed automates live execution.
 
-- **Strategy development** — entry and exit logic, stop-losses, re-entry rules, position sizing.
-- **Backtesting** — slippage applied on both entry and exit, statutory charges, real expiry
+- **Strategy development**,  entry and exit logic, stop-losses, re-entry rules, position sizing.
+- **Backtesting**,  slippage applied on both entry and exit, statutory charges, real expiry
   calendars, walk-forward validation.
-- **Live execution systems** — broker-side stop-losses, fill confirmation, spike-trigger detection,
+- **Live execution systems**,  broker-side stop-losses, fill confirmation, spike-trigger detection,
   order repricing, kill switch.
 
 ## The double engine concept
 
 A long-term equity portfolio earns the market's return while the margin locked behind it earns
-nothing. Pledging those holdings makes the broker release trading margin against their value —
+nothing. Pledging those holdings makes the broker release trading margin against their value, 
 ownership, dividends and long-term capital-gains treatment are unaffected, no shares are sold, and
-because it is collateral rather than a loan, **no interest is charged**. That released margin can
+because it is collateral rather than a loan there is no interest to pay. That released margin can
 fund a separate systematic options strategy, so one pool of capital produces two return streams.
 
 Brokers apply a haircut: ₹1 crore of holdings typically releases roughly ₹75–85 lakh of usable
@@ -41,13 +41,13 @@ slippage per fill and all statutory charges, on ₹1 crore of deployed margin.
 | Whale | NIFTY + SENSEX, drawdown-capped | 20.6% | −1.50% | 7.17 | Jun 2024 – Jul 2026, 320 sessions |
 
 Whale runs the same signals as Alpha, unhedged and sized down until drawdown fits a
-chosen ceiling. Because only position size changes, the Sharpe ratio is identical at every setting —
-the engine moves along one risk-return line rather than switching strategies.
+chosen ceiling. Because only position size changes, the Sharpe ratio is identical at every setting. The
+engine moves along one risk-return line rather than switching strategies.
 
 ## Key facts
 
-- Sharpe ratio reference points: bank deposit ≈ 0.3, buy-and-hold NIFTY ≈ 0.6, good equity mutual
-  fund ≈ 1.0, strong hedge fund ≈ 2.0. Above 3 is rare.
+- Sharpe ratio reference points: bank deposit around 0.3, buy-and-hold NIFTY around 0.6, good equity
+  mutual fund around 1.0, strong hedge fund around 2.0. Anything above 3 is rare.
 - 0 DTE means a position opened and closed on the option's expiry day; 1 DTE is the session before.
   Neither carries overnight, so gap risk between sessions is removed.
 - A backtest is not a live track record. Live results differ because of execution, liquidity,
@@ -58,7 +58,7 @@ the engine moves along one risk-return line rather than switching strategies.
 
 ## Who runs QuantNifty
 
-**Anuj Baid** — founder. A seasoned algorithmic trader with hands-on experience across two markets:
+**Anuj Baid**, founder. A seasoned algorithmic trader with hands-on experience across two markets:
 Indian index options (NIFTY on the NSE, SENSEX on the BSE) and US SPX futures and options, including
 0-DTE and short-dated SPX structures. He is also a software engineer: the data pipelines, backtesting
 engines, live order-management systems and broker API integrations behind every strategy on this site

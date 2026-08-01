@@ -1,4 +1,4 @@
-# DNS setup — quantnifty.com and quantnifty.in
+# DNS setup , quantnifty.com and quantnifty.in
 
 Both domains are registered at **GoDaddy** (nameservers `*.domaincontrol.com`) and are already
 added to the Vercel project `quantnifty`. They will not serve the site until the DNS records below
@@ -6,14 +6,14 @@ are set at GoDaddy.
 
 ## Records to add (GoDaddy → Domain → DNS → Manage Zones)
 
-For **each** domain — `quantnifty.com` and `quantnifty.in`:
+For **each** domain , `quantnifty.com` and `quantnifty.in`:
 
 | Type  | Name | Value                  | TTL    |
 |-------|------|------------------------|--------|
 | A     | `@`  | `76.76.21.21`          | 1 hour |
 | CNAME | `www`| `cname.vercel-dns.com` | 1 hour |
 
-Delete any existing parking records for `@` and `www` first — GoDaddy points new domains at its own
+Delete any existing parking records for `@` and `www` first , GoDaddy points new domains at its own
 parking IPs, and those will conflict.
 
 ## What happens after propagation (5 minutes – 2 hours)
@@ -29,7 +29,7 @@ The redirects are configured in `vercel.json`, so nothing else needs changing.
 
 Two domains serving identical content splits search authority and can be treated as duplicate
 content. Redirecting `.in` to `.com` consolidates all ranking signals on one hostname. The `.in`
-domain still works for anyone who types it — they just land on `.com`.
+domain still works for anyone who types it , they just land on `.com`.
 
 **To flip it the other way** (make `.in` canonical, e.g. for a purely Indian audience):
 1. In `vercel.json`, swap the hosts in the `redirects` block.
@@ -47,7 +47,7 @@ curl -sI https://quantnifty.in  | grep -i location     # expect https://quantnif
 
 ## Then submit to search engines
 
-1. **Google Search Console** — add `quantnifty.com` as a Domain property, verify by TXT record,
+1. **Google Search Console** , add `quantnifty.com` as a Domain property, verify by TXT record,
    submit `https://quantnifty.com/sitemap.xml`.
-2. **Bing Webmaster Tools** — import from Search Console, or add and submit the same sitemap.
+2. **Bing Webmaster Tools** , import from Search Console, or add and submit the same sitemap.
    Bing powers ChatGPT search, so this one matters for AI visibility.
