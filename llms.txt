@@ -62,8 +62,8 @@ slippage per fill and all statutory charges, on ₹1 crore of deployed margin.
 | Engine | Instruments | Return/yr | Max drawdown | Sharpe | Window |
 |---|---|---|---|---|---|
 | Apex | NIFTY, 0–1 DTE | 41.0% | −4.95% | 4.67 | Jun 2022 – Jul 2026, 427 sessions |
-| Alpha | NIFTY + SENSEX, 0–1 DTE | 72.0% | −5.25% | 7.17 | Jun 2024 – Jul 2026, 320 sessions |
-| Whale | NIFTY + SENSEX, drawdown-capped | 20.6% | −1.50% | 7.17 | Jun 2024 – Jul 2026, 320 sessions |
+| Alpha | NIFTY + SENSEX, 0–1 DTE | 75.4% | −4.40% | 6.28 | Jan 2024 – Jul 2026, 364 sessions |
+| Whale | NIFTY + SENSEX, drawdown-capped | 25.7% | −1.50% | 6.28 | Jan 2024 – Jul 2026, 364 sessions |
 
 Whale runs the same signals as Alpha, unhedged and sized down until drawdown fits a
 chosen ceiling. Because only position size changes, the Sharpe ratio is identical at every setting. The
