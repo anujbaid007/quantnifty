@@ -57,9 +57,8 @@ h3{font-size:clamp(1.15rem,1.7vw,1.4rem);letter-spacing:-.02em;font-weight:700}
 p{color:var(--ink2)}
 .lede{font-size:clamp(1.03rem,1.3vw,1.19rem);color:var(--steel);max-width:54ch;font-weight:450}
 .num{font-family:var(--m);font-variant-numeric:tabular-nums}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--m);font-size:11px;letter-spacing:.15em;
+.eyebrow{display:inline-block;font-family:var(--m);font-size:11px;letter-spacing:.15em;
   text-transform:uppercase;color:var(--b600);font-weight:500}
-.eyebrow::before{content:"";width:22px;height:1px;background:currentColor;opacity:.5}
 .on-dark .eyebrow{color:var(--b400)}
 
 /* ============ island header ============ */
@@ -664,7 +663,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
 <section id="concept" class="light">
   <div class="wrap">
     <div class="de-head rv">
-      <span class="eyebrow" style="justify-content:center">How it works</span>
+      <span class="eyebrow">How it works</span>
       <h2 class="de-title">The <span>Double&nbsp;Engine</span></h2>
       <p class="de-sub">Your shares earn the market's return. The margin locked behind those shares earns nothing until you put a second engine on it. Same capital, nothing sold, two returns instead of one.</p>
     </div>
