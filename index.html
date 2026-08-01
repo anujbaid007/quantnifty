@@ -588,7 +588,11 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
   h2{font-size:clamp(1.72rem,7.4vw,2.2rem)}
   h3{font-size:1.08rem}
   /* stops the one-word last line on every heading and eyebrow */
-  h1,h2,h3,.eyebrow,.prop-badge{text-wrap:balance}
+  h1,h2,h3,.prop-badge{text-wrap:balance}
+  /* the hero eyebrow gets its own break rather than a balanced one */
+  .hero .eyebrow{text-wrap:wrap}
+  .ebs{display:none}
+  .eb2{display:block}
   /* give the gradient phrase its own line instead of letting "twice."
      drop alone off the end of it. The h2 breaks stay: they separate
      sentences, and running two together reads worse than any rag. */
@@ -968,7 +972,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
   <div class="noise"></div>
 
   <div class="wrap hero-in">
-    <span class="eyebrow">Algorithmic trading systems · built to spec</span>
+    <span class="eyebrow">Algorithmic trading systems<span class="ebs"> · </span><span class="eb2">built to spec</span></span>
     <h1>Your capital works once.<br>We make it <span>work twice.</span></h1>
     <p class="lede">A long-term portfolio is productive and idle at the same time. The stock compounds. The margin locked behind it just sits there. We build the second engine that runs on that margin.</p>
     <div class="hero-cta">
@@ -1071,9 +1075,9 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       <div class="calc-h">
         <div class="calc-cap">Capital deployed<b>₹1,00,00,000</b></div>
         <div class="etabs" role="tablist" aria-label="Choose engine">
-          <button class="etab" data-k="apex" role="tab" aria-selected="false">Apex</button>
+          <button class="etab act" data-k="apex" role="tab" aria-selected="true">Apex</button>
           <button class="etab" data-k="alpha" role="tab" aria-selected="false">Alpha</button>
-          <button class="etab act" data-k="whale" role="tab" aria-selected="true">Whale</button>
+          <button class="etab" data-k="whale" role="tab" aria-selected="false">Whale</button>
         </div>
       </div>
 
@@ -1785,7 +1789,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       engName=D.getElementById('engName'), engPct=D.getElementById('engPct'), engRs=D.getElementById('engRs'),
       totPct=D.getElementById('totPct'), totRs=D.getElementById('totRs');
   function rs(pct){return '₹'+Math.round(1e7*pct/100).toLocaleString('en-IN')}
-  var calcKey='whale', calcSeen=false;
+  var calcKey='apex', calcSeen=false, calcRot=null, ORDER=['apex','alpha','whale'];
   function paintCalc(k,animate){
     calcKey=k; var e=ENG[k], tot=EQ+e.v;
     engName.textContent=e.n;
@@ -1799,18 +1803,35 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       barEn.style.width=(e.v/SCALE*100)+'%';
     }
   }
+  function selectEngine(k){
+    D.querySelectorAll('.etab').forEach(function(x){
+      var on=x.dataset.k===k;
+      x.classList.toggle('act',on); x.setAttribute('aria-selected',on);
+    });
+    paintCalc(k, calcSeen);
+  }
+  function stopRot(){ if(calcRot){clearInterval(calcRot); calcRot=null;} }
+  function startRot(){
+    // one manual click and the carousel gets out of the way for good
+    if(calcRot||reduce) return;
+    calcRot=setInterval(function(){
+      selectEngine(ORDER[(ORDER.indexOf(calcKey)+1)%ORDER.length]);
+    },4000);
+  }
   D.querySelectorAll('.etab').forEach(function(b){
-    b.onclick=function(){
-      D.querySelectorAll('.etab').forEach(function(x){x.classList.remove('act');x.setAttribute('aria-selected','false')});
-      b.classList.add('act'); b.setAttribute('aria-selected','true');
-      paintCalc(b.dataset.k, calcSeen);
-    };
+    b.onclick=function(){ stopRot(); selectEngine(b.dataset.k); };
   });
-  paintCalc('whale', false);
-  var calcIO=new IntersectionObserver(function(es){es.forEach(function(e){
-    if(!e.isIntersecting)return; calcSeen=true; paintCalc(calcKey,true); calcIO.unobserve(e.target);
-  })},{threshold:.3});
-  if(barEq)calcIO.observe(barEq.closest('.calc'));
+  paintCalc('apex', false);
+
+  var calcBox=barEq&&barEq.closest('.calc');
+  if(calcBox){
+    // only runs while the widget is actually on screen
+    new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){ calcSeen=true; paintCalc(calcKey,true); startRot(); }
+      else stopRot();
+    })},{threshold:.3}).observe(calcBox);
+    calcBox.addEventListener('pointerenter',stopRot);
+  }
 
   // comparison chart tabs
   var paths={apex:D.getElementById('c-apex'),alpha:D.getElementById('c-alpha'),whale:D.getElementById('c-whale')};
