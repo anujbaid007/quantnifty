@@ -1,0 +1,10 @@
+{
+  "name": "QuantNifty",
+  "short_name": "QuantNifty",
+  "description": "Algorithmic trading system development and consulting for Indian index derivatives.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#04091A",
+  "theme_color": "#04091A",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

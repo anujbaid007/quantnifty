@@ -3,10 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>QuantNifty — Algorithmic trading systems, built to spec</title>
-<meta name="description" content="QuantNifty builds quantitative options trading systems for Indian index derivatives. Double-engine capital design: your equity keeps compounding while its pledged margin runs systematic option strategies.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>QuantNifty — Algo Trading System Development for NIFTY &amp; SENSEX Options</title>
+<meta name="description" content="QuantNifty builds and backtests algorithmic options trading systems for NIFTY and SENSEX. Double-engine capital design: your equity keeps compounding while its interest-free pledged margin runs systematic option strategies. Algo development and consulting — not SEBI registered, no advisory.">
+<link rel="canonical" href="https://quantnifty.com/">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="author" content="QuantNifty">
+<meta name="theme-color" content="#04091A">
+<meta name="format-detection" content="telephone=no">
+<meta name="geo.region" content="IN">
+<meta name="geo.placename" content="India">
+<meta name="keywords" content="algo trading development India, quant options strategy, NIFTY options algo, SENSEX options algo, pledged margin income, backtesting service, 0 DTE options systems, algorithmic trading consultant">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QuantNifty">
+<meta property="og:locale" content="en_IN">
+<meta property="og:url" content="https://quantnifty.com/">
+<meta property="og:title" content="QuantNifty — Make your pledged margin work">
+<meta property="og:description" content="Your equity compounds. The interest-free margin behind it runs systematic NIFTY and SENSEX option strategies. Algo development and consulting.">
+<meta property="og:image" content="https://quantnifty.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="QuantNifty — cumulative return curve of a systematic index-options engine">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="QuantNifty — Make your pledged margin work">
+<meta name="twitter:description" content="Your equity compounds. The interest-free margin behind it runs systematic NIFTY and SENSEX option strategies.">
+<meta name="twitter:image" content="https://quantnifty.com/og.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter+Tight:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -302,6 +328,21 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;bac
 input[type=range]:focus-visible{box-shadow:0 0 0 4px rgba(27,79,216,.24)}
 .ticks{display:flex;justify-content:space-between;font-family:var(--m);font-size:10px;color:var(--steel);letter-spacing:.05em}
 
+
+/* faq */
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:18px 26px;align-items:start}
+.qa{border-bottom:1px solid rgba(20,64,184,.1);padding:0}
+.qa summary{list-style:none;cursor:pointer;padding:18px 0;display:flex;justify-content:space-between;gap:16px;
+  align-items:flex-start;font-family:var(--d);font-size:16px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"";flex:none;width:18px;height:18px;margin-top:3px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231B4FD8' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") center/contain no-repeat;
+  transition:transform .25s}
+.qa[open] summary::after{transform:rotate(45deg)}
+.qa p{font-size:14.5px;color:var(--steel);padding:0 0 20px;max-width:62ch}
+.qa p+p{padding-top:0;margin-top:-8px}
+@media(max-width:960px){.faq{grid-template-columns:1fr;gap:0}}
+
 /* services */
 .srv{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .sc{padding:26px 24px}
@@ -361,6 +402,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
   .fadearea{opacity:1}
 }
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","ProfessionalService"],"@id":"https://quantnifty.com/#org","name":"QuantNifty","url":"https://quantnifty.com/","description":"QuantNifty builds and backtests algorithmic options trading systems for NIFTY and SENSEX. Double-engine capital design: your equity keeps compounding while its interest-free pledged margin runs systematic option strategies. Algo development and consulting — not SEBI registered, no advisory.","email":"","areaServed":{"@type":"Country","name":"India"},"address":{"@type":"PostalAddress","addressCountry":"IN"},"knowsAbout":["Algorithmic trading","Quantitative finance","NIFTY options","SENSEX options","Options backtesting","Pledged margin","Systematic short volatility","Sharpe ratio"],"contactPoint":[{"@type":"ContactPoint","contactType":"sales","telephone":"+91-96014-43663","availableLanguage":["en","hi"],"areaServed":"IN"}],"sameAs":["https://wa.me/919601443663"],"disambiguatingDescription":"QuantNifty is an algorithm development and consulting firm. It is not a SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker, does not manage client money, and does not sell trading tips or signals."},{"@type":"WebSite","@id":"https://quantnifty.com/#site","url":"https://quantnifty.com/","name":"QuantNifty","publisher":{"@id":"https://quantnifty.com/#org"},"inLanguage":"en-IN"},{"@type":"WebPage","@id":"https://quantnifty.com/#page","url":"https://quantnifty.com/","name":"QuantNifty — Algo Trading System Development for NIFTY & SENSEX Options","isPartOf":{"@id":"https://quantnifty.com/#site"},"about":{"@id":"https://quantnifty.com/#org"},"description":"QuantNifty builds and backtests algorithmic options trading systems for NIFTY and SENSEX. Double-engine capital design: your equity keeps compounding while its interest-free pledged margin runs systematic option strategies. Algo development and consulting — not SEBI registered, no advisory.","inLanguage":"en-IN"},{"@type":"Service","@id":"https://quantnifty.com/#service","name":"Algorithmic trading system development","provider":{"@id":"https://quantnifty.com/#org"},"areaServed":{"@type":"Country","name":"India"},"serviceType":"Algorithm development and consulting","description":"Development, backtesting and live automation of rules-based trading strategies for Indian index derivatives.","hasOfferCatalog":{"@type":"OfferCatalog","name":"Services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Strategy development","description":"Turning a trading rule into production code with stop-losses, re-entry logic and execution safeguards."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Backtesting","description":"Historical validation with slippage on both sides, statutory charges, real expiry calendars and walk-forward testing."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Live execution systems","description":"Broker-side stop-losses, fill confirmation, spike-trigger detection, order repricing and kill switch."}}]}},{"@type":"FAQPage","@id":"https://quantnifty.com/#faq","mainEntity":[{"@type":"Question","name":"How can I earn from my stock portfolio without selling it?","acceptedAnswer":{"@type":"Answer","text":"By pledging it. When you pledge shares or ETFs with your broker, the broker releases trading margin against their value while you keep ownership, dividends and long-term capital-gains treatment. That released margin can fund a separate options strategy, so the same capital produces two return streams — the equity return and the options return. Nothing is sold and no loan is taken."}},{"@type":"Question","name":"What is pledged margin, and does it cost interest?","acceptedAnswer":{"@type":"Answer","text":"Pledged margin is collateral value your broker recognises against securities you already own. It is not borrowed money, so no interest is charged. Brokers apply a haircut, so ₹1 crore of holdings typically releases about ₹75–85 lakh of usable margin depending on the instrument."}},{"@type":"Question","name":"Is QuantNifty SEBI registered?","acceptedAnswer":{"@type":"Answer","text":"No. QuantNifty is not a SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. We are an algorithm development and consulting firm — we write and test trading software. We do not manage money, sell tips or signals, or give investment advice."}},{"@type":"Question","name":"What is a good Sharpe ratio?","acceptedAnswer":{"@type":"Answer","text":"The Sharpe ratio measures return per unit of risk. Roughly: a bank deposit sits near 0.3, buy-and-hold NIFTY near 0.6, a good equity mutual fund near 1.0, and a strong hedge fund near 2.0. Above 3 is rare. QuantNifty's backtested engines range from 4.67 to 7.17 over their stated windows."}},{"@type":"Question","name":"What does 0–1 DTE mean?","acceptedAnswer":{"@type":"Answer","text":"DTE is days to expiry. A 0-DTE trade is opened and closed on the contract's expiry day; 1 DTE is the session before it. Both are intraday — positions are not carried overnight, which removes gap risk between sessions."}},{"@type":"Question","name":"Are the returns on this page live or backtested?","acceptedAnswer":{"@type":"Answer","text":"Backtested. Every figure is simulated on historical 1-minute data over the window stated on each engine, net of 0.2% slippage per fill and all statutory charges. A backtest is not a live track record, and live results differ because of execution, liquidity, latency and changing market regimes."}},{"@type":"Question","name":"Can I buy or subscribe to ApexEngine, AlphaEngine or WhaleEngine?","acceptedAnswer":{"@type":"Answer","text":"No. Those three systems run on our own capital and are shown to demonstrate engineering capability. They are not offered for sale, licensing or subscription. What we offer is development work: you bring a strategy or a requirement, we build, test and automate it for you."}},{"@type":"Question","name":"What does an algo development engagement actually include?","acceptedAnswer":{"@type":"Answer","text":"Turning a trading idea into production software: entry and exit logic, stop-losses, re-entry rules, position sizing, and honest backtesting with slippage, statutory charges and real expiry calendars. Where needed, live execution too — broker-side stop-losses, fill confirmation, order repricing, spike-trigger detection and a kill switch."}},{"@type":"Question","name":"What capital do these strategies need?","acceptedAnswer":{"@type":"Answer","text":"The figures on this page are shown on ₹1 crore of deployed margin because it makes the arithmetic readable. The strategies themselves are sized in lots, so they scale down — a single NIFTY sleeve needs roughly ₹1.6 lakh of hedged margin. What matters more than size is that drawdown is sized to what you can actually sit through."}},{"@type":"Question","name":"Which markets and instruments do you work with?","acceptedAnswer":{"@type":"Answer","text":"Indian index derivatives — NIFTY 50 options on the NSE and SENSEX options on the BSE. The engines shown trade short-volatility structures on the index straddle, filtered by a rolling VWAP signal, with per-leg stop-losses."}}]}]}</script>
 </head>
 <body>
 
@@ -379,6 +421,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       <a href="#engines">Engines</a>
       <a href="#sharpe">Sharpe</a>
       <a href="#whale">Risk dial</a>
+      <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
     </nav>
     <a href="#contact" class="pill">Talk to us</a>
@@ -393,7 +436,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
   </button>
   <a href="#concept">Double engine</a><a href="#engines">Engines</a><a href="#sharpe">Sharpe</a>
-  <a href="#whale">Risk dial</a><a href="#contact">Contact</a>
+  <a href="#whale">Risk dial</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
   <a href="#contact" class="pill">Talk to us</a>
 </div>
 
@@ -777,6 +820,69 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
   </div>
 </section>
 
+<!-- ══════════ FAQ ══════════ -->
+<section id="faq" class="light">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="eyebrow">Common questions</span>
+      <h2>What people ask us first.</h2>
+      <p class="lede">Straight answers about pledged margin, what we build, and what we are not.</p>
+    </div>
+
+    <div class="faq rv">
+      <details class="qa" open>
+        <summary>How can I earn from my stock portfolio without selling it?</summary>
+        <p>By pledging it. When you pledge shares or ETFs with your broker, the broker releases trading margin against their value while you keep ownership, dividends and long-term capital-gains treatment. That released margin can fund a separate options strategy, so the same capital produces two return streams — the equity return and the options return. Nothing is sold and no loan is taken.</p>
+      </details>
+
+      <details class="qa">
+        <summary>What is pledged margin, and does it cost interest?</summary>
+        <p>Pledged margin is collateral value your broker recognises against securities you already own. It is not borrowed money, so <strong>no interest is charged</strong>. Brokers apply a haircut, so ₹1 crore of holdings typically releases about ₹75–85 lakh of usable margin depending on the instrument.</p>
+      </details>
+
+      <details class="qa">
+        <summary>Is QuantNifty SEBI registered?</summary>
+        <p>No. QuantNifty is not a SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. We are an algorithm development and consulting firm — we write and test trading software. We do not manage money, sell tips or signals, or give investment advice.</p>
+      </details>
+
+      <details class="qa">
+        <summary>What is a good Sharpe ratio?</summary>
+        <p>The Sharpe ratio measures return per unit of risk. Roughly: a bank deposit sits near 0.3, buy-and-hold NIFTY near 0.6, a good equity mutual fund near 1.0, and a strong hedge fund near 2.0. Above 3 is rare. QuantNifty's backtested engines range from 4.67 to 7.17 over their stated windows.</p>
+      </details>
+
+      <details class="qa">
+        <summary>What does 0–1 DTE mean?</summary>
+        <p>DTE is days to expiry. A 0-DTE trade is opened and closed on the contract's expiry day; 1 DTE is the session before it. Both are intraday — positions are not carried overnight, which removes gap risk between sessions.</p>
+      </details>
+
+      <details class="qa">
+        <summary>Are the returns on this page live or backtested?</summary>
+        <p>Backtested. Every figure is simulated on historical 1-minute data over the window stated on each engine, net of 0.2% slippage per fill and all statutory charges. A backtest is not a live track record, and live results differ because of execution, liquidity, latency and changing market regimes.</p>
+      </details>
+
+      <details class="qa">
+        <summary>Can I buy or subscribe to ApexEngine, AlphaEngine or WhaleEngine?</summary>
+        <p>No. Those three systems run on our own capital and are shown to demonstrate engineering capability. They are not offered for sale, licensing or subscription. What we offer is development work: you bring a strategy or a requirement, we build, test and automate it for you.</p>
+      </details>
+
+      <details class="qa">
+        <summary>What does an algo development engagement actually include?</summary>
+        <p>Turning a trading idea into production software: entry and exit logic, stop-losses, re-entry rules, position sizing, and honest backtesting with slippage, statutory charges and real expiry calendars. Where needed, live execution too — broker-side stop-losses, fill confirmation, order repricing, spike-trigger detection and a kill switch.</p>
+      </details>
+
+      <details class="qa">
+        <summary>What capital do these strategies need?</summary>
+        <p>The figures on this page are shown on ₹1 crore of deployed margin because it makes the arithmetic readable. The strategies themselves are sized in lots, so they scale down — a single NIFTY sleeve needs roughly ₹1.6 lakh of hedged margin. What matters more than size is that drawdown is sized to what you can actually sit through.</p>
+      </details>
+
+      <details class="qa">
+        <summary>Which markets and instruments do you work with?</summary>
+        <p>Indian index derivatives — NIFTY 50 options on the NSE and SENSEX options on the BSE. The engines shown trade short-volatility structures on the index straddle, filtered by a rolling VWAP signal, with per-leg stop-losses.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════ CONTACT ══════════ -->
 <section id="contact" class="light">
   <div class="wrap ctg">
@@ -803,7 +909,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       <div class="g">
         <h4>WhatsApp</h4>
         <p style="margin-bottom:18px">Fastest way to reach us. Send the idea in whatever form it exists — a screenshot, a paragraph, a spreadsheet.</p>
-        <a href="https://wa.me/919999999999" class="wa" target="_blank" rel="noopener">
+        <a href="https://wa.me/919601443663?text=Hi%20i%20want%20to%20know%20more%20about%20the%20Algo%20Quant%20systems." class="wa" target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1s-.5-.1-.7.1c-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.3M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2m0 18.2c-1.6 0-3.2-.4-4.5-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1120.2 12 8.2 8.2 0 0112 20.2"/></svg>
           Message on WhatsApp
         </a>
@@ -1006,8 +1112,8 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
         note=D.getElementById('formNote');
     if(!n||!c){note.textContent='Add your name and a way to reach you.';note.style.color='#FF9A4D';return}
     note.style.color=''; note.textContent='Opening WhatsApp with your message.';
-    var msg='Hi QuantNifty, I am '+n+'. '+D.getElementById('f-topic').value+'. '+D.getElementById('f-msg').value;
-    open('https://wa.me/919999999999?text='+encodeURIComponent(msg),'_blank','noopener');
+    var msg='Hi i want to know more about the Algo Quant systems.\n\nName: '+n+'\nContact: '+c+'\nNeed: '+D.getElementById('f-topic').value+(D.getElementById('f-msg').value?('\nDetails: '+D.getElementById('f-msg').value):'');
+    open('https://wa.me/919601443663?text='+encodeURIComponent(msg),'_blank','noopener');
   });
 })();
 </script>
