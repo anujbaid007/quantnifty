@@ -71,7 +71,7 @@ body{background:#0A0F1E;display:flex;flex-direction:column;align-items:center;ga
    screen that would simply overflow, so shrink the canvas to fit the window.
    zoom is used rather than transform because it reflows the layout box, which
    is what removes the scrollbars. Print resets it to 1. */
-.slide{zoom:var(--z,1)}
+.slide{zoom:1}
 @media print{
   /* px is not a reliable unit for @page size; Chrome falls back to Letter
      and repaginates. 20in x 11.25in is the same box at 96dpi. */
@@ -90,6 +90,23 @@ body{background:#0A0F1E;display:flex;flex-direction:column;align-items:center;ga
 @media screen and (max-width:1350px){.slide{zoom:.58}}
 @media screen and (max-width:1150px){.slide{zoom:.48}}
 @media screen and (max-width:950px){.slide{zoom:.38}}
+/* the measured value has to beat every fallback above, hence html.js */
+html.js .slide{zoom:var(--z,1)}
+
+/* Portrait phone: a 16:9 slide fitted to 390px of width leaves body text at
+   about 4px. Turning the canvas on its side more than doubles that and fills
+   the screen. Landscape drops straight back to the normal path. */
+html.rot body{padding:8px;gap:14px}
+html.rot .rw{width:var(--rw);height:var(--rh);position:relative;overflow:hidden;flex:0 0 auto}
+html.rot .rw .slide{zoom:1;position:absolute;top:50%;left:50%;transform-origin:center center;
+  transform:translate(-50%,-50%) rotate(90deg) scale(var(--k))}
+.rw{display:contents}
+html.rot .rw{display:block}
+html.rot .hint{display:flex}
+.hint{display:none;position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:9;
+  align-items:center;gap:8px;padding:8px 15px;border-radius:999px;pointer-events:none;
+  background:rgba(6,13,34,.88);border:1px solid rgba(147,186,255,.28);color:#93BAFF;
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em}
 </style>
 </head>
 <body>
@@ -429,14 +446,36 @@ body{background:#0A0F1E;display:flex;flex-direction:column;align-items:center;ga
 
 <script>
 (function(){
+  var R=document.documentElement, S=R.style;
+  R.classList.add('js');
+
+  // every slide gets a wrapper; it is display:contents until rotation needs it
+  document.querySelectorAll('.slide').forEach(function(s){
+    var w=document.createElement('div'); w.className='rw';
+    s.parentNode.insertBefore(w,s); w.appendChild(s);
+  });
+  var hint=document.createElement('div');
+  hint.className='hint';
+  hint.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9a9 9 0 0114-3l2 2M20 15a9 9 0 01-14 3l-2-2"/></svg> turn your phone for a bigger view';
+  document.body.appendChild(hint);
+
   function fit(){
-    var pad=56;                                  // body padding, both sides
-    var z=Math.min(1,(innerWidth-pad)/1920);
-    document.documentElement.style.setProperty('--z', z.toFixed(4));
+    var portrait = innerHeight > innerWidth && innerWidth < 820;
+    R.classList.toggle('rot', portrait);
+    if(portrait){
+      var k=Math.min((innerWidth-16)/1080,(innerHeight-16)/1920);
+      S.setProperty('--k',k.toFixed(4));
+      S.setProperty('--rw',(1080*k).toFixed(1)+'px');
+      S.setProperty('--rh',(1920*k).toFixed(1)+'px');
+    } else {
+      S.setProperty('--z', Math.min(1,(innerWidth-56)/1920).toFixed(4));
+    }
   }
-  fit(); addEventListener('resize', fit);
+  fit();
+  addEventListener('resize', fit);
+  addEventListener('orientationchange', function(){setTimeout(fit,120)});
   // print at full size, then restore
-  addEventListener('beforeprint', function(){document.documentElement.style.setProperty('--z','1')});
+  addEventListener('beforeprint', function(){R.classList.remove('rot');S.setProperty('--z','1')});
   addEventListener('afterprint', fit);
 })();
 </script>
