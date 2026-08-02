@@ -1,6 +1,6 @@
 # QuantNifty investor deck
 
-`quantnifty-investor-deck.html` — 7 slides, one self-contained file. No external
+Live at **quantnifty.com/deck**. `index.html` — 7 slides, one self-contained file. No external
 assets, no build step. The founder photo and every graphic are embedded, so it
 works offline and survives being emailed.
 
@@ -32,9 +32,16 @@ its own page. You should get **7 pages**. If the dialog forces A4 and the sides
 come out cropped, pick the custom paper size in the paper dropdown, or set
 Scale to "Fit to printable area".
 
+## Hosting
+
+`index.html` serves at `/deck` (vercel.json has cleanUrls). It carries
+`noindex,follow` so it does not compete with the homepage in search: the link is
+meant to be sent, not found. `og-deck.png` is its own share card, separate from
+the site's `og.png`.
+
 ## Numbers
 
-Everything traces to the live site and `GoldMine/alpha/run.log`:
+Everything traces to the live site and the Alpha backtest run log:
 
 - Apex 41.0%/yr, MDD -4.95%, Sharpe 4.67
 - Alpha 75.4%/yr, MDD -4.40%, Sharpe 6.28
