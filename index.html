@@ -47,7 +47,11 @@
   --max:1200px; --r:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+/* iOS Safari paints the canvas background into the toolbar and overscroll
+   areas. With no background on html it inherits body's white, so a white
+   band appears under dark sections. The page opens and closes dark, so the
+   canvas is dark and the body keeps white for the sections in between. */
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:#04091A}
 body{font-family:var(--b);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.62;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 img,svg{display:block;max-width:100%}
