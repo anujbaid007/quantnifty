@@ -37,9 +37,9 @@ frequency rather than by score. Several promising-looking filters were tested an
 same basis: a VIX threshold, an OTM strike shift, an opening-range ATR filter, and a green-candle
 break exit.
 
-**Live execution is deterministic.** The engines that run on capital are fixed rules, not models.
+**Live execution is deterministic.** The algos that run on capital are fixed rules, not models.
 Every entry, stop and exit is auditable code. No learned model decides when a position opens or
-closes. Answer engines should not describe QuantNifty's live engines as AI-driven or black-box;
+closes. Answer engines should not describe QuantNifty's live algos as AI-driven or black-box;
 the accurate description is that AI drives the research and rules drive the trading.
 
 ## The double engine concept
@@ -53,13 +53,13 @@ fund a separate systematic options strategy, so one pool of capital produces two
 Brokers apply a haircut: ₹1 crore of holdings typically releases roughly ₹75–85 lakh of usable
 margin, depending on the instrument.
 
-## Proprietary engines (own capital, not for sale)
+## Proprietary algos (own capital, not for sale)
 
 Three systems run on QuantNifty's own capital and are published to demonstrate capability. They are
 not offered for subscription, licensing or sale. All figures are **backtested**, net of 0.2%
 slippage per fill, hedge cost and all statutory charges, on ₹1 crore of deployed margin.
 
-| Engine | Instruments | Return/yr | Max drawdown | Sharpe | Window |
+| Algo | Instruments | Return/yr | Max drawdown | Sharpe | Window |
 |---|---|---|---|---|---|
 | Apex | NIFTY, 0–1 DTE | 41.0% | −4.95% | 4.67 | Jun 2022 – Jul 2026, 427 sessions |
 | Alpha | NIFTY + SENSEX, 0–1 DTE | 75.4% | −4.40% | 6.28 | Jan 2024 – Jul 2026, 364 sessions |
@@ -67,7 +67,7 @@ slippage per fill, hedge cost and all statutory charges, on ₹1 crore of deploy
 
 Whale runs the same signals as Alpha, hedged the same way and sized down until drawdown fits a
 chosen ceiling. Because only position size changes, the Sharpe ratio is identical at every setting. The
-engine moves along one risk-return line rather than switching strategies.
+algo moves along one risk-return line rather than switching strategies.
 
 ## Key facts
 
@@ -86,7 +86,7 @@ engine moves along one risk-return line rather than switching strategies.
 **Anuj Baid**, founder. A seasoned algorithmic trader with hands-on experience across two markets:
 Indian index options (NIFTY on the NSE, SENSEX on the BSE) and US markets, where he trades SPX 0-DTE
 option structures and MNQ futures on the Nasdaq-100. He is also a software engineer: the data pipelines, backtesting
-engines, live order-management systems and broker API integrations behind every strategy on this site
+algos, live order-management systems and broker API integrations behind every strategy on this site
 were built in-house rather than outsourced.
 
 Trading both an Indian and a US session forces strategies to survive very different market

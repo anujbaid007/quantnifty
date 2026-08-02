@@ -47,11 +47,29 @@ body{background:#0A0F1E;display:flex;flex-direction:column;align-items:center;ga
 .pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:0.1em;
   text-transform:uppercase;padding:9px 20px;border-radius:999px;border:1px solid rgba(147,186,255,.3);color:#93BAFF}
 .slide.light .pill{border-color:rgba(20,64,184,.22);color:#1B4FD8}
+/* Slides are a fixed 1920x1080 canvas so the PDF comes out exact. On a smaller
+   screen that would simply overflow, so shrink the canvas to fit the window.
+   zoom is used rather than transform because it reflows the layout box, which
+   is what removes the scrollbars. Print resets it to 1. */
+.slide{zoom:var(--z,1)}
 @media print{
-  @page{size:1920px 1080px;margin:0}
-  body{background:#fff;gap:0;padding:0}
-  .slide{page-break-after:always;break-after:page}
+  /* px is not a reliable unit for @page size; Chrome falls back to Letter
+     and repaginates. 20in x 11.25in is the same box at 96dpi. */
+  @page{size:20in 11.25in;margin:0}
+  /* block, not flex: Chrome does not honour break-after on flex items,
+     which silently merged two slides onto one PDF page */
+  body{background:#fff;gap:0;padding:0;display:block}
+  .slide{page-break-after:always;break-after:page;break-inside:avoid;zoom:1}
+  .slide:last-of-type{page-break-after:auto;break-after:auto}
 }
+/* JS-free fallback, in case the file is opened with scripting disabled.
+   Scoped to screen: the print page is 1920px wide and would otherwise match
+   these and shrink the PDF. */
+@media screen and (max-width:1975px){.slide{zoom:.78}}
+@media screen and (max-width:1550px){.slide{zoom:.68}}
+@media screen and (max-width:1350px){.slide{zoom:.58}}
+@media screen and (max-width:1150px){.slide{zoom:.48}}
+@media screen and (max-width:950px){.slide{zoom:.38}}
 </style>
 </head>
 <body>
@@ -153,7 +171,7 @@ body{background:#0A0F1E;display:flex;flex-direction:column;align-items:center;ga
 
     <div style="margin-top:52px;display:flex;align-items:center;gap:56px">
       <div style="flex:1">
-        <div class="label" style="color:#8FA0C2">Same &#8377;1 crore &middot; Apex engine</div>
+        <div class="label" style="color:#8FA0C2">Same &#8377;1 crore &middot; Apex algo</div>
         <div style="margin-top:22px;display:flex;flex-direction:column;gap:18px">
           <div>
             <div style="display:flex;justify-content:space-between;margin-bottom:9px">
@@ -184,7 +202,7 @@ body{background:#0A0F1E;display:flex;flex-direction:column;align-items:center;ga
 <div class="slide light" data-canvas-width="1920" data-canvas-height="1080">
   <div class="pad">
     <div class="label" style="color:#1B4FD8">Our proprietary algorithms</div>
-    <div class="heading" style="margin-top:22px">Three engines, one risk line.</div>
+    <div class="heading" style="margin-top:22px">Three algos, one risk line.</div>
     <div class="body" style="margin-top:24px;max-width:1250px">
       Written from scratch and traded with our own money. Each runs a basket of independent strategy
       sleeves rather than one setup. The sleeves disagree with each other by design, and that
@@ -329,7 +347,7 @@ body{background:#0A0F1E;display:flex;flex-direction:column;align-items:center;ga
       <div>
         <div class="sub" style="font-size:38px;color:#08102A">AI does the searching.<br>Rules do the trading.</div>
         <div class="body" style="margin-top:20px;max-width:900px">
-          Every engine survived a machine that spent weeks trying to break it. Millions of versions get
+          Every algo survived a machine that spent weeks trying to break it. Millions of versions get
           built, tested against years of real market data, and thrown away.
         </div>
 
@@ -389,5 +407,18 @@ body{background:#0A0F1E;display:flex;flex-direction:column;align-items:center;ga
   <div class="foot"><span class="fine">We are an algorithm development and consulting firm. We do not manage money, sell tips or signals, guarantee returns, or give investment advice.</span><span>7 / 7</span></div>
 </div>
 
+<script>
+(function(){
+  function fit(){
+    var pad=56;                                  // body padding, both sides
+    var z=Math.min(1,(innerWidth-pad)/1920);
+    document.documentElement.style.setProperty('--z', z.toFixed(4));
+  }
+  fit(); addEventListener('resize', fit);
+  // print at full size, then restore
+  addEventListener('beforeprint', function(){document.documentElement.style.setProperty('--z','1')});
+  addEventListener('afterprint', fit);
+})();
+</script>
 </body>
 </html>

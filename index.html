@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://quantnifty.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="QuantNifty: cumulative return curve of a systematic index options engine">
+<meta property="og:image:alt" content="QuantNifty: cumulative return curve of a systematic index options algo">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="QuantNifty: make your pledged margin work">
@@ -298,7 +298,7 @@ section{padding:104px 0;scroll-margin-top:86px}
   -webkit-background-clip:text;background-clip:text;color:transparent}
 .prop .lede{margin:0 auto}
 
-/* engine cards */
+/* algo cards */
 .ecards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .ec{overflow:hidden;display:flex;flex-direction:column}
 .ec-top{padding:22px 22px 0}
@@ -893,7 +893,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
           "name": "What is a good Sharpe ratio?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The Sharpe ratio measures return per unit of risk. Roughly speaking, a bank deposit sits near 0.3, buy-and-hold NIFTY near 0.6, a good equity mutual fund near 1.0, and a strong hedge fund near 2.0. Anything above 3 is rare. QuantNifty's backtested engines sit between 4.67 and 6.28 over their stated windows."
+            "text": "The Sharpe ratio measures return per unit of risk. Roughly speaking, a bank deposit sits near 0.3, buy-and-hold NIFTY near 0.6, a good equity mutual fund near 1.0, and a strong hedge fund near 2.0. Anything above 3 is rare. QuantNifty's backtested algos sit between 4.67 and 6.28 over their stated windows."
           }
         },
         {
@@ -909,7 +909,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
           "name": "Are the returns on this page live or backtested?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Backtested. Every figure is simulated on historical 1-minute data over the window stated on each engine, net of 0.2% slippage per fill, the cost of the protective hedge, and all statutory charges. A backtest is not a live track record. Live results will differ because of execution, liquidity, latency and changing market regimes."
+            "text": "Backtested. Every figure is simulated on historical 1-minute data over the window stated on each algo, net of 0.2% slippage per fill, the cost of the protective hedge, and all statutory charges. A backtest is not a live track record. Live results will differ because of execution, liquidity, latency and changing market regimes."
           }
         },
         {
@@ -925,7 +925,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
           "name": "Do you use AI or machine learning in your trading systems?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, but in the research, not in the trading. Millions of versions of a strategy are generated and tested automatically against years of real market data, then filtered down to the few that still work on data they have never seen. The engines that go live are fixed rules: every entry, stop and exit is written in plain code you can read, so no model decides on its own when money moves. We also build learning systems for clients, including models that predict a signal and systems that detect which market conditions you are in."
+            "text": "Yes, but in the research, not in the trading. Millions of versions of a strategy are generated and tested automatically against years of real market data, then filtered down to the few that still work on data they have never seen. The algos that go live are fixed rules: every entry, stop and exit is written in plain code you can read, so no model decides on its own when money moves. We also build learning systems for clients, including models that predict a signal and systems that detect which market conditions you are in."
           }
         },
         {
@@ -957,7 +957,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
           "name": "Which markets and instruments do you work with?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Indian index derivatives: NIFTY 50 options on the NSE and SENSEX options on the BSE. The engines shown trade short-volatility structures on the index straddle, filtered by a rolling VWAP signal, with per-leg stop-losses."
+            "text": "Indian index derivatives: NIFTY 50 options on the NSE and SENSEX options on the BSE. The algos shown trade short-volatility structures on the index straddle, filtered by a rolling VWAP signal, with per-leg stop-losses."
           }
         }
       ]
@@ -1015,7 +1015,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
     <h1>Your capital works once.<br>We make it <span>work twice.</span></h1>
     <p class="lede">A long-term portfolio is productive and idle at the same time. The stock compounds. The margin locked behind it just sits there. We build the second engine that runs on that margin.</p>
     <div class="hero-cta">
-      <a href="#engines" class="pill">See the engines
+      <a href="#engines" class="pill">See the algos
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
       <a href="#concept" class="ghost">How it works</a>
@@ -1138,7 +1138,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
     <div class="calc rv">
       <div class="calc-h">
         <div class="calc-cap">Capital deployed<b>₹1,00,00,000</b></div>
-        <div class="etabs" role="tablist" aria-label="Choose engine">
+        <div class="etabs" role="tablist" aria-label="Choose algo">
           <button class="etab act" data-k="apex" role="tab" aria-selected="true">Apex</button>
           <button class="etab" data-k="alpha" role="tab" aria-selected="false">Alpha</button>
           <button class="etab" data-k="whale" role="tab" aria-selected="false">Whale</button>
@@ -1188,13 +1188,13 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
   </div>
 </section>
 
-<!-- ══════════ ENGINES ══════════ -->
+<!-- ══════════ ALGOS ══════════ -->
 <section id="engines">
   <div class="wrap">
     <div class="prop rv">
       <span class="prop-badge"><i></i>Built in-house · running on our own capital</span>
       <h2>Our proprietary <span>algorithms</span></h2>
-      <p class="lede">Three engines, written from scratch and traded with our own money. Each runs a basket of independent strategy sleeves rather than one setup. The sleeves disagree with each other by design, and that disagreement is what flattens the curve.</p>
+      <p class="lede">Three algos, written from scratch and traded with our own money. Each runs a basket of independent strategy sleeves rather than one setup. The sleeves disagree with each other by design, and that disagreement is what flattens the curve.</p>
     </div>
 
     <div class="ecards">
@@ -1286,7 +1286,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       <h2 style="margin:16px 0 18px">Return is loud.<br>Sharpe is honest.</h2>
       <p style="font-size:15.5px;max-width:44ch">Anyone can post a return. Take enough risk and a good month is inevitable. Sharpe asks the harder question: how much return did each unit of risk actually buy?</p>
       <div class="quote"><p>A Sharpe above <b>2</b> is considered excellent by institutional standards. Above <b>3</b> is rare. Apex sits at <b style="color:#5A93FF">4.67</b>. Alpha and Whale both sit at <b style="color:#19D39A">6.28</b>, because they run the same signals at different sizing.</p></div>
-      <p class="fine">Sharpe is computed on daily returns, annualised ×√252, over the backtest window stated on each engine.</p>
+      <p class="fine">Sharpe is computed on daily returns, annualised ×√252, over the backtest window stated on each algo.</p>
     </div>
 
     <div class="bars rv" id="bars">
@@ -1303,7 +1303,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
   <div class="wrap rv" style="margin-top:64px">
     <div class="cmp">
       <div class="cmp-top">
-        <span class="hchart-lab">Cumulative return · normalised to each engine's own capital</span>
+        <span class="hchart-lab">Cumulative return · normalised to each algo's own capital</span>
         <div class="tabs" role="tablist">
           <button class="tab act" data-e="all" role="tab" aria-selected="true">All three</button>
           <button class="tab" data-e="apex" role="tab" aria-selected="false">Apex</button>
@@ -1311,7 +1311,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
           <button class="tab" data-e="whale" role="tab" aria-selected="false">Whale</button>
         </div>
       </div>
-      <svg class="cmp-svg" viewBox="0 0 1000 316" role="img" aria-label="Cumulative return curves for the three engines on a common time and percentage scale">
+      <svg class="cmp-svg" viewBox="0 0 1000 316" role="img" aria-label="Cumulative return curves for the three algos on a common time and percentage scale">
         <g stroke="rgba(147,186,255,.09)" stroke-width="1">
           <line x1="0" y1="8" x2="1000" y2="8"/><line x1="0" y1="79" x2="1000" y2="79"/>
           <line x1="0" y1="150" x2="1000" y2="150"/><line x1="0" y1="221" x2="1000" y2="221"/>
@@ -1335,7 +1335,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
         <span class="lg"><i style="background:#2E6BFF"></i>Alpha, +194% over 2.6 yrs</span>
         <span class="lg"><i style="background:#19D39A"></i>Whale, +66% over 2.6 yrs at capped risk</span>
       </div>
-      <p class="fine" style="margin-top:12px">One time axis, one percentage scale. Each curve is a return on that engine's own capital, so heights are directly comparable. Alpha and Whale begin in Jan 2024, when the combined book starts. Whale is deliberately the flattest line on the chart. That is the point of it.</p>
+      <p class="fine" style="margin-top:12px">One time axis, one percentage scale. Each curve is a return on that algo's own capital, so heights are directly comparable. Alpha and Whale begin in Jan 2024, when the combined book starts. Whale is deliberately the flattest line on the chart. That is the point of it.</p>
     </div>
   </div>
 </section>
@@ -1345,7 +1345,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
   <div class="wrap dialg">
     <div class="rv">
       <span class="eyebrow">Whale</span>
-      <h2 style="margin:16px 0 18px">You set the drawdown.<br>The engine sizes itself.</h2>
+      <h2 style="margin:16px 0 18px">You set the drawdown.<br>The algo sizes itself.</h2>
       <p class="lede">Most systems hand you a return and leave the risk wherever it lands. Whale works the other way round. You name the deepest drawdown you are willing to sit through, and the position sizing is solved backwards from that.</p>
       <p class="lede" style="margin-top:18px">Because sizing is the only thing that changes, the <strong style="color:var(--ink)">Sharpe ratio stays at 6.28 at every setting</strong>. You are moving along one risk-return line, not switching strategies.</p>
     </div>
@@ -1376,7 +1376,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       <input type="range" id="dial" min="10" max="44" step="1" value="15" aria-label="Maximum drawdown ceiling in tenths of a percent">
       <div class="ticks"><span>1.0%</span><span>2.5%</span><span>3.5%</span><span>4.4% uncapped</span></div>
       <p style="font-size:13px;color:var(--steel);margin-top:18px;padding-top:16px;border-top:1px solid rgba(20,64,184,.08)">
-        Hedged the same way at every setting, so the margin per lot does not change. At 4.4% the engine runs unrestricted, with no size reduction at all.
+        Hedged the same way at every setting, so the margin per lot does not change. At 4.4% the algo runs unrestricted, with no size reduction at all.
       </p>
     </div>
   </div>
@@ -1389,12 +1389,12 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
     <div class="ai-h rv">
       <span class="eyebrow">AI and machine learning</span>
       <h2>AI does the searching.<br>Rules do the trading.</h2>
-      <p class="lede">Every engine on this page survived a machine that spent weeks trying to break it. Millions of versions get built, tested against years of real market data, and thrown away. What we actually trade is the small handful that held up.</p>
+      <p class="lede">Every algo on this page survived a machine that spent weeks trying to break it. Millions of versions get built, tested against years of real market data, and thrown away. What we actually trade is the small handful that held up.</p>
     </div>
 
     <div class="fn rv" id="fn">
       <div class="fn-h">
-        <span>The search behind one engine</span>
+        <span>The search behind one algo</span>
         <span>SENSEX sleeve selection · 2026</span>
       </div>
       <div class="fn-s">
@@ -1432,7 +1432,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
     <div class="sec-h rv">
       <span class="eyebrow">What QuantNifty is</span>
       <h2>An algo development and consulting firm.</h2>
-      <p class="lede">We are engineers, not advisors. We write trading software, test it honestly, and hand it over. The engines above are systems we built for our own capital, and the same work can be done for yours.</p>
+      <p class="lede">We are engineers, not advisors. We write trading software, test it honestly, and hand it over. The algos above are systems we built for our own capital, and the same work can be done for yours.</p>
     </div>
     <div class="srv">
       <div class="g sc rv">
@@ -1498,7 +1498,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
         <div class="abt-body">
           <p>The markets teach different lessons. Indian index options are dense with expiry-day flow and structural quirks; SPX is deeper and far less forgiving of sloppy execution. A strategy that only works in one session's microstructure usually isn't a strategy.</p>
 
-          <p>On the engineering side: data pipelines, broker API integrations, and live order-management systems with native stop-losses and failure handling. Every engine here was built in-house, along with the backtester, the execution layer and this website.</p>
+          <p>On the engineering side: data pipelines, broker API integrations, and live order-management systems with native stop-losses and failure handling. Every algo here was built in-house, along with the backtester, the execution layer and this website.</p>
 
           <p>Most trading-software shops can code but have never had money at risk. Most traders have conviction but no way to ship it. QuantNifty sits in the overlap, which is a narrower place than it sounds.</p>
         </div>
@@ -1543,7 +1543,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
 
       <details class="qa">
         <summary>What is a good Sharpe ratio?</summary>
-        <p>The Sharpe ratio measures return per unit of risk. Roughly speaking, a bank deposit sits near 0.3, buy-and-hold NIFTY near 0.6, a good equity mutual fund near 1.0, and a strong hedge fund near 2.0. Anything above 3 is rare. QuantNifty's backtested engines sit between 4.67 and 6.28 over their stated windows.</p>
+        <p>The Sharpe ratio measures return per unit of risk. Roughly speaking, a bank deposit sits near 0.3, buy-and-hold NIFTY near 0.6, a good equity mutual fund near 1.0, and a strong hedge fund near 2.0. Anything above 3 is rare. QuantNifty's backtested algos sit between 4.67 and 6.28 over their stated windows.</p>
       </details>
 
       <details class="qa">
@@ -1553,7 +1553,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
 
       <details class="qa">
         <summary>Are the returns on this page live or backtested?</summary>
-        <p>Backtested. Every figure is simulated on historical 1-minute data over the window stated on each engine, net of 0.2% slippage per fill, the cost of the protective hedge, and all statutory charges. A backtest is not a live track record. Live results will differ because of execution, liquidity, latency and changing market regimes.</p>
+        <p>Backtested. Every figure is simulated on historical 1-minute data over the window stated on each algo, net of 0.2% slippage per fill, the cost of the protective hedge, and all statutory charges. A backtest is not a live track record. Live results will differ because of execution, liquidity, latency and changing market regimes.</p>
       </details>
 
       <details class="qa">
@@ -1563,7 +1563,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
 
       <details class="qa">
         <summary>Do you use AI or machine learning in your trading systems?</summary>
-        <p>Yes, but in the research, not in the trading. Millions of versions of a strategy are generated and tested automatically against years of real market data, then filtered down to the few that still work on data they have never seen. The engines that go live are fixed rules: every entry, stop and exit is written in plain code you can read, so no model decides on its own when money moves. We also build learning systems for clients, including models that predict a signal and systems that detect which market conditions you are in.</p>
+        <p>Yes, but in the research, not in the trading. Millions of versions of a strategy are generated and tested automatically against years of real market data, then filtered down to the few that still work on data they have never seen. The algos that go live are fixed rules: every entry, stop and exit is written in plain code you can read, so no model decides on its own when money moves. We also build learning systems for clients, including models that predict a signal and systems that detect which market conditions you are in.</p>
       </details>
 
       <details class="qa">
@@ -1583,7 +1583,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
 
       <details class="qa">
         <summary>Which markets and instruments do you work with?</summary>
-        <p>Indian index derivatives: NIFTY 50 options on the NSE and SENSEX options on the BSE. The engines shown trade short-volatility structures on the index straddle, filtered by a rolling VWAP signal, with per-leg stop-losses.</p>
+        <p>Indian index derivatives: NIFTY 50 options on the NSE and SENSEX options on the BSE. The algos shown trade short-volatility structures on the index straddle, filtered by a rolling VWAP signal, with per-leg stop-losses.</p>
       </details>
     </div>
   </div>
@@ -1703,8 +1703,8 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       <summary>Disclosures and terms</summary>
       <div class="dbody">
         <p><strong>We are not SEBI registered.</strong> QuantNifty is not a SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. Nothing on this website is investment advice, a research report, or a recommendation to buy or sell any security.</p>
-        <p><strong>The engines shown are for our own use.</strong> Apex, Alpha and Whale are proprietary systems built and operated on our own capital. They are shown here to demonstrate engineering capability. They are not offered for subscription, licensing or sale, and we do not trade on anyone else's behalf.</p>
-        <p><strong>All figures are backtested.</strong> Performance shown is simulated on historical data over the windows stated on each engine, assuming ₹1 crore of deployed margin, 0.2% slippage per fill, the cost of the protective hedge and all statutory charges. A backtest is not a live track record. Past or simulated performance does not indicate future results. Live results will differ because of execution, liquidity, latency and changes in market regime.</p>
+        <p><strong>The algos shown are for our own use.</strong> Apex, Alpha and Whale are proprietary systems built and operated on our own capital. They are shown here to demonstrate engineering capability. They are not offered for subscription, licensing or sale, and we do not trade on anyone else's behalf.</p>
+        <p><strong>All figures are backtested.</strong> Performance shown is simulated on historical data over the windows stated on each algo, assuming ₹1 crore of deployed margin, 0.2% slippage per fill, the cost of the protective hedge and all statutory charges. A backtest is not a live track record. Past or simulated performance does not indicate future results. Live results will differ because of execution, liquidity, latency and changes in market regime.</p>
         <p><strong>What we sell is engineering.</strong> We are an algorithm development and consulting firm. Clients engage us to build, test and automate trading systems to their own specification. The client owns the strategy decision and bears the risk of trading it.</p>
         <p><strong>Derivatives carry substantial risk.</strong> Options trading can result in losses exceeding your initial capital. Pledging equity as collateral places those holdings at risk. Consult a SEBI-registered adviser and evaluate your own suitability before deploying capital.</p>
         <p>The full documents live on their own pages: <a href="/privacy" style="color:var(--b300)">Privacy Policy</a> and <a href="/terms" style="color:var(--b300)">Terms and Conditions</a>.</p>
