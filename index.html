@@ -181,6 +181,27 @@ section{padding:104px 0;scroll-margin-top:86px}
 .g:hover{transform:translateY(-4px);box-shadow:0 1px 2px rgba(8,16,42,.05),0 26px 60px -26px rgba(20,64,184,.4)}
 
 /* ---- double engine ---- */
+/* the analogy that sets up the double engine */
+.an{max-width:62ch;margin:0 auto 44px;text-align:center}
+.an h2{font-size:clamp(1.9rem,3.9vw,3rem);text-wrap:balance}
+.an .lede{margin:18px auto 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:52px}
+.tc{border-radius:var(--r);padding:30px 32px;border:1px solid rgba(20,64,184,.13);background:var(--paper)}
+.tc.idle{border-color:rgba(255,154,77,.34);background:linear-gradient(120deg,rgba(255,154,77,.08),rgba(255,154,77,.015))}
+.tc-k{font-family:var(--m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--b600)}
+.tc.idle .tc-k{color:#C96A16}
+.tc h3{margin-top:14px;font-size:clamp(1.05rem,1.6vw,1.32rem)}
+.tc dl{margin-top:20px}
+.tc .tr{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0;
+  border-bottom:1px solid rgba(20,64,184,.09);font-size:14.6px;color:var(--steel)}
+.tc .tr:last-child{border-bottom:0;padding-bottom:0}
+.tc .tr b{font-family:var(--m);font-size:15px;font-weight:500;color:var(--b600)}
+.tc .tr b.no{color:var(--amber)}
+.tc .tr b.yes{color:var(--mint)}
+.an-close{text-align:center;max-width:66ch;margin:0 auto 60px;font-family:var(--d);font-weight:700;
+  font-size:clamp(1.12rem,1.9vw,1.5rem);letter-spacing:-.02em;line-height:1.35;color:var(--ink);text-wrap:balance}
+@media(max-width:760px){.two{grid-template-columns:1fr;gap:16px;margin-bottom:40px}
+  .tc{padding:24px 22px}.an{margin-bottom:34px}.an-close{margin-bottom:44px}}
 .de-head{text-align:center;max-width:60ch;margin:0 auto 14px}
 .de-title{font-family:var(--d);font-weight:800;letter-spacing:-.045em;line-height:.98;
   font-size:clamp(2.6rem,6.2vw,4.8rem);margin:14px 0 20px}
@@ -1063,6 +1084,33 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
 <!-- ══════════ CONCEPT ══════════ -->
 <section id="concept" class="light">
   <div class="wrap">
+    <div class="an rv">
+      <span class="eyebrow">The idea in one picture</span>
+      <h2 style="margin-top:16px">Nobody buys a flat<br>and leaves it empty.</h2>
+      <p class="lede">Buy an investment property and you do two things with it. You let it appreciate, and you rent it out. One asset, two income streams. Everybody understands this.</p>
+    </div>
+
+    <div class="two rv">
+      <div class="tc">
+        <span class="tc-k">Property &middot; &#8377;1 crore</span>
+        <h3>Appreciates <span style="color:var(--mint)">and</span> earns rent</h3>
+        <dl>
+          <div class="tr"><dt>Capital appreciation</dt><b class="yes">yes</b></div>
+          <div class="tr"><dt>Rental income</dt><b class="yes">yes</b></div>
+        </dl>
+      </div>
+      <div class="tc idle">
+        <span class="tc-k">Portfolio &middot; &#8377;1 crore</span>
+        <h3>Appreciates. Earns <span style="color:var(--amber)">nothing else</span>.</h3>
+        <dl>
+          <div class="tr"><dt>Capital appreciation</dt><b class="yes">yes</b></div>
+          <div class="tr"><dt>Income from the <strong style="color:var(--mint);font-weight:600">interest-free</strong> margin behind it</dt><b class="no">nothing</b></div>
+        </dl>
+      </div>
+    </div>
+
+    <p class="an-close rv">Pledging your holdings is the equivalent of renting out the flat. You still own it. It still appreciates. It now also produces income.</p>
+
     <div class="de-head rv">
       <span class="eyebrow">How it works</span>
       <h2 class="de-title">The <span>Double&nbsp;Engine</span></h2>
