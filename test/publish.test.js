@@ -1,4 +1,4 @@
-// api/live/publish.test.js
+// test/publish.test.js
 // Unit tests for the publish route's auth and shape validation. Only the
 // success path touches kv.set, and @vercel/kv is mocked so the whole suite
 // runs without a network call or KV credentials.
@@ -17,7 +17,7 @@ mock.module('@vercel/kv', {
   },
 });
 
-const { default: handler } = await import('./publish.js');
+const { default: handler } = await import('../api/live/publish.js');
 
 const GOOD_KEY = 'a'.repeat(64);
 process.env.QN_LIVE_PUBLISH_KEY = GOOD_KEY;
