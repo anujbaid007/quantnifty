@@ -2,3 +2,6 @@
 node_modules/
 .vercel
 *.log
+
+# SDD scratch: ledger, briefs, review packages
+.superpowers/
