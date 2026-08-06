@@ -229,3 +229,57 @@ test('unknown field inside a block returns 400', async () => {
   await handler(req, res);
   assert.equal(res.statusCode, 400);
 });
+
+test('string value in spot (numeric field) returns 400', async () => {
+  const body = clone(VALID_BODY);
+  body.indices.NIFTY.spot = 'not a number';
+  const req = makeReq({ headers: { 'x-qn-key': GOOD_KEY }, body });
+  const res = makeRes();
+  await handler(req, res);
+  assert.equal(res.statusCode, 400);
+});
+
+test('string value in atm (numeric field) returns 400', async () => {
+  const body = clone(VALID_BODY);
+  body.indices.NIFTY.atm = 'not a number';
+  const req = makeReq({ headers: { 'x-qn-key': GOOD_KEY }, body });
+  const res = makeRes();
+  await handler(req, res);
+  assert.equal(res.statusCode, 400);
+});
+
+test('string value in basis (numeric field) returns 400', async () => {
+  const body = clone(VALID_BODY);
+  body.indices.NIFTY.basis = 'not a number';
+  const req = makeReq({ headers: { 'x-qn-key': GOOD_KEY }, body });
+  const res = makeRes();
+  await handler(req, res);
+  assert.equal(res.statusCode, 400);
+});
+
+test('unknown quality value returns 400', async () => {
+  const body = clone(VALID_BODY);
+  body.indices.NIFTY.quality = 'unknown';
+  const req = makeReq({ headers: { 'x-qn-key': GOOD_KEY }, body });
+  const res = makeRes();
+  await handler(req, res);
+  assert.equal(res.statusCode, 400);
+});
+
+test('malformed expiry (missing leading zero) returns 400', async () => {
+  const body = clone(VALID_BODY);
+  body.indices.NIFTY.expiry = '2026-8-06';
+  const req = makeReq({ headers: { 'x-qn-key': GOOD_KEY }, body });
+  const res = makeRes();
+  await handler(req, res);
+  assert.equal(res.statusCode, 400);
+});
+
+test('malformed expiry (wrong format) returns 400', async () => {
+  const body = clone(VALID_BODY);
+  body.indices.NIFTY.expiry = '06/08/2026';
+  const req = makeReq({ headers: { 'x-qn-key': GOOD_KEY }, body });
+  const res = makeRes();
+  await handler(req, res);
+  assert.equal(res.statusCode, 400);
+});

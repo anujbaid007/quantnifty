@@ -12,6 +12,9 @@ const ALLOWED_INDEX = new Set([
   'spot', 'synthetic', 'basis', 'basis_pct', 'basis_annualised_pct',
   'expiry', 'atm', 'strikes_used', 'quality',
 ]);
+const NUMERIC_FIELDS = new Set(['spot', 'synthetic', 'basis', 'basis_pct', 'basis_annualised_pct', 'atm', 'strikes_used']);
+const VALID_QUALITIES = new Set(['ok', 'wide', 'stale']);
+const EXPIRY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
 function isPlainObject(x) {
   return typeof x === 'object' && x !== null && !Array.isArray(x);
@@ -64,7 +67,18 @@ export default async function handler(req, res) {
     for (const k of Object.keys(block)) {
       if (!ALLOWED_INDEX.has(k)) return res.status(400).end();
     }
-    if (!Number.isFinite(block.synthetic) || !Number.isFinite(block.spot)) {
+    // Validate all numeric fields
+    for (const field of NUMERIC_FIELDS) {
+      if (!Number.isFinite(block[field])) {
+        return res.status(400).end();
+      }
+    }
+    // Validate quality enum
+    if (block.quality !== undefined && !VALID_QUALITIES.has(block.quality)) {
+      return res.status(400).end();
+    }
+    // Validate expiry format
+    if (block.expiry !== undefined && !EXPIRY_PATTERN.test(block.expiry)) {
       return res.status(400).end();
     }
   }

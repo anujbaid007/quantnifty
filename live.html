@@ -101,30 +101,107 @@ header .brand{color:#fff}.hd nav a{color:rgba(233,240,255,.72)}
       statusText=document.getElementById('statusText'),
       last=null;
 
-  function num(v,d){return v==null?'--':v.toFixed(d===undefined?2:d)}
+  function num(v,d){
+    if(!Number.isFinite(v))return'--';
+    return v.toFixed(d===undefined?2:d);
+  }
   function signed(v){return (v>0?'+':'')+num(v)}
 
   function card(name,b){
     var cls=b.basis>0?'pos':(b.basis<0?'neg':'');
-    return '<div class="lc">'
-      + '<h2>'+name+'</h2>'
-      + '<div class="big">'+num(b.synthetic)+'</div>'
-      + '<div class="cap">Synthetic future, from option prices</div>'
-      + '<div style="margin-top:22px">'
-      + '<div class="row"><span>Spot</span><b>'+num(b.spot)+'</b></div>'
-      + '<div class="row"><span>Basis</span><b class="'+cls+'">'+signed(b.basis)+'</b></div>'
-      + '<div class="row"><span>Basis, annualised</span><b class="'+cls+'">'+signed(b.basis_annualised_pct)+'%</b></div>'
-      + '<div class="row"><span>ATM strike</span><b>'+b.atm+'</b></div>'
-      + '<div class="row"><span>Expiry</span><b>'+(b.expiry||'--')+'</b></div>'
-      + '</div>'
-      + '<div class="meta">'+b.strikes_used+' of 3 strikes used &middot; '+b.quality+'</div>'
-      + '</div>';
+    var div=document.createElement('div');
+    div.className='lc';
+
+    var h2=document.createElement('h2');
+    h2.textContent=name;
+    div.appendChild(h2);
+
+    var big=document.createElement('div');
+    big.className='big';
+    big.textContent=num(b.synthetic);
+    div.appendChild(big);
+
+    var cap=document.createElement('div');
+    cap.className='cap';
+    cap.textContent='Synthetic future, from option prices';
+    div.appendChild(cap);
+
+    var rows=document.createElement('div');
+    rows.style.marginTop='22px';
+
+    var rowSpot=document.createElement('div');
+    rowSpot.className='row';
+    var spotSpan=document.createElement('span');
+    spotSpan.textContent='Spot';
+    var spotB=document.createElement('b');
+    spotB.textContent=num(b.spot);
+    rowSpot.appendChild(spotSpan);
+    rowSpot.appendChild(spotB);
+    rows.appendChild(rowSpot);
+
+    var rowBasis=document.createElement('div');
+    rowBasis.className='row';
+    var basisSpan=document.createElement('span');
+    basisSpan.textContent='Basis';
+    var basisB=document.createElement('b');
+    basisB.className=cls;
+    basisB.textContent=signed(b.basis);
+    rowBasis.appendChild(basisSpan);
+    rowBasis.appendChild(basisB);
+    rows.appendChild(rowBasis);
+
+    var rowAnnual=document.createElement('div');
+    rowAnnual.className='row';
+    var annualSpan=document.createElement('span');
+    annualSpan.textContent='Basis, annualised';
+    var annualB=document.createElement('b');
+    annualB.className=cls;
+    annualB.textContent=signed(b.basis_annualised_pct)+'%';
+    rowAnnual.appendChild(annualSpan);
+    rowAnnual.appendChild(annualB);
+    rows.appendChild(rowAnnual);
+
+    var rowATM=document.createElement('div');
+    rowATM.className='row';
+    var atmSpan=document.createElement('span');
+    atmSpan.textContent='ATM strike';
+    var atmB=document.createElement('b');
+    atmB.textContent=num(b.atm||null);
+    rowATM.appendChild(atmSpan);
+    rowATM.appendChild(atmB);
+    rows.appendChild(rowATM);
+
+    var rowExpiry=document.createElement('div');
+    rowExpiry.className='row';
+    var expirySpan=document.createElement('span');
+    expirySpan.textContent='Expiry';
+    var expiryB=document.createElement('b');
+    expiryB.textContent=b.expiry||'--';
+    rowExpiry.appendChild(expirySpan);
+    rowExpiry.appendChild(expiryB);
+    rows.appendChild(rowExpiry);
+
+    div.appendChild(rows);
+
+    var meta=document.createElement('div');
+    meta.className='meta';
+    var strikesUsed=b.strikes_used!==undefined?b.strikes_used:'--';
+    var quality=b.quality||'--';
+    meta.textContent=strikesUsed+' of 3 strikes used '+String.fromCharCode(183)+' '+quality;
+    div.appendChild(meta);
+
+    return div;
   }
 
   function render(p){
-    cards.innerHTML=['NIFTY','SENSEX']
-      .filter(function(k){return p.indices&&p.indices[k]})
-      .map(function(k){return card(k,p.indices[k])}).join('');
+    var fragment=document.createDocumentFragment();
+    ['NIFTY','SENSEX'].forEach(function(k){
+      if(p.indices&&p.indices[k]){
+        fragment.appendChild(card(k,p.indices[k]));
+      }
+    });
+    cards.innerHTML='';
+    cards.appendChild(fragment);
   }
 
   function stamp(p){
@@ -141,8 +218,13 @@ header .brand{color:#fff}.hd nav a{color:rgba(233,240,255,.72)}
     fetch('/api/live',{cache:'no-store'})
       .then(function(r){return r.status===204?null:r.json()})
       .then(function(p){
-        if(!p){statusText.textContent='starting up';return}
-        last=p; render(p); stamp(p);
+        if(!p){dot.className='dot';statusText.textContent='starting up';return}
+        last=p;
+        try{render(p);}catch(e){
+          statusText.textContent='render error';
+          return;
+        }
+        stamp(p);
       })
       .catch(function(){
         // keep whatever is on screen rather than blanking it
