@@ -5,3 +5,7 @@ node_modules/
 
 # SDD scratch: ledger, briefs, review packages
 .superpowers/
+
+# regenerated chart data, pasted into index.html by hand
+tools/out/
+.playwright-mcp/
