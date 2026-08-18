@@ -46,9 +46,15 @@ main{padding:52px 0 76px}
 .toc b{display:block;font-family:var(--m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--steel);margin-bottom:12px;font-weight:500}
 .toc ol{list-style:none;counter-reset:t;columns:2;column-gap:32px}
-.toc li{counter-increment:t;margin-bottom:7px;font-size:14.5px;break-inside:avoid}
+.toc li{counter-increment:t;margin-bottom:7px;font-size:14.5px;break-inside:avoid;padding-left:0}
+/* The generic `li::before` further down paints the round bullet used in body
+   lists. It is absolutely positioned with a background and a fixed height, and
+   this rule only wins on the properties it restates, so those three leaked in
+   and rendered the counter as a blue blob with the digits spilling below it.
+   Reset them explicitly: the number is inline text, not a bullet. */
 .toc li::before{content:counter(t,decimal-leading-zero);font-family:var(--m);font-size:12px;font-variant-numeric:tabular-nums;
-  color:var(--b400);display:inline-block;width:23px;vertical-align:baseline}
+  color:var(--b400);display:inline-block;width:23px;vertical-align:baseline;
+  position:static;background:none;border-radius:0;height:auto}
 .toc a{color:var(--ink2)}
 
 section{margin-bottom:38px;scroll-margin-top:86px}
