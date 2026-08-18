@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What Is a Good Sharpe Ratio? Reference Points, and How It Gets Inflated</title>
+<meta name="description" content="What the Sharpe ratio measures, honest reference points from bank deposits to hedge funds, why annual return on its own tells you nothing, and the four ways a Sharpe ratio gets quietly inflated in trading strategy marketing.">
+<link rel="canonical" href="https://quantnifty.com/guides/sharpe-ratio">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="theme-color" content="#04091A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What Is a Good Sharpe Ratio?">
+<meta property="og:description" content="Reference points from bank deposits to hedge funds, and the four ways a Sharpe ratio gets inflated.">
+<meta property="og:url" content="https://quantnifty.com/guides/sharpe-ratio">
+<meta property="og:image" content="https://quantnifty.com/og.png">
+<meta property="og:site_name" content="QuantNifty">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What is a good Sharpe ratio?">
+<meta name="twitter:description" content="Reference points, and how the number gets inflated.">
+<meta name="twitter:image" content="https://quantnifty.com/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter+Tight:wght@400;500;600;650&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/legal.css">
+<link rel="stylesheet" href="/guide.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://quantnifty.com/guides/sharpe-ratio#article",
+      "headline": "What Is a Good Sharpe Ratio? Reference Points, and How It Gets Inflated",
+      "description": "What the Sharpe ratio measures, reference points from bank deposits to hedge funds, and the ways the number gets inflated in trading strategy marketing.",
+      "inLanguage": "en-IN",
+      "datePublished": "2026-08-18",
+      "dateModified": "2026-08-18",
+      "author": { "@id": "https://quantnifty.com/#anuj" },
+      "publisher": { "@id": "https://quantnifty.com/#org" },
+      "image": "https://quantnifty.com/og.png",
+      "mainEntityOfPage": { "@id": "https://quantnifty.com/guides/sharpe-ratio#page" },
+      "about": [
+        { "@type": "Thing", "name": "Sharpe ratio" },
+        { "@type": "Thing", "name": "Risk-adjusted return" },
+        { "@type": "Thing", "name": "Maximum drawdown" }
+      ],
+      "isPartOf": { "@id": "https://quantnifty.com/#site" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://quantnifty.com/guides/sharpe-ratio#page",
+      "url": "https://quantnifty.com/guides/sharpe-ratio",
+      "name": "What is a good Sharpe ratio?",
+      "isPartOf": { "@id": "https://quantnifty.com/#site" },
+      "inLanguage": "en-IN",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://quantnifty.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://quantnifty.com/guides" },
+          { "@type": "ListItem", "position": 3, "name": "Sharpe ratio", "item": "https://quantnifty.com/guides/sharpe-ratio" }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://quantnifty.com/guides/sharpe-ratio#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a good Sharpe ratio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "As rough reference points: a bank deposit sits around 0.3, buy-and-hold on a broad equity index around 0.6, a good equity mutual fund around 1.0, and a strong hedge fund around 2.0. Anything sustained above 3 is rare and deserves scrutiny rather than admiration. Above roughly 4, the first question should be what is wrong with the measurement, not how skilled the manager is."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the Sharpe ratio actually measure?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It measures return per unit of volatility, above the risk-free rate. In plain terms, it asks how much you were compensated for the bumpiness of the ride. A strategy returning 20% with steady month-to-month results has a higher Sharpe ratio than one returning 20% through wild swings, because the second took more risk to reach the same place."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is annual return a bad way to judge a strategy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because return can be increased simply by taking more risk, and leverage scales return without improving the strategy at all. Two systems posting identical annual returns can carry entirely different drawdown profiles. Return tells you where a strategy arrived; it says nothing about whether you could have stayed invested through the journey, which is what actually determines your result."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does a Sharpe ratio get inflated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Four common ways: measuring over a short or unusually favourable period; ignoring transaction costs and slippage so gross returns stand in for net; using infrequent valuation, which smooths away volatility that was actually experienced; and selecting the best result from a large search, where a high Sharpe ratio is the expected output of noise rather than evidence of edge."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <a href="/" class="brand">
+      <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+      QuantNifty
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/guides">Guides</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="mast">
+  <div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/guides">Guides</a> <span>/</span> Sharpe ratio
+    </nav>
+    <span class="kicker">Measurement</span>
+    <h1>Return is loud. Sharpe is honest.</h1>
+    <p class="sub">Anyone can raise a return by taking more risk. The only interesting question is how much
+      risk was taken to get there &mdash; and whether you could have stayed in the seat.</p>
+    <div class="byline">
+      <span>By Anuj Baid</span><span class="dot"></span>
+      <span>Updated 18 August 2026</span><span class="dot"></span>
+      <span>8 min read</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <div class="answer">
+      <b class="lab">Short answer</b>
+      <p>The Sharpe ratio measures return per unit of volatility above the risk-free rate &mdash; how much
+        you were paid for the bumpiness of the ride. Useful reference points: bank deposit around 0.3,
+        buy-and-hold equity index around 0.6, good equity mutual fund around 1.0, strong hedge fund around
+        2.0. Above 3 is rare. Above 4, the correct first reaction is to look for the measurement error, not
+        to be impressed.</p>
+    </div>
+
+    <div class="toc">
+      <b>On this page</b>
+      <ol>
+        <li><a href="#why">Why return alone misleads</a></li>
+        <li><a href="#what">What Sharpe measures</a></li>
+        <li><a href="#reference">Reference points</a></li>
+        <li><a href="#inflated">Four ways it gets inflated</a></li>
+        <li><a href="#blind">What Sharpe cannot see</a></li>
+        <li><a href="#drawdown">Read it with drawdown</a></li>
+        <li><a href="#sizing">Sharpe, leverage and sizing</a></li>
+        <li><a href="#faq">Questions people ask</a></li>
+      </ol>
+    </div>
+
+    <section id="why">
+      <h2><i>01</i>Why return alone misleads</h2>
+      <p>Suppose two strategies both return 40% over a year. The first grinds out small gains most months
+        with a worst month of &minus;3%. The second doubles in three months, loses 35% in one, and recovers.
+        Same destination, entirely different instruments.</p>
+      <p>The difference matters for a practical reason rather than an aesthetic one: <strong>you have to
+        still be holding the strategy at the end for the return to be yours.</strong> Most people exit the
+        second strategy during the &minus;35% month, often near the bottom, and realise a loss where the
+        chart shows a gain. Risk-adjusted measures exist because the path determines the outcome you
+        actually get.</p>
+      <p>Return is also trivially manipulable. Double the position size and the return roughly doubles. No
+        skill has been added; only leverage. Any metric that rewards this cannot distinguish a good
+        strategy from a large one.</p>
+    </section>
+
+    <section id="what">
+      <h2><i>02</i>What Sharpe measures</h2>
+      <p>The Sharpe ratio takes the return earned above the risk-free rate and divides it by the volatility
+        of those returns. Higher is better: more excess return for each unit of variability.</p>
+      <p>Its central virtue is that it is <strong>scale-invariant</strong>. Doubling position size roughly
+        doubles both return and volatility, so the ratio is unchanged. Leverage cannot inflate it. That is
+        exactly the property return lacks, and it is why Sharpe is the first number worth asking for.</p>
+      <div class="note">
+        <b class="lab">A practical consequence</b>
+        <p>Because Sharpe does not change with position size, a strategy's Sharpe ratio tells you about the
+          quality of the edge, while position sizing tells you about the risk you have chosen to take. These
+          are separate decisions. A strategy sized down to fit a drawdown ceiling has the same Sharpe ratio
+          as the same strategy sized up &mdash; it simply moves along one risk-return line.</p>
+      </div>
+    </section>
+
+    <section id="reference">
+      <h2><i>03</i>Reference points</h2>
+      <p>Sharpe ratios are meaningless without calibration. Approximate long-run reference points:</p>
+      <div class="tscroll">
+      <table>
+        <thead><tr><th>Instrument</th><th>Approximate Sharpe</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>Bank fixed deposit</td><td>~0.3</td><td>Low return, low volatility</td></tr>
+          <tr><td>Buy-and-hold equity index</td><td>~0.6</td><td>The market's own reward for risk</td></tr>
+          <tr><td>Good equity mutual fund</td><td>~1.0</td><td>Meaningfully better than the index</td></tr>
+          <tr><td>Strong hedge fund</td><td>~2.0</td><td>Genuinely excellent</td></tr>
+          <tr><td>Above 3</td><td>Rare</td><td>Verify before believing</td></tr>
+          <tr><td>Above 4</td><td>Very rare</td><td>Assume a measurement issue until ruled out</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>These are rough and depend on measurement period and frequency, but the ordering is stable and the
+        orders of magnitude are right. The useful takeaway is that a claimed Sharpe of 1.5 is a strong
+        result, and a claimed Sharpe of 6 requires an explanation.</p>
+      <div class="note warn">
+        <b class="lab">Applied to our own numbers</b>
+        <p>The backtested Sharpe ratios published on this site sit above 4. By the standard we have just
+          laid out, that is exactly the range where you should ask what is wrong with the measurement. The
+          honest answers: these are <strong>backtested</strong> figures rather than a live track record, they
+          come from intraday strategies whose returns are measured at high frequency over a limited number of
+          sessions, and they were selected from a very large search. Every one of those factors tends to
+          raise a Sharpe ratio. We publish the drawdown, the session count and the date window alongside them
+          precisely so the number can be discounted appropriately rather than taken at face value.</p>
+      </div>
+    </section>
+
+    <section id="inflated">
+      <h2><i>04</i>Four ways it gets inflated</h2>
+      <ul>
+        <li><strong>Short or flattering measurement periods.</strong> A strategy measured across a stretch
+          that happened to suit it will show a Sharpe ratio it cannot sustain. Always ask for the window and
+          the number of observations.</li>
+        <li><strong>Gross rather than net returns.</strong> Omitting brokerage, statutory charges and
+          slippage raises return without raising volatility, which raises Sharpe directly. This is the single
+          most common inflation in retail strategy marketing.</li>
+        <li><strong>Infrequent valuation.</strong> Measuring returns monthly instead of daily smooths away
+          volatility that was genuinely experienced. The ride was not calmer; you simply looked less often.</li>
+        <li><strong>Selection from a large search.</strong> Test enough configurations and some will show a
+          high Sharpe ratio through luck alone. This is the most dangerous case, because nothing was
+          falsified &mdash; the number is real, it just does not generalise. It is why we test whether
+          in-sample ranking predicts out-of-sample ranking at all; in one search across 3.2 million
+          configurations, that correlation was &minus;0.001. See
+          <a href="/guides/options-backtesting">honest backtesting</a>.</li>
+      </ul>
+    </section>
+
+    <section id="blind">
+      <h2><i>05</i>What Sharpe cannot see</h2>
+      <p>Sharpe treats upside and downside variation identically. A strategy that occasionally surges gets
+        penalised the same as one that occasionally collapses, which is not how anyone actually experiences
+        risk.</p>
+      <p>More seriously, it handles asymmetric return distributions poorly &mdash; and short-option
+        strategies are the textbook case. Collecting small premiums consistently produces low measured
+        volatility and therefore a high Sharpe ratio, right up until the rare large loss the structure was
+        always exposed to. <strong>A high Sharpe ratio on a short-volatility strategy is partly a
+        description of the risk that has not yet materialised.</strong></p>
+      <p>This is not a reason to discard the metric. It is a reason never to use it alone.</p>
+    </section>
+
+    <section id="drawdown">
+      <h2><i>06</i>Read it with drawdown</h2>
+      <p>Maximum drawdown &mdash; the largest peak-to-trough fall over the period &mdash; answers the
+        question Sharpe cannot: how bad did it actually get?</p>
+      <p>Together the two are much harder to fake. A high Sharpe ratio with a large drawdown indicates
+        smooth returns punctuated by something severe. A high Sharpe ratio with a small drawdown is a
+        stronger claim, and correspondingly needs stronger evidence: a long window, many observations, and a
+        clear account of how the strategy was selected.</p>
+      <p>The ratio of annual return to maximum drawdown is a useful companion. It expresses roughly how much
+        return you received for the worst pain you had to sit through, and unlike Sharpe it is expressed in
+        units anyone can feel.</p>
+    </section>
+
+    <section id="sizing">
+      <h2><i>07</i>Sharpe, leverage and sizing</h2>
+      <p>Because Sharpe is scale-invariant, it defines a line rather than a point. A strategy with a given
+        Sharpe ratio can be run at many sizes; each size delivers a different return and a proportionally
+        different drawdown, but the same risk-adjusted quality.</p>
+      <p>This is what makes drawdown-targeted sizing coherent. You choose the maximum drawdown you are
+        willing to tolerate, and position size follows from it. The strategy is not made safer or more
+        aggressive &mdash; only larger or smaller along a fixed line. Sharpe is what tells you whether that
+        line is worth being on at all.</p>
+      <p>The practical discipline: decide the drawdown ceiling first, in advance, in writing. Sizing chosen
+        after seeing an attractive return figure is not risk management, it is optimism.</p>
+    </section>
+
+    <section id="faq">
+      <h2><i>08</i>Questions people ask</h2>
+      <div class="faq">
+        <details>
+          <summary>What is a good Sharpe ratio?</summary>
+          <p>Rough reference points: bank deposit ~0.3, buy-and-hold equity index ~0.6, good equity mutual
+            fund ~1.0, strong hedge fund ~2.0. Sustained above 3 is rare and deserves scrutiny. Above about 4,
+            look for the measurement issue before being impressed.</p>
+        </details>
+        <details>
+          <summary>What does the Sharpe ratio actually measure?</summary>
+          <p>Return per unit of volatility, above the risk-free rate &mdash; how much you were compensated for
+            the bumpiness of the ride. A strategy returning 20% steadily scores higher than one returning 20%
+            through wild swings, because the second took more risk to reach the same place.</p>
+        </details>
+        <details>
+          <summary>Why is annual return a bad way to judge a strategy?</summary>
+          <p>Because return rises with risk, and leverage scales it without improving anything. Two strategies
+            with identical returns can carry completely different drawdowns. Return tells you where a strategy
+            arrived, not whether you could have stayed invested through the journey &mdash; and staying
+            invested is what determines the return you actually receive.</p>
+        </details>
+        <details>
+          <summary>How does a Sharpe ratio get inflated?</summary>
+          <p>Short or favourable measurement periods; gross rather than net returns; infrequent valuation that
+            smooths away real volatility; and selection of the best result from a large search, where a high
+            Sharpe ratio is what noise produces rather than evidence of edge.</p>
+        </details>
+        <details>
+          <summary>Is a Sharpe ratio above 4 believable?</summary>
+          <p>Occasionally, for short-horizon intraday strategies measured at high frequency &mdash; but it
+            should never be accepted without the window, the number of observations, whether it is net of all
+            costs, whether it is backtested or live, and how many candidates were searched before this one was
+            chosen. Ours are backtested, and we publish those details alongside.</p>
+        </details>
+      </div>
+    </section>
+
+    <div class="note warn">
+      <b class="lab">Important</b>
+      <p>QuantNifty is an algorithm development and consulting firm. We are <strong>not</strong> a
+        SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. This page is
+        educational and is not investment advice. Performance figures referenced on this site are
+        <strong>backtested</strong>, not a live track record. Options trading can lose more than your initial
+        capital. Full risk disclosure is in our <a href="/terms">Terms</a>.</p>
+    </div>
+
+    <div class="related">
+      <b class="lab">Read next</b>
+      <ul>
+        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a> &mdash; where inflated Sharpe ratios come from</li>
+        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a> &mdash; why short-vol Sharpe flatters</li>
+        <li><a href="/guides/pledged-margin-algo-trading">Pledged margin for algo trading</a> &mdash; sizing against a drawdown ceiling</li>
+        <li><a href="/guides/0-dte-options-india">0 DTE and 1 DTE options</a> &mdash; the risk Sharpe cannot see</li>
+      </ul>
+    </div>
+
+    <div class="cta">
+      <h2>Want the number checked, not sold to you?</h2>
+      <p>We will tell you what a strategy's Sharpe ratio survives once costs, slippage and out-of-sample
+        testing are applied &mdash; including when the answer is that it does not.</p>
+      <a class="btn" href="/#contact">Tell us what you want tested</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <a href="/" class="brand" style="color:#fff">
+        <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+        QuantNifty
+      </a>
+      <nav class="fnav">
+        <a href="/">Home</a>
+        <a href="/guides">Guides</a>
+        <a href="/#ai">AI</a>
+        <a href="/#about">About</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="https://www.linkedin.com/company/quantnifty" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://wa.me/919601443663" target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
+    </div>
+    <div class="fb">
+      <span>&copy; 2026 QuantNifty. All rights reserved.</span>
+      <span>Not a SEBI-registered Research Analyst or Investment Adviser.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

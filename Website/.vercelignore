@@ -1,0 +1,14 @@
+# repo documentation, not part of the site
+README.md
+DNS-SETUP.md
+deck/README.md
+output
+docs
+tools
+
+# The /live page and its endpoints stay in git but off the site. They need a KV
+# store bound to the project and a publisher feeding it; without those the page
+# is a permanent "connection lost". Remove these three lines to ship it.
+live.html
+api
+test

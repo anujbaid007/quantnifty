@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SENSEX Options Algo Trading: How BSE's Contract Differs From NIFTY</title>
+<meta name="description" content="How SENSEX options on the BSE differ from NIFTY options on the NSE for systematic trading: liquidity, contract specifications, expiry cycles, execution quality, and why running both indices diversifies a short-volatility book.">
+<link rel="canonical" href="https://quantnifty.com/guides/sensex-options-algo">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="theme-color" content="#04091A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SENSEX Options Algo Trading: How BSE's Contract Differs From NIFTY">
+<meta property="og:description" content="Liquidity, contract specs, expiry cycles and why running both indices diversifies a systematic book.">
+<meta property="og:url" content="https://quantnifty.com/guides/sensex-options-algo">
+<meta property="og:image" content="https://quantnifty.com/og.png">
+<meta property="og:site_name" content="QuantNifty">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SENSEX options algo trading">
+<meta name="twitter:description" content="How BSE's contract differs from NIFTY, and why running both diversifies.">
+<meta name="twitter:image" content="https://quantnifty.com/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter+Tight:wght@400;500;600;650&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/legal.css">
+<link rel="stylesheet" href="/guide.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://quantnifty.com/guides/sensex-options-algo#article",
+      "headline": "SENSEX Options Algo Trading: How BSE's Contract Differs From NIFTY",
+      "description": "How SENSEX options on the BSE differ from NIFTY options on the NSE for systematic trading, and why running both indices diversifies a short-volatility book.",
+      "inLanguage": "en-IN",
+      "datePublished": "2026-08-18",
+      "dateModified": "2026-08-18",
+      "author": { "@id": "https://quantnifty.com/#anuj" },
+      "publisher": { "@id": "https://quantnifty.com/#org" },
+      "image": "https://quantnifty.com/og.png",
+      "mainEntityOfPage": { "@id": "https://quantnifty.com/guides/sensex-options-algo#page" },
+      "about": [
+        { "@type": "Thing", "name": "SENSEX options" },
+        { "@type": "Thing", "name": "BSE derivatives" },
+        { "@type": "Thing", "name": "Algorithmic trading" }
+      ],
+      "isPartOf": { "@id": "https://quantnifty.com/#site" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://quantnifty.com/guides/sensex-options-algo#page",
+      "url": "https://quantnifty.com/guides/sensex-options-algo",
+      "name": "SENSEX options algo trading",
+      "isPartOf": { "@id": "https://quantnifty.com/#site" },
+      "inLanguage": "en-IN",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://quantnifty.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://quantnifty.com/guides" },
+          { "@type": "ListItem", "position": 3, "name": "SENSEX options algo", "item": "https://quantnifty.com/guides/sensex-options-algo" }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://quantnifty.com/guides/sensex-options-algo#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the difference between NIFTY and SENSEX options?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NIFTY 50 options trade on the NSE and track a 50-stock index; SENSEX options trade on the BSE and track a 30-stock index. The two indices are highly correlated because they share most of their largest constituents, but they differ in contract specifications, lot size, strike intervals, expiry schedule and liquidity profile. For a systematic trader the practical differences are execution quality and the fact that their expiry cycles fall on different days."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is SENSEX or NIFTY better for algo trading?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Neither is uniformly better. NIFTY generally offers deeper liquidity across a wider range of strikes, which usually means tighter spreads and lower slippage. SENSEX offers a separate expiry cycle and a different participant mix, which can present opportunities NIFTY does not. Most systematic books that run both do so for diversification of expiry timing rather than because one index is superior."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does running both NIFTY and SENSEX actually diversify?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Partially, and it is important to be precise about how. The two indices are highly correlated, so a strategy running the same signals on both is not diversified against a market-wide shock — a sharp fall hurts both books simultaneously. What running both does diversify is timing and execution: different expiry days spread event risk across the week and reduce dependence on any single session or venue."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should you check before running an algo on SENSEX options?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Confirm the current contract specification with the exchange rather than assuming it matches NIFTY — lot size, strike interval, expiry day and tick size have all been revised at various points. Check strike liquidity at the distances your strategy actually trades, not just at the money. Verify your broker supports BSE derivatives through the same API path. And backtest on SENSEX data specifically; parameters fitted on NIFTY do not transfer."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <a href="/" class="brand">
+      <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+      QuantNifty
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/guides">Guides</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="mast">
+  <div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/guides">Guides</a> <span>/</span> SENSEX options algo
+    </nav>
+    <span class="kicker">Instrument</span>
+    <h1>Two indices that move together, and expire apart.</h1>
+    <p class="sub">SENSEX is not a second NIFTY. The correlation is high enough that it diversifies less
+      than people hope, and the differences are real enough that parameters do not transfer.</p>
+    <div class="byline">
+      <span>By Anuj Baid</span><span class="dot"></span>
+      <span>Updated 18 August 2026</span><span class="dot"></span>
+      <span>8 min read</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <div class="answer">
+      <b class="lab">Short answer</b>
+      <p>SENSEX options trade on the BSE and track a 30-stock index; NIFTY 50 options trade on the NSE and
+        track 50. They share most large constituents and are highly correlated, so running the same strategy
+        on both does <em>not</em> protect you from a market-wide shock. What it does diversify is timing:
+        the two carry separate expiry cycles, which spreads event risk across the week. The differences that
+        matter operationally are liquidity depth, contract specifications and execution quality &mdash; and
+        parameters fitted on one index should never be assumed to hold on the other.</p>
+    </div>
+
+    <div class="toc">
+      <b>On this page</b>
+      <ol>
+        <li><a href="#indices">Two indices, one market</a></li>
+        <li><a href="#specs">Contract specifications</a></li>
+        <li><a href="#liquidity">Liquidity and execution</a></li>
+        <li><a href="#expiry">Separate expiry cycles</a></li>
+        <li><a href="#diversify">What running both really diversifies</a></li>
+        <li><a href="#transfer">Why parameters do not transfer</a></li>
+        <li><a href="#checklist">Before you deploy on SENSEX</a></li>
+        <li><a href="#faq">Questions people ask</a></li>
+      </ol>
+    </div>
+
+    <section id="indices">
+      <h2><i>01</i>Two indices, one market</h2>
+      <p>The SENSEX tracks 30 large companies on the BSE. The NIFTY 50 tracks 50 on the NSE. The
+        constituent lists overlap heavily at the top, and both are dominated by the same handful of very
+        large companies, which is why the two indices move together closely on almost every session.</p>
+      <p>For a systematic trader, that correlation is the single most important fact, and it cuts against
+        the most common reason people give for trading both. If your motivation is "diversification," be
+        precise about what kind. Two highly correlated indices do not diversify directional or volatility
+        risk in any meaningful sense.</p>
+    </section>
+
+    <section id="specs">
+      <h2><i>02</i>Contract specifications</h2>
+      <p>The contracts differ in ways that directly affect position sizing and strike selection: index
+        level, lot size, strike interval, tick size and expiry schedule.</p>
+      <div class="note warn">
+        <b class="lab">Do not hard-code these</b>
+        <p>Lot sizes, strike intervals and expiry days for Indian index derivatives have been revised
+          several times, on both exchanges. Any figure quoted in an article &mdash; including one written
+          today &mdash; will eventually be wrong. Contract specifications belong in configuration sourced from
+          the exchange, not in constants in your strategy code. Confirm the current specification with the BSE
+          before sizing anything.</p>
+      </div>
+      <p>The practical consequence of differing index levels and lot sizes is that a position on SENSEX and a
+        position on NIFTY of the same nominal lot count represent different amounts of exposure. Sizing must
+        be computed from notional value, not from lot count, or the two sleeves in a combined book will be
+        unintentionally unbalanced.</p>
+    </section>
+
+    <section id="liquidity">
+      <h2><i>03</i>Liquidity and execution</h2>
+      <p>Liquidity is where the two genuinely differ for systematic trading. NIFTY options have historically
+        offered deeper books across a wider range of strikes, which translates into tighter spreads and
+        lower slippage, particularly away from the money and particularly when you need to exit quickly.</p>
+      <p>SENSEX liquidity has grown substantially and is more than adequate near the money on active
+        expiries, but it thins faster as you move away from spot. For a strategy that sells strikes at a
+        distance, this is not a cosmetic difference &mdash; it is the difference between an exit that fills
+        near your intended level and one that does not.</p>
+      <ul>
+        <li>Check depth at the strikes your strategy <em>actually</em> trades, not at the money.</li>
+        <li>Check it at the times of day your strategy trades, including near the close on expiry.</li>
+        <li>Model slippage separately per index rather than applying one figure to both. Assuming NIFTY's
+          execution quality on SENSEX is a quiet way to overstate a backtest.</li>
+      </ul>
+    </section>
+
+    <section id="expiry">
+      <h2><i>04</i>Separate expiry cycles</h2>
+      <p>Both indices run weekly expiries alongside monthly contracts, and crucially their cycles fall on
+        different days. For a strategy built around <a href="/guides/0-dte-options-india">0 DTE and 1 DTE
+        structures</a>, this is the most useful structural difference between them.</p>
+      <p>It means near-expiry opportunities occur on more sessions per week than a single index provides,
+        and it means the book is not entirely dependent on what happens on one particular weekday. If a
+        scheduled event lands on a NIFTY expiry, the SENSEX sleeve is at a different point in its cycle.</p>
+      <p>As with expiry weekdays generally: exchanges have revised these schedules more than once. Source
+        expiry from a maintained calendar rather than assuming a fixed day.</p>
+    </section>
+
+    <section id="diversify">
+      <h2><i>05</i>What running both really diversifies</h2>
+      <p>Worth being blunt, because this is oversold:</p>
+      <div class="tscroll">
+      <table>
+        <thead><tr><th>Risk</th><th>Diversified by running both?</th></tr></thead>
+        <tbody>
+          <tr><td>Market-wide crash</td><td>No. Both indices fall together</td></tr>
+          <tr><td>Volatility spike</td><td>No. Implied volatility rises across both</td></tr>
+          <tr><td>Single-session event risk</td><td>Partly. Different expiry days spread exposure</td></tr>
+          <tr><td>Venue or connectivity failure</td><td>Yes. Separate exchanges and order paths</td></tr>
+          <tr><td>Liquidity deterioration in one contract</td><td>Yes</td></tr>
+          <tr><td>Strategy decay on one index</td><td>Partly, if signals are fitted independently</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>The honest summary: running both diversifies <em>operational</em> and <em>timing</em> risk well,
+        and diversifies <em>market</em> risk barely at all. A combined book should be sized as though a bad
+        day hits both sleeves simultaneously, because it will.</p>
+    </section>
+
+    <section id="transfer">
+      <h2><i>06</i>Why parameters do not transfer</h2>
+      <p>A tempting shortcut is to develop on NIFTY, where data is more plentiful, and then run the same
+        parameters on SENSEX on the grounds that the indices are correlated. This does not work, for reasons
+        that are mechanical rather than statistical.</p>
+      <ul>
+        <li><strong>Different index levels</strong> mean a stop expressed in points is a different
+          percentage move on each.</li>
+        <li><strong>Different strike intervals</strong> mean "two strikes out of the money" is a different
+          distance in percentage terms.</li>
+        <li><strong>Different liquidity</strong> means the same order incurs different slippage, which can
+          erase a thin edge on one index while leaving it intact on the other.</li>
+        <li><strong>Different expiry days</strong> mean the strategy interacts with a different weekly
+          pattern of scheduled events and participant behaviour.</li>
+      </ul>
+      <p>Every parameter has to be re-derived on the index it will trade, and validated
+        <a href="/guides/options-backtesting">out-of-sample on that index's own data</a>. Our own SENSEX
+        research was run as a separate search precisely for this reason, and the finding that in-sample
+        rank had no predictive power out-of-sample &mdash; a Spearman correlation of &minus;0.001 across 3.2
+        million configurations &mdash; came from that SENSEX work specifically.</p>
+    </section>
+
+    <section id="checklist">
+      <h2><i>07</i>Before you deploy on SENSEX</h2>
+      <ul>
+        <li>Confirm the current contract specification with the BSE: lot size, strike interval, expiry day,
+          tick size.</li>
+        <li>Confirm your broker routes BSE derivatives through the same API path, and that margin reporting
+          behaves as you expect across both exchanges.</li>
+        <li>Measure strike liquidity at your actual trading distances and times.</li>
+        <li>Model slippage per index, not once for both.</li>
+        <li>Re-derive parameters on SENSEX data; do not port them.</li>
+        <li>Size the combined book on the assumption that both sleeves lose on the same day.</li>
+      </ul>
+    </section>
+
+    <section id="faq">
+      <h2><i>08</i>Questions people ask</h2>
+      <div class="faq">
+        <details>
+          <summary>What is the difference between NIFTY and SENSEX options?</summary>
+          <p>NIFTY 50 options trade on the NSE across a 50-stock index; SENSEX options trade on the BSE across
+            30 stocks. They are highly correlated because they share their largest constituents, but differ in
+            contract specifications, lot size, strike intervals, expiry schedule and liquidity. For systematic
+            traders the differences that matter are execution quality and separate expiry days.</p>
+        </details>
+        <details>
+          <summary>Is SENSEX or NIFTY better for algo trading?</summary>
+          <p>Neither uniformly. NIFTY generally has deeper liquidity across more strikes, meaning tighter
+            spreads and lower slippage. SENSEX brings a separate expiry cycle and a different participant mix.
+            Books that run both usually do so for expiry-timing diversification rather than because one index
+            is better.</p>
+        </details>
+        <details>
+          <summary>Does running both actually diversify?</summary>
+          <p>Partly, and precision matters. The indices are highly correlated, so the same signals on both are
+            not diversified against a market-wide shock &mdash; a sharp fall hits both books at once. What it
+            does diversify is timing and operations: different expiry days spread event risk, and separate
+            exchanges reduce single-venue dependence.</p>
+        </details>
+        <details>
+          <summary>What should you check before running an algo on SENSEX?</summary>
+          <p>Confirm current contract specs with the exchange rather than assuming they match NIFTY; check
+            strike liquidity at the distances and times you actually trade; verify your broker supports BSE
+            derivatives on the same API path; and backtest on SENSEX data specifically, because parameters
+            fitted on NIFTY do not transfer.</p>
+        </details>
+      </div>
+    </section>
+
+    <div class="note warn">
+      <b class="lab">Important</b>
+      <p>QuantNifty is an algorithm development and consulting firm. We are <strong>not</strong> a
+        SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. This page is
+        educational and is not investment advice or a recommendation to trade any instrument. Contract
+        specifications change; verify current details with the exchange. Options trading can lose more than
+        your initial capital. Full risk disclosure is in our <a href="/terms">Terms</a>.</p>
+    </div>
+
+    <div class="related">
+      <b class="lab">Read next</b>
+      <ul>
+        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a> &mdash; the strategy families</li>
+        <li><a href="/guides/0-dte-options-india">0 DTE and 1 DTE options</a> &mdash; why expiry timing matters</li>
+        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a> &mdash; the SENSEX search in detail</li>
+        <li><a href="/guides/algo-trading-india">Algo trading in India</a> &mdash; brokers, APIs and costs</li>
+      </ul>
+    </div>
+
+    <div class="cta">
+      <h2>Running a book across both indices?</h2>
+      <p>Per-index slippage models, notional-based sizing across exchanges, separate expiry calendars and a
+        combined risk view that assumes both sleeves lose together.</p>
+      <a class="btn" href="/#contact">Tell us what you want built</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <a href="/" class="brand" style="color:#fff">
+        <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+        QuantNifty
+      </a>
+      <nav class="fnav">
+        <a href="/">Home</a>
+        <a href="/guides">Guides</a>
+        <a href="/#ai">AI</a>
+        <a href="/#about">About</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="https://www.linkedin.com/company/quantnifty" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://wa.me/919601443663" target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
+    </div>
+    <div class="fb">
+      <span>&copy; 2026 QuantNifty. All rights reserved.</span>
+      <span>Not a SEBI-registered Research Analyst or Investment Adviser.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

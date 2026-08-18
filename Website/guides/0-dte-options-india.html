@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>0 DTE and 1 DTE Options in India: What Expiry-Day Trading Really Changes</title>
+<meta name="description" content="What 0 DTE and 1 DTE mean for NIFTY and SENSEX options, why expiry-day contracts behave differently, what removing overnight gap risk actually buys you, and where the risk relocates instead of disappearing.">
+<link rel="canonical" href="https://quantnifty.com/guides/0-dte-options-india">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="theme-color" content="#04091A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0 DTE and 1 DTE Options in India: What Expiry-Day Trading Really Changes">
+<meta property="og:description" content="Why expiry-day options behave differently, and where the risk moves to when you remove overnight gaps.">
+<meta property="og:url" content="https://quantnifty.com/guides/0-dte-options-india">
+<meta property="og:image" content="https://quantnifty.com/og.png">
+<meta property="og:site_name" content="QuantNifty">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="0 DTE and 1 DTE options in India">
+<meta name="twitter:description" content="What expiry-day trading really changes, and where the risk relocates.">
+<meta name="twitter:image" content="https://quantnifty.com/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter+Tight:wght@400;500;600;650&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/legal.css">
+<link rel="stylesheet" href="/guide.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://quantnifty.com/guides/0-dte-options-india#article",
+      "headline": "0 DTE and 1 DTE Options in India: What Expiry-Day Trading Really Changes",
+      "description": "What 0 DTE and 1 DTE mean for NIFTY and SENSEX options, why expiry-day contracts behave differently, and where the risk relocates when overnight gap risk is removed.",
+      "inLanguage": "en-IN",
+      "datePublished": "2026-08-18",
+      "dateModified": "2026-08-18",
+      "author": { "@id": "https://quantnifty.com/#anuj" },
+      "publisher": { "@id": "https://quantnifty.com/#org" },
+      "image": "https://quantnifty.com/og.png",
+      "mainEntityOfPage": { "@id": "https://quantnifty.com/guides/0-dte-options-india#page" },
+      "about": [
+        { "@type": "Thing", "name": "0 DTE options" },
+        { "@type": "Thing", "name": "NIFTY options expiry" },
+        { "@type": "Thing", "name": "Options theta decay" }
+      ],
+      "isPartOf": { "@id": "https://quantnifty.com/#site" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://quantnifty.com/guides/0-dte-options-india#page",
+      "url": "https://quantnifty.com/guides/0-dte-options-india",
+      "name": "0 DTE and 1 DTE options in India",
+      "isPartOf": { "@id": "https://quantnifty.com/#site" },
+      "inLanguage": "en-IN",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://quantnifty.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://quantnifty.com/guides" },
+          { "@type": "ListItem", "position": 3, "name": "0 DTE and 1 DTE options", "item": "https://quantnifty.com/guides/0-dte-options-india" }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://quantnifty.com/guides/0-dte-options-india#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does 0 DTE mean?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DTE stands for days to expiry. A 0 DTE option is one that expires on the same day it is being traded, so a position opened and closed within that session never carries beyond expiry. A 1 DTE option expires on the following trading session. Both are used by intraday systematic strategies specifically because the position does not have to be held overnight."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do traders use 0 DTE options?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Two reasons. First, the remaining time value in the option decays to zero within hours, so a net short position collects that decay quickly rather than over weeks. Second, closing the position before the session ends removes overnight gap risk entirely — historically the source of the largest single-day losses for Indian option sellers, because a weekend headline can reprice the index before any stop-loss can act."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are 0 DTE options riskier than longer-dated options?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "They are differently risky, not uniformly riskier. Removing overnight exposure genuinely eliminates one large risk. In exchange, an option's sensitivity to index movement rises sharply as expiry approaches, so a move in the final hour of an expiry session affects the position far more than the same move would a week earlier. You are trading a slow, unhedgeable risk for a fast one that at least occurs while the market is open."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which indices in India have frequent expiries?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NIFTY 50 on the NSE and SENSEX on the BSE both run weekly expiry cycles alongside monthly contracts, which means near-expiry sessions are available most weeks of the year. Exchanges have revised expiry days and cycles several times, so confirm the current schedule with the exchange rather than assuming a fixed weekday."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <a href="/" class="brand">
+      <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+      QuantNifty
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/guides">Guides</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="mast">
+  <div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/guides">Guides</a> <span>/</span> 0 DTE and 1 DTE options
+    </nav>
+    <span class="kicker">Instrument</span>
+    <h1>Expiry day removes one risk and concentrates another.</h1>
+    <p class="sub">0 DTE trading is often sold as the safe version of option selling because nothing is
+      held overnight. That half is true. The other half is what happens to sensitivity in the last hour.</p>
+    <div class="byline">
+      <span>By Anuj Baid</span><span class="dot"></span>
+      <span>Updated 18 August 2026</span><span class="dot"></span>
+      <span>8 min read</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <div class="answer">
+      <b class="lab">Short answer</b>
+      <p>DTE means days to expiry. A 0 DTE option expires the same day it is traded; a 1 DTE option expires
+        the next session. Systematic strategies use them because time value decays to zero within hours,
+        and because closing before the bell removes overnight gap risk &mdash; historically the largest
+        single source of catastrophic loss for Indian option sellers. The trade-off is that an option's
+        sensitivity to index movement rises steeply near expiry, so the danger shifts from an overnight gap
+        you cannot act on to an intraday move you can, but which arrives fast.</p>
+    </div>
+
+    <div class="toc">
+      <b>On this page</b>
+      <ol>
+        <li><a href="#dte">What DTE actually means</a></li>
+        <li><a href="#india">The Indian expiry landscape</a></li>
+        <li><a href="#decay">Why decay accelerates</a></li>
+        <li><a href="#overnight">What removing overnight risk buys</a></li>
+        <li><a href="#relocate">Where the risk relocates</a></li>
+        <li><a href="#hedge">Why hedging still matters</a></li>
+        <li><a href="#build">Building for expiry day</a></li>
+        <li><a href="#faq">Questions people ask</a></li>
+      </ol>
+    </div>
+
+    <section id="dte">
+      <h2><i>01</i>What DTE actually means</h2>
+      <p>DTE is simply days to expiry. A NIFTY option contract expiring on a Thursday is, on that Thursday,
+        a 0 DTE contract. On the preceding session it is 1 DTE. The underlying index has not changed; only
+        the time remaining on the contract has.</p>
+      <p>That distinction matters because almost everything about an option's behaviour is a function of
+        time remaining. The same strike, on the same index, behaves like a different instrument at 30 days
+        to expiry than it does with two hours left.</p>
+    </section>
+
+    <section id="india">
+      <h2><i>02</i>The Indian expiry landscape</h2>
+      <p>Both NIFTY 50 on the NSE and SENSEX on the BSE run weekly expiry cycles alongside monthly
+        contracts. In practice this means a near-expiry session is available most weeks of the year, which
+        is what makes expiry-focused systematic strategies viable here at all &mdash; there are enough
+        occurrences to build a statistically meaningful sample.</p>
+      <div class="note warn">
+        <b class="lab">Do not hard-code the weekday</b>
+        <p>Exchanges have revised expiry days and cycles more than once, and holidays shift expiry within a
+          week. Any system that assumes "expiry is Thursday" will eventually trade the wrong contract on a
+          holiday-shortened week. Expiry must come from a maintained exchange calendar, not from a constant
+          in the code. This is one of the most common defects we find in systems we are asked to review.</p>
+      </div>
+    </section>
+
+    <section id="decay">
+      <h2><i>03</i>Why decay accelerates</h2>
+      <p>An option's price has two components: intrinsic value, which is what it would be worth if exercised
+        now, and time value, which is the premium paid for the possibility that it moves further into the
+        money before expiry.</p>
+      <p>Time value does not decay linearly. It decays slowly when expiry is distant and rapidly as expiry
+        approaches, because the range of outcomes still possible collapses. On expiry day, the entire
+        remaining time value must reach zero by the close &mdash; a matter of hours.</p>
+      <p>A net short option position collects that decay. This is the mechanical basis of expiry-day theta
+        capture: you are being paid to hold a decaying liability through the window where it decays fastest.
+        The reason that is not free money is that the same collapse in possible outcomes is what makes the
+        position violently sensitive to the outcomes that remain.</p>
+    </section>
+
+    <section id="overnight">
+      <h2><i>04</i>What removing overnight risk buys</h2>
+      <p>The largest single-day losses in Indian index option selling have overwhelmingly come from gaps
+        &mdash; the index opening materially away from the previous close, driven by something that happened
+        while the market was shut.</p>
+      <p>A gap is unhedgeable in a specific and important sense: <strong>your stop-loss cannot execute at
+        your stop level, because no trading occurred between the close and the open.</strong> A short option
+        position that would have been closed at a manageable loss is instead marked at whatever the opening
+        price implies. Every risk control you built assumes a continuous market, and overnight the market is
+        not continuous.</p>
+      <p>Closing the position before the session ends removes this failure mode completely. That is a
+        genuine, structural improvement, not a marketing claim. It is the single strongest argument for
+        intraday expiry-focused strategies over multi-day option selling.</p>
+    </section>
+
+    <section id="relocate">
+      <h2><i>05</i>Where the risk relocates</h2>
+      <p>What you give up is that the position becomes far more sensitive to index movement as expiry
+        approaches. Near the money and near expiry, an option's value responds sharply to small moves in the
+        underlying, and that responsiveness itself changes quickly.</p>
+      <p>Concretely: a 40-point NIFTY move on a Monday morning affects a weekly option modestly. The same
+        40-point move at 14:45 on expiry day, with the strike close to the money, can be the difference
+        between a position expiring worthless and one that is deeply in the money. The strategy's entire
+        outcome for that session can be decided in minutes.</p>
+      <div class="note">
+        <b class="lab">The honest comparison</b>
+        <p>Overnight risk is <em>slow but unactionable</em>. Expiry-day sensitivity is <em>fast but
+          actionable</em> &mdash; the market is open, you can trade, stops can fill. Preferring the second is
+          defensible. Believing you have eliminated risk rather than exchanged one kind for another is not.</p>
+      </div>
+    </section>
+
+    <section id="hedge">
+      <h2><i>06</i>Why hedging still matters</h2>
+      <p>Because expiry-day moves are fast, an unhedged short option can lose more between two of your
+        system's decision points than it collected over many sessions. The defence is structural rather than
+        reactive: buy a further out-of-the-money option against the one you sold, so the maximum loss on the
+        position is defined before the session starts regardless of how fast the index moves.</p>
+      <p>This costs part of the premium and therefore lowers the headline return. That is the correct trade.
+        A strategy whose worst case is bounded can be sized rationally; one whose worst case is open-ended
+        cannot be sized at all, only gambled with. This is also why every performance figure we publish is
+        net of hedge cost &mdash; an unhedged comparison would flatter the numbers and misrepresent the
+        risk.</p>
+    </section>
+
+    <section id="build">
+      <h2><i>07</i>Building for expiry day</h2>
+      <p>Requirements that are specific to expiry-day systems, beyond the usual:</p>
+      <ul>
+        <li><strong>A maintained expiry calendar</strong>, including holiday shifts, as above.</li>
+        <li><strong>A hard flat time.</strong> The system must close everything by a defined time before the
+          close, not "when the exit condition triggers." Liquidity thins into the final minutes and an exit
+          you delayed is an exit you may not get at a sensible price.</li>
+        <li><strong>Strike selection that accounts for liquidity</strong>, not just distance from spot. A
+          strike with an attractive premium and a wide spread is a trap once you need to exit in a hurry.</li>
+        <li><strong>Spike detection.</strong> Momentary liquidity holes on expiry day can print prices far
+          from fair value. A stop that triggers on such a print exits at a terrible level for no reason.</li>
+        <li><strong>Broker-side stops</strong>, so a disconnect during the most sensitive hours does not
+          leave the position unmanaged.</li>
+      </ul>
+      <p>Every one of these is execution engineering rather than strategy research, and every one of them
+        changes live results without changing the backtest at all.</p>
+    </section>
+
+    <section id="faq">
+      <h2><i>08</i>Questions people ask</h2>
+      <div class="faq">
+        <details>
+          <summary>What does 0 DTE mean?</summary>
+          <p>Days to expiry. A 0 DTE option expires on the same day it is traded, so a position opened and
+            closed within that session never carries beyond expiry. A 1 DTE option expires the following
+            session. Intraday systematic strategies use both precisely because nothing needs to be held
+            overnight.</p>
+        </details>
+        <details>
+          <summary>Why do traders use 0 DTE options?</summary>
+          <p>Remaining time value decays to zero within hours, so a net short position collects that decay
+            quickly instead of over weeks. And closing before the session ends removes overnight gap risk
+            entirely &mdash; historically the largest source of catastrophic single-day losses for Indian
+            option sellers, because a gap prices through your stop before it can execute.</p>
+        </details>
+        <details>
+          <summary>Are 0 DTE options riskier than longer-dated options?</summary>
+          <p>Differently risky rather than uniformly riskier. You remove overnight exposure, which is a real
+            gain. In exchange, sensitivity to index movement rises sharply near expiry, so a late-session move
+            matters far more than the same move a week out. You are swapping a slow unhedgeable risk for a
+            fast one that at least occurs while the market is open.</p>
+        </details>
+        <details>
+          <summary>Which Indian indices have frequent expiries?</summary>
+          <p>NIFTY 50 on the NSE and SENSEX on the BSE both run weekly cycles alongside monthly contracts, so
+            near-expiry sessions occur most weeks. Expiry days and cycles have been revised more than once
+            &mdash; confirm the current schedule with the exchange rather than assuming a fixed weekday.</p>
+        </details>
+        <details>
+          <summary>Can you run 0 DTE strategies on pledged margin?</summary>
+          <p>The margin source is independent of the strategy. See
+            <a href="/guides/pledged-margin-algo-trading">pledged margin</a> for how collateral is released and
+            what it puts at risk. Defined-risk hedged structures are a better fit for collateral you cannot
+            afford to lose than naked short options are.</p>
+        </details>
+      </div>
+    </section>
+
+    <div class="note warn">
+      <b class="lab">Important</b>
+      <p>QuantNifty is an algorithm development and consulting firm. We are <strong>not</strong> a
+        SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. This page is
+        educational and is not investment advice or a recommendation to trade any instrument or structure.
+        Options trading can lose more than your initial capital, and expiry-day positions can move against
+        you very quickly. Full risk disclosure is in our <a href="/terms">Terms</a>.</p>
+    </div>
+
+    <div class="related">
+      <b class="lab">Read next</b>
+      <ul>
+        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a> &mdash; where theta capture fits</li>
+        <li><a href="/guides/sensex-options-algo">SENSEX options algo trading</a> &mdash; the second expiry cycle</li>
+        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a> &mdash; expiry calendars and slippage</li>
+        <li><a href="/guides/sharpe-ratio">What is a good Sharpe ratio?</a> &mdash; judging risk-adjusted return</li>
+      </ul>
+    </div>
+
+    <div class="cta">
+      <h2>Building an expiry-day system?</h2>
+      <p>Expiry calendars, hard flat times, strike liquidity screening, spike detection, broker-side stops.
+        The parts that never show up in a backtest and always show up in live results.</p>
+      <a class="btn" href="/#contact">Tell us what you want built</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <a href="/" class="brand" style="color:#fff">
+        <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+        QuantNifty
+      </a>
+      <nav class="fnav">
+        <a href="/">Home</a>
+        <a href="/guides">Guides</a>
+        <a href="/#ai">AI</a>
+        <a href="/#about">About</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="https://www.linkedin.com/company/quantnifty" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://wa.me/919601443663" target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
+    </div>
+    <div class="fb">
+      <span>&copy; 2026 QuantNifty. All rights reserved.</span>
+      <span>Not a SEBI-registered Research Analyst or Investment Adviser.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

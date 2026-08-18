@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NIFTY Algo Strategies: How Systematic Index Option Systems Actually Work</title>
+<meta name="description" content="A working guide to NIFTY algo strategies: the strategy families that run on NIFTY 50 index options, what edge each one claims, how they fail, and how to tell a real systematic edge from a curve-fitted backtest.">
+<link rel="canonical" href="https://quantnifty.com/guides/nifty-algo-strategies">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="theme-color" content="#04091A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NIFTY Algo Strategies: How Systematic Index Option Systems Actually Work">
+<meta property="og:description" content="The strategy families that run on NIFTY options, what edge each claims, and how to tell a real edge from a curve-fitted backtest.">
+<meta property="og:url" content="https://quantnifty.com/guides/nifty-algo-strategies">
+<meta property="og:image" content="https://quantnifty.com/og.png">
+<meta property="og:site_name" content="QuantNifty">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NIFTY Algo Strategies, explained">
+<meta name="twitter:description" content="The strategy families that run on NIFTY options, what edge each claims, and how they fail.">
+<meta name="twitter:image" content="https://quantnifty.com/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter+Tight:wght@400;500;600;650&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/legal.css">
+<link rel="stylesheet" href="/guide.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://quantnifty.com/guides/nifty-algo-strategies#article",
+      "headline": "NIFTY Algo Strategies: How Systematic Index Option Systems Actually Work",
+      "description": "A working guide to NIFTY algo strategies: the strategy families that run on NIFTY 50 index options, what edge each one claims, how they fail, and how to separate a real systematic edge from a curve-fitted backtest.",
+      "inLanguage": "en-IN",
+      "datePublished": "2026-08-18",
+      "dateModified": "2026-08-18",
+      "author": { "@id": "https://quantnifty.com/#anuj" },
+      "publisher": { "@id": "https://quantnifty.com/#org" },
+      "image": "https://quantnifty.com/og.png",
+      "mainEntityOfPage": { "@id": "https://quantnifty.com/guides/nifty-algo-strategies#page" },
+      "about": [
+        { "@type": "Thing", "name": "NIFTY 50 index options" },
+        { "@type": "Thing", "name": "Algorithmic trading" },
+        { "@type": "Thing", "name": "Systematic options strategy" }
+      ],
+      "isPartOf": { "@id": "https://quantnifty.com/#site" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://quantnifty.com/guides/nifty-algo-strategies#page",
+      "url": "https://quantnifty.com/guides/nifty-algo-strategies",
+      "name": "NIFTY Algo Strategies",
+      "isPartOf": { "@id": "https://quantnifty.com/#site" },
+      "inLanguage": "en-IN",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://quantnifty.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://quantnifty.com/guides" },
+          { "@type": "ListItem", "position": 3, "name": "NIFTY algo strategies", "item": "https://quantnifty.com/guides/nifty-algo-strategies" }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://quantnifty.com/guides/nifty-algo-strategies#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a NIFTY algo strategy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A NIFTY algo strategy is a set of fixed, written rules for trading NIFTY 50 index options or futures, executed by software rather than by hand. The rules define exactly when a position opens, what strike and expiry it uses, where the stop-loss sits, and when it closes. Because the logic is code, the same market conditions always produce the same decision, which is what makes the strategy testable on historical data."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which NIFTY algo strategies actually work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No strategy family works permanently. The families that have historically shown a durable structural reason to profit are short-volatility premium capture, intraday mean reversion around a reference price such as VWAP, and expiry-day theta capture on 0 and 1 DTE options. Each of these is paid for taking a specific risk, not for being clever. Any strategy without a clear explanation of who is paying it and why should be treated as curve fitting until proven otherwise."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much capital do you need for a NIFTY options algo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends entirely on the structure. Hedged, defined-risk index option strategies on NIFTY typically need margin in the range of a few lakh rupees per lot set, and meaningful diversification across sleeves usually needs more. The practical constraint is not the minimum margin but position sizing: a strategy sized so that one bad session cannot end it needs materially more capital than the exchange minimum."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can a NIFTY algo strategy lose money?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Every systematic options strategy has losing days, losing months and a maximum drawdown, and short-option structures in particular can lose more than the initial capital during a gap or a volatility spike. A backtest showing no losses is evidence of a modelling error, not of a good strategy."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <a href="/" class="brand">
+      <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+      QuantNifty
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/guides">Guides</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="mast">
+  <div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/guides">Guides</a> <span>/</span> NIFTY algo strategies
+    </nav>
+    <span class="kicker">Strategy</span>
+    <h1>NIFTY algo strategies, and what each one is really being paid for.</h1>
+    <p class="sub">There are only a handful of structural reasons a systematic strategy on NIFTY options
+      makes money. Everything else is a variation on one of them, or it is curve fitting.</p>
+    <div class="byline">
+      <span>By Anuj Baid</span><span class="dot"></span>
+      <span>Updated 18 August 2026</span><span class="dot"></span>
+      <span>12 min read</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <div class="answer">
+      <b class="lab">Short answer</b>
+      <p>A NIFTY algo strategy is a fixed set of rules for trading NIFTY 50 index options, executed by
+        software instead of by hand. The strategies that survive fall into three families: selling
+        volatility that is priced above what actually gets realised, mean reversion around an intraday
+        reference price, and expiry-day theta capture. Each is compensation for carrying a specific risk.
+        If you cannot say who is paying you and what you are absorbing in return, you do not have a
+        strategy &mdash; you have a fitted curve.</p>
+    </div>
+
+    <div class="toc">
+      <b>On this page</b>
+      <ol>
+        <li><a href="#what">What makes a strategy an algo</a></li>
+        <li><a href="#families">The four strategy families</a></li>
+        <li><a href="#shortvol">Short volatility, the dominant family</a></li>
+        <li><a href="#reversion">Intraday mean reversion</a></li>
+        <li><a href="#theta">Expiry-day theta capture</a></li>
+        <li><a href="#trend">Trend and breakout</a></li>
+        <li><a href="#fail">How each family fails</a></li>
+        <li><a href="#real">Telling a real edge from a fit</a></li>
+        <li><a href="#build">What building one involves</a></li>
+        <li><a href="#faq">Questions people ask</a></li>
+      </ol>
+    </div>
+
+    <section id="what">
+      <h2><i>01</i>What makes a strategy an algo</h2>
+      <p>The word "algo" gets used loosely. For our purposes it means something narrow: <strong>every
+        decision is determined by written rules, and no human judgement enters at trade time.</strong>
+        Given the same market data, the system produces the same action every time.</p>
+      <p>That property is not a stylistic preference. It is what makes the strategy testable. If a rule
+        says "enter when momentum looks strong," you cannot backtest it, because "looks strong" resolves
+        differently on different days and in hindsight it always resolves in your favour. If the rule says
+        "enter when the index trades 0.4% above the session VWAP between 09:45 and 11:00," you can run
+        that against four years of tick data and get an answer you did not choose.</p>
+      <p>A complete NIFTY algo specifies at minimum: the entry condition, the instrument and strike
+        selection rule, the position size, the stop-loss level and where it lives (in your code or on the
+        broker's book), the exit condition, and the behaviour when something goes wrong &mdash; a missed
+        fill, a disconnect, a stuck order. That last category is where most home-built systems are thin,
+        and it is the part that costs real money.</p>
+    </section>
+
+    <section id="families">
+      <h2><i>02</i>The four strategy families</h2>
+      <p>Strip away the branding and almost every systematic NIFTY options strategy belongs to one of four
+        families. They are distinguished by what the strategy is being compensated for.</p>
+      <div class="tscroll">
+      <table>
+        <thead>
+          <tr><th>Family</th><th>Being paid for</th><th>Typical shape</th><th>Fails when</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Short volatility</td>
+            <td>Absorbing gap and spike risk</td>
+            <td>Many small wins, rare large losses</td>
+            <td>Volatility jumps faster than you can hedge</td>
+          </tr>
+          <tr>
+            <td>Mean reversion</td>
+            <td>Providing liquidity against short-term dislocation</td>
+            <td>High hit rate, modest per-trade edge</td>
+            <td>The dislocation is real information, not noise</td>
+          </tr>
+          <tr>
+            <td>Theta capture</td>
+            <td>Holding decaying options through the risky window</td>
+            <td>Steady accrual, sharp expiry-day drawdowns</td>
+            <td>A directional move on expiry day</td>
+          </tr>
+          <tr>
+            <td>Trend / breakout</td>
+            <td>Taking the other side of hedgers and stop-losses</td>
+            <td>Low hit rate, occasional large wins</td>
+            <td>Range-bound markets grind it down</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <p>Notice that the "fails when" column is not optional. A strategy family without a known failure
+        mode has simply not been tested against one yet.</p>
+    </section>
+
+    <section id="shortvol">
+      <h2><i>03</i>Short volatility, the dominant family</h2>
+      <p>Most Indian index option algos are, underneath, short volatility. The structural claim is that
+        implied volatility on NIFTY options tends to price slightly above the volatility that subsequently
+        gets realised, because there is persistent demand for downside protection and a limited supply of
+        people willing to sell it.</p>
+      <p>That premium is real, and it is also the most crowded trade in the Indian market. Being right
+        about the premium is not the hard part. The hard part is surviving the days when realised
+        volatility overshoots implied by a wide margin, because the loss distribution is deeply asymmetric:
+        you collect small amounts often and pay a large amount rarely.</p>
+      <div class="note">
+        <b class="lab">The structural consequence</b>
+        <p>A short-volatility strategy's headline return tells you almost nothing. Two systems can post the
+          same annual return while one carries three times the tail risk of the other. This is why we lead
+          with <a href="/guides/sharpe-ratio">Sharpe and maximum drawdown</a> rather than return, and why
+          an unhedged short-option backtest should be read with suspicion.</p>
+      </div>
+      <p>The practical response is hedging. Buying a further out-of-the-money option against the one you
+        sold converts an open-ended loss into a defined one. It costs part of the premium, which lowers the
+        headline return, and it is the single biggest difference between a strategy that survives a
+        volatility event and one that does not.</p>
+    </section>
+
+    <section id="reversion">
+      <h2><i>04</i>Intraday mean reversion</h2>
+      <p>The second family trades the tendency of the index to revert toward a reference price within a
+        session. The reference is usually a volume-weighted average price, an opening range, or a rolling
+        band. When price extends unusually far from that reference without a corresponding change in
+        volume or breadth, the strategy takes the other side.</p>
+      <p>What you are being paid for here is liquidity provision. Someone needed to transact urgently, they
+        pushed price away from fair value, and you absorbed it. The edge per trade is small and the hit
+        rate is high, which makes this family feel comfortable and makes its failures surprising: when the
+        move away from the reference is driven by genuine new information, reversion does not come, and a
+        high-hit-rate system takes an outsized loss against a run of small wins.</p>
+      <p>Reversion strategies are also the most sensitive to execution quality. If your edge is 0.15% per
+        trade and your slippage is 0.2% per fill, you do not have a strategy, you have a fee-generation
+        machine. This is why we insist on modelling slippage on <em>both</em> sides of every trade when
+        <a href="/guides/options-backtesting">backtesting</a>.</p>
+    </section>
+
+    <section id="theta">
+      <h2><i>05</i>Expiry-day theta capture</h2>
+      <p>NIFTY now has weekly expiries, which means there is an expiry-day or near-expiry session available
+        most weeks. On those sessions, the time value remaining in an option decays to zero over a handful
+        of hours. A strategy that is net short options through that window collects the decay.</p>
+      <p>The appeal is that the position opens and closes within a single session, so nothing is carried
+        overnight and the gap between one day's close and the next day's open &mdash; historically the
+        source of the largest single-day losses in Indian option selling &mdash; is removed from the risk
+        picture entirely.</p>
+      <p>The risk does not disappear, though. It relocates. On expiry day the option's sensitivity to price
+        movement rises sharply as expiry approaches, so a move that would be unremarkable on a Monday can
+        be severe in the final hour of an expiry session. Removing overnight risk buys you a great deal;
+        it does not buy you safety. We cover the mechanics in
+        <a href="/guides/0-dte-options-india">0 DTE and 1 DTE options</a>.</p>
+    </section>
+
+    <section id="trend">
+      <h2><i>06</i>Trend and breakout</h2>
+      <p>The fourth family is the mirror image of mean reversion: it assumes that a decisive move away from
+        a reference price continues rather than reverts. On NIFTY, pure trend-following on an intraday
+        horizon has historically been difficult, because the index spends a large share of sessions in a
+        range and a breakout system pays a small cost on each false signal.</p>
+      <p>Where the family earns its place is as a hedge on the rest of the portfolio. Trend systems tend to
+        perform best exactly when short-volatility systems perform worst &mdash; during sustained
+        directional moves and volatility expansion. Running a small trend sleeve alongside a larger
+        premium-selling book is a structural diversification rather than a return enhancement, and it
+        should be judged on that basis.</p>
+    </section>
+
+    <section id="fail">
+      <h2><i>07</i>How each family fails</h2>
+      <p>The failure modes are worth stating plainly, because they are what position sizing has to be built
+        around.</p>
+      <ul>
+        <li><strong>Short volatility</strong> fails on a discontinuous move. Not a large move &mdash; a
+          <em>fast</em> one, where the price gaps through your stop level and you are filled well beyond
+          where you intended. This is why a stop-loss resting on the broker's book behaves differently from
+          a stop-loss evaluated in your own code, and why spike detection matters.</li>
+        <li><strong>Mean reversion</strong> fails on information. The system cannot distinguish a
+          dislocation caused by a large order from one caused by news, and it adds to the losing side of
+          the second case by design.</li>
+        <li><strong>Theta capture</strong> fails on expiry-day direction. Sensitivity is highest exactly
+          when there is least time left to recover.</li>
+        <li><strong>Trend</strong> fails on chop. It is a slow bleed rather than a shock, which makes it
+          psychologically harder to hold through, and which is why discretionary intervention destroys
+          trend systems more often than market conditions do.</li>
+      </ul>
+      <div class="note warn">
+        <b class="lab">The common thread</b>
+        <p>Three of these four failures are survivable with correct position sizing and hedging. One of them
+          &mdash; the fast gap in an unhedged short-option book &mdash; is not. That asymmetry is the single
+          most important thing to understand before deploying capital into this market.</p>
+      </div>
+    </section>
+
+    <section id="real">
+      <h2><i>08</i>Telling a real edge from a fit</h2>
+      <p>Any parameter search over enough configurations will produce something that looks spectacular in
+        hindsight. The question is whether the result survives contact with data it was not chosen on.</p>
+      <p>In one SENSEX-focused search we ran across roughly 3.2 million configurations, about 20,000
+        cleared a walk-forward gate. We then checked whether ranking well in-sample predicted ranking well
+        out-of-sample. The Spearman rank correlation between the two was <strong>&minus;0.001</strong>
+        &mdash; statistically indistinguishable from zero.</p>
+      <div class="kpis">
+        <div class="kpi"><b>3.2M</b><span>configurations searched</span></div>
+        <div class="kpi"><b>~20,000</b><span>cleared the walk-forward gate</span></div>
+        <div class="kpi"><b>&minus;0.001</b><span>in-sample to out-of-sample rank correlation</span></div>
+        <div class="kpi"><b>3</b><span>sleeves actually deployed</span></div>
+      </div>
+      <p>That number is the whole lesson. The in-sample score had <em>no</em> predictive power for
+        out-of-sample performance. Selecting the top-ranked backtest would have been equivalent to picking
+        at random. The final basket was therefore chosen on structure and on how frequently a configuration
+        family appeared across the surviving set, not on its score.</p>
+      <p>Several filters that looked convincing were tested and rejected on the same basis: a VIX
+        threshold, an out-of-the-money strike shift, an opening-range ATR filter, and a green-candle break
+        exit. Each improved the in-sample curve. None held up.</p>
+      <p>So when you are handed a NIFTY algo backtest, the questions that matter are: how many
+        configurations were searched before this one was chosen, was the out-of-sample period genuinely
+        untouched during development, and what happened to the candidates that were rejected. A single
+        beautiful equity curve with no account of its siblings is not evidence.</p>
+    </section>
+
+    <section id="build">
+      <h2><i>09</i>What building one involves</h2>
+      <p>The research is roughly a third of the work. The rest is execution engineering, and it is where
+        strategies that test well go to die.</p>
+      <ul>
+        <li><strong>Strike and expiry selection</strong> against a real exchange calendar, including the
+          weeks where a holiday shifts expiry.</li>
+        <li><strong>Broker-side stop-losses</strong>, so that a disconnect between your server and the
+          broker does not leave a short option unprotected.</li>
+        <li><strong>Fill confirmation</strong>, because an order that was placed is not an order that was
+          filled, and a strategy that assumes otherwise will silently run the wrong position size.</li>
+        <li><strong>Spike-trigger detection</strong> and order repricing, so that a momentary liquidity
+          hole does not trigger an exit at an absurd price.</li>
+        <li><strong>A kill switch</strong> that flattens everything and stops trading on a defined
+          condition, reachable without logging into a terminal.</li>
+      </ul>
+      <p>None of this improves the backtest. All of it determines whether live results resemble it.</p>
+    </section>
+
+    <section id="faq">
+      <h2><i>10</i>Questions people ask</h2>
+      <div class="faq">
+        <details>
+          <summary>What is a NIFTY algo strategy?</summary>
+          <p>A fixed set of rules for trading NIFTY 50 index options or futures, executed by software rather
+            than by hand. The rules define when a position opens, which strike and expiry it uses, where the
+            stop sits, and when it closes. Because the logic is code, identical conditions always produce an
+            identical decision &mdash; which is what makes it testable on historical data.</p>
+        </details>
+        <details>
+          <summary>Which NIFTY algo strategies actually work?</summary>
+          <p>No family works permanently. The ones with a durable structural reason to profit are short
+            volatility, intraday mean reversion around a reference price, and expiry-day theta capture. Each
+            is paid for carrying a specific risk rather than for being clever. If a strategy has no
+            explanation of who is paying it and what it absorbs in return, treat it as curve fitting until
+            shown otherwise.</p>
+        </details>
+        <details>
+          <summary>How much capital do you need for a NIFTY options algo?</summary>
+          <p>It depends on the structure. Hedged, defined-risk index option strategies typically need margin
+            in the range of a few lakh rupees per lot set, and diversifying across sleeves needs more. The
+            binding constraint is not the exchange minimum but position sizing: sizing so that a single bad
+            session cannot end the strategy requires materially more capital than the minimum.</p>
+        </details>
+        <details>
+          <summary>Can a NIFTY algo strategy lose money?</summary>
+          <p>Yes. Every systematic options strategy has losing days, losing months and a maximum drawdown,
+            and short-option structures can lose more than the initial capital during a gap or volatility
+            spike. A backtest showing no losing periods indicates a modelling error, not a good strategy.</p>
+        </details>
+        <details>
+          <summary>Is algo trading on NIFTY legal in India?</summary>
+          <p>Yes, for retail participants using broker-approved automation within the framework the exchanges
+            and SEBI set out. The details &mdash; what needs approval, what a broker API permits, and where
+            registration becomes relevant &mdash; are covered in
+            <a href="/guides/algo-trading-india">algo trading in India</a>.</p>
+        </details>
+      </div>
+    </section>
+
+    <div class="note warn">
+      <b class="lab">Important</b>
+      <p>QuantNifty is an algorithm development and consulting firm. We are <strong>not</strong> a
+        SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. This page is
+        educational and is not investment advice or a recommendation to trade. The figures cited are from
+        <strong>backtests</strong>, not a live track record, and backtested performance does not predict
+        live results. Options trading can lose more than your initial capital. Full risk disclosure is in
+        our <a href="/terms">Terms</a>.</p>
+    </div>
+
+    <div class="related">
+      <b class="lab">Read next</b>
+      <ul>
+        <li><a href="/guides/0-dte-options-india">0 DTE and 1 DTE options in India</a> &mdash; why expiry-day structures behave differently</li>
+        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a> &mdash; how to check whether a curve is real</li>
+        <li><a href="/guides/sharpe-ratio">What is a good Sharpe ratio?</a> &mdash; why return alone tells you nothing</li>
+        <li><a href="/guides/pledged-margin-algo-trading">Pledged margin for algo trading</a> &mdash; funding the strategy without selling holdings</li>
+      </ul>
+    </div>
+
+    <div class="cta">
+      <h2>Have a rule you trade by hand?</h2>
+      <p>If you already know what you want to trade, the work we do is turning it into production code
+        &mdash; stop-losses, re-entry logic, fill confirmation, kill switch &mdash; and testing it against
+        data honestly enough that you can trust the answer.</p>
+      <a class="btn" href="/#contact">Tell us what you want built</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <a href="/" class="brand" style="color:#fff">
+        <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+        QuantNifty
+      </a>
+      <nav class="fnav">
+        <a href="/">Home</a>
+        <a href="/guides">Guides</a>
+        <a href="/#ai">AI</a>
+        <a href="/#about">About</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="https://www.linkedin.com/company/quantnifty" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://wa.me/919601443663" target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
+    </div>
+    <div class="fb">
+      <span>&copy; 2026 QuantNifty. All rights reserved.</span>
+      <span>Not a SEBI-registered Research Analyst or Investment Adviser.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Options Backtesting That Tells the Truth: How to Spot a Backtest That Is Lying</title>
+<meta name="description" content="How to backtest an options strategy honestly: slippage on both sides of every fill, statutory charges, real expiry calendars, walk-forward validation, and the overfitting checks that separate a real edge from a curve fitted to history.">
+<link rel="canonical" href="https://quantnifty.com/guides/options-backtesting">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="theme-color" content="#04091A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Options Backtesting That Tells the Truth">
+<meta property="og:description" content="Slippage, charges, expiry calendars, walk-forward validation, and how to spot a backtest that is lying.">
+<meta property="og:url" content="https://quantnifty.com/guides/options-backtesting">
+<meta property="og:image" content="https://quantnifty.com/og.png">
+<meta property="og:site_name" content="QuantNifty">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Options backtesting that tells the truth">
+<meta name="twitter:description" content="How to spot a backtest that is lying to you.">
+<meta name="twitter:image" content="https://quantnifty.com/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter+Tight:wght@400;500;600;650&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/legal.css">
+<link rel="stylesheet" href="/guide.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://quantnifty.com/guides/options-backtesting#article",
+      "headline": "Options Backtesting That Tells the Truth: How to Spot a Backtest That Is Lying",
+      "description": "How to backtest an options strategy honestly: slippage on both sides of every fill, statutory charges, real expiry calendars, walk-forward validation and overfitting checks.",
+      "inLanguage": "en-IN",
+      "datePublished": "2026-08-18",
+      "dateModified": "2026-08-18",
+      "author": { "@id": "https://quantnifty.com/#anuj" },
+      "publisher": { "@id": "https://quantnifty.com/#org" },
+      "image": "https://quantnifty.com/og.png",
+      "mainEntityOfPage": { "@id": "https://quantnifty.com/guides/options-backtesting#page" },
+      "about": [
+        { "@type": "Thing", "name": "Backtesting" },
+        { "@type": "Thing", "name": "Overfitting" },
+        { "@type": "Thing", "name": "Walk-forward validation" }
+      ],
+      "isPartOf": { "@id": "https://quantnifty.com/#site" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://quantnifty.com/guides/options-backtesting#page",
+      "url": "https://quantnifty.com/guides/options-backtesting",
+      "name": "Options backtesting that tells the truth",
+      "isPartOf": { "@id": "https://quantnifty.com/#site" },
+      "inLanguage": "en-IN",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://quantnifty.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://quantnifty.com/guides" },
+          { "@type": "ListItem", "position": 3, "name": "Options backtesting", "item": "https://quantnifty.com/guides/options-backtesting" }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://quantnifty.com/guides/options-backtesting#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What makes an options backtest unreliable?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Four things, in rough order of frequency: costs applied as a lump-sum estimate rather than per fill, slippage modelled on one side of the trade or not at all, an assumed expiry calendar that ignores holiday shifts, and repeated adjustment of the strategy after seeing out-of-sample results, which silently converts the out-of-sample period into an in-sample one. Any of these can turn a losing strategy into a beautiful equity curve."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is walk-forward validation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Walk-forward validation fits or selects a strategy on one block of historical data and then evaluates it on the immediately following block, which it has never seen. The window then rolls forward and the process repeats. It approximates the real situation of choosing a strategy today and running it on data that has not yet occurred, which a single in-sample optimisation does not."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you know if a strategy is overfitted?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Test whether in-sample ranking predicts out-of-sample ranking. Run the full candidate set, rank every configuration on in-sample performance, rank the same configurations on out-of-sample performance, and compute the rank correlation between the two. If it is near zero, the in-sample score carries no information and selecting the best backtest is equivalent to picking at random. In one SENSEX search across 3.2 million configurations, that correlation was −0.001."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much slippage should you assume in a backtest?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Enough that you would be unsurprised by live results, applied to every entry and every exit rather than once per round trip. We model 0.2% per fill on Indian index options alongside full statutory charges and hedge cost. The correct figure depends on strike liquidity, order type and time of day — a near-the-money weekly strike at 10:00 behaves very differently from a far strike in the final minutes of expiry."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <a href="/" class="brand">
+      <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+      QuantNifty
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/guides">Guides</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="mast">
+  <div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/guides">Guides</a> <span>/</span> Options backtesting
+    </nav>
+    <span class="kicker">Validation</span>
+    <h1>Any strategy can be made to look brilliant in hindsight.</h1>
+    <p class="sub">The purpose of a backtest is not to produce an attractive curve. It is to find out
+      whether you should believe one. Those are almost opposite activities.</p>
+    <div class="byline">
+      <span>By Anuj Baid</span><span class="dot"></span>
+      <span>Updated 18 August 2026</span><span class="dot"></span>
+      <span>11 min read</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <div class="answer">
+      <b class="lab">Short answer</b>
+      <p>An honest options backtest applies slippage to <em>both</em> sides of <em>every</em> fill, includes
+        full statutory charges and hedge cost inside the simulation, uses a real exchange expiry calendar
+        including holiday shifts, and validates on data that was never used during development. The
+        decisive test is whether in-sample ranking predicts out-of-sample ranking. If it does not, the
+        backtest cannot tell you which strategy to pick, no matter how good the best curve looks.</p>
+    </div>
+
+    <div class="toc">
+      <b>On this page</b>
+      <ol>
+        <li><a href="#purpose">What a backtest is for</a></li>
+        <li><a href="#costs">Costs, applied per fill</a></li>
+        <li><a href="#slippage">Slippage on both sides</a></li>
+        <li><a href="#data">Data quality and expiry calendars</a></li>
+        <li><a href="#walkforward">Walk-forward validation</a></li>
+        <li><a href="#overfit">The overfitting test that matters</a></li>
+        <li><a href="#rejected">What we rejected, and why</a></li>
+        <li><a href="#checklist">A checklist for someone else's backtest</a></li>
+        <li><a href="#faq">Questions people ask</a></li>
+      </ol>
+    </div>
+
+    <section id="purpose">
+      <h2><i>01</i>What a backtest is for</h2>
+      <p>A backtest is an attempt to answer one question: if I had run these exact rules over this period,
+        without knowing what came next, what would have happened?</p>
+      <p>Almost every way a backtest goes wrong is a way that the phrase "without knowing what came next"
+        quietly stops being true. Sometimes that is a technical leak &mdash; using a value that was not
+        available at decision time. More often it is a human leak: the strategy was adjusted repeatedly
+        until the curve looked good, which means the final rules encode knowledge of the whole period.</p>
+      <div class="note">
+        <b class="lab">The uncomfortable framing</b>
+        <p>Treat the backtest as a filter that rejects strategies, not as a search for the best one. A
+          process that rejects almost everything and occasionally admits something unremarkable is working
+          correctly. A process that keeps producing spectacular results is producing spectacular results.</p>
+      </div>
+    </section>
+
+    <section id="costs">
+      <h2><i>02</i>Costs, applied per fill</h2>
+      <p>In Indian index options, the transaction cost stack is substantial: brokerage, exchange transaction
+        charges, Securities Transaction Tax, stamp duty, SEBI turnover fees and GST. For a strategy that
+        trades every session, sometimes several times, this is not a rounding error.</p>
+      <p>The critical detail is <em>where</em> costs are applied. Subtracting an estimated annual cost from
+        an annual gross return is not equivalent to charging each fill as it happens. The per-fill approach
+        compounds correctly, interacts properly with position sizing, and &mdash; most importantly &mdash;
+        changes which strategies survive selection. A high-frequency variant that looks best gross will
+        often rank poorly net, and you only discover that if costs are inside the simulation.</p>
+      <p>The same applies to hedge cost. If the live strategy buys a protective option, the backtest must
+        pay for it on every trade. Comparing an unhedged backtest against a hedged live implementation is
+        not a comparison at all.</p>
+    </section>
+
+    <section id="slippage">
+      <h2><i>03</i>Slippage on both sides</h2>
+      <p>Slippage is the gap between the price your model assumed and the price you actually get. It exists
+        on entry and it exists again on exit, and the exit is usually worse, because exits often happen when
+        the market is moving and liquidity is thinner.</p>
+      <p>Two common shortcuts, both of which flatter results:</p>
+      <ul>
+        <li><strong>Applying slippage once per round trip</strong> rather than once per fill. This halves
+          the true cost.</li>
+        <li><strong>Filling at the mid price or the last traded price</strong>. Neither is available to you
+          reliably; a market order crosses the spread, and on a wide strike that spread is the dominant
+          cost.</li>
+      </ul>
+      <p>We model <strong>0.2% slippage per fill</strong> on Indian index options, on entry and on exit,
+        alongside full statutory charges and hedge cost. Whether 0.2% is right for a given strategy depends
+        on strike liquidity, order type and time of day &mdash; a near-the-money weekly strike at 10:00 is a
+        completely different execution problem from a far strike in the closing minutes of expiry. The
+        principle is to choose a figure you would not be embarrassed by if live results came in worse.</p>
+    </section>
+
+    <section id="data">
+      <h2><i>04</i>Data quality and expiry calendars</h2>
+      <p>Option backtesting is unusually demanding of data. You need per-strike, per-expiry pricing at the
+        granularity your strategy actually decides at. Testing an intraday strategy on daily closing prices
+        does not approximate the answer; it produces a different answer to a different question.</p>
+      <p>Specific traps:</p>
+      <ul>
+        <li><strong>Assumed expiry weekday.</strong> Holidays shift expiry. A hard-coded weekday means the
+          backtest trades a contract that did not exist, or misses the one that did. Expiry must come from a
+          maintained exchange calendar.</li>
+        <li><strong>Strikes that were never liquid.</strong> Historical data may quote a strike that had no
+          real market. A backtest happily fills there; live, you cannot.</li>
+        <li><strong>Contract specification changes.</strong> Lot sizes and strike intervals have changed
+          over time. Applying today's lot size across a multi-year history misstates every position.</li>
+        <li><strong>Stale quotes.</strong> An option that has not traded recently may carry a price that no
+          longer reflects anything, particularly at far strikes.</li>
+      </ul>
+    </section>
+
+    <section id="walkforward">
+      <h2><i>05</i>Walk-forward validation</h2>
+      <p>Splitting history once into a training half and a test half is better than nothing, but it tests a
+        single decision made at a single moment. Walk-forward does better: select on a block of data,
+        evaluate on the block immediately following, roll the window forward, repeat.</p>
+      <p>This mirrors the real problem. In practice you choose a strategy using everything you know today
+        and run it on data that has not happened yet, then reassess later. Walk-forward simulates that
+        sequence many times over, and a strategy that only worked because of one favourable regime tends to
+        show it.</p>
+      <div class="note warn">
+        <b class="lab">The discipline that makes it meaningful</b>
+        <p>Walk-forward validation is worthless if you look at the out-of-sample result, adjust the strategy,
+          and run it again. Every such iteration leaks information backwards. The out-of-sample period is
+          spent the first time you use it to make a decision. If you must iterate, hold back a further block
+          that you genuinely do not touch until the very end.</p>
+      </div>
+    </section>
+
+    <section id="overfit">
+      <h2><i>06</i>The overfitting test that matters</h2>
+      <p>Most overfitting discussions stop at "use out-of-sample data." The sharper question is whether your
+        selection criterion has any predictive power at all.</p>
+      <p>The test: run the full candidate set. Rank every configuration by in-sample performance. Rank the
+        same configurations by out-of-sample performance. Compute the rank correlation between the two
+        lists. That single number tells you whether choosing the best in-sample strategy is better than
+        choosing at random.</p>
+      <p>On one SENSEX-focused search we ran, the result was stark:</p>
+      <div class="kpis">
+        <div class="kpi"><b>3.2M</b><span>configurations tested</span></div>
+        <div class="kpi"><b>~20,000</b><span>cleared the walk-forward gate</span></div>
+        <div class="kpi"><b>&minus;0.001</b><span>Spearman rank correlation, IS to OOS</span></div>
+        <div class="kpi"><b>3</b><span>sleeves finally deployed</span></div>
+      </div>
+      <p>A rank correlation of &minus;0.001 means the in-sample score had <strong>no predictive power
+        whatsoever</strong>. Picking the top-ranked backtest from 3.2 million candidates would have been
+        statistically equivalent to picking one at random.</p>
+      <p>The consequence is that the selection method has to change. Instead of choosing by score, the final
+        basket was chosen by <em>structure</em> &mdash; which configuration families kept appearing across
+        the surviving set, rather than which single configuration scored highest. Membership frequency across
+        a robust region is a far more durable signal than a peak, because a peak is exactly what noise
+        produces.</p>
+    </section>
+
+    <section id="rejected">
+      <h2><i>07</i>What we rejected, and why</h2>
+      <p>Several filters looked genuinely promising in-sample and were discarded on out-of-sample evidence:</p>
+      <div class="tscroll">
+      <table>
+        <thead><tr><th>Filter tested</th><th>Outcome</th></tr></thead>
+        <tbody>
+          <tr><td>VIX threshold for entry</td><td>Improved in-sample results; did not hold out-of-sample</td></tr>
+          <tr><td>Out-of-the-money strike shift</td><td>Improved in-sample results; did not hold out-of-sample</td></tr>
+          <tr><td>Opening-range ATR filter</td><td>Improved in-sample results; did not hold out-of-sample</td></tr>
+          <tr><td>Green-candle break exit</td><td>Improved in-sample results; did not hold out-of-sample</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>We publish these because rejected experiments are the part of a research process that is almost
+        never shown, and their absence is what makes published backtests untrustworthy. A strategy presented
+        without its siblings tells you nothing about how much searching produced it.</p>
+    </section>
+
+    <section id="checklist">
+      <h2><i>08</i>A checklist for someone else's backtest</h2>
+      <p>Questions worth asking before you believe a curve:</p>
+      <ul>
+        <li>Are costs and slippage applied per fill, inside the simulation, on both sides?</li>
+        <li>What slippage assumption, and does it vary by strike liquidity and time of day?</li>
+        <li>Is hedge cost included, and is the backtest hedged the same way the live system is?</li>
+        <li>Where did the expiry calendar come from, and does it handle holiday shifts?</li>
+        <li>How many configurations were searched before this one was selected?</li>
+        <li>Was the out-of-sample period ever used to make a change to the strategy?</li>
+        <li>What is the rank correlation between in-sample and out-of-sample performance?</li>
+        <li>What was tested and rejected?</li>
+        <li>Is this a backtest or a live track record? If backtest, is that stated plainly?</li>
+      </ul>
+      <p>An honest counterparty will answer all nine without discomfort. Difficulty on the last four is the
+        signal you are looking for.</p>
+    </section>
+
+    <section id="faq">
+      <h2><i>09</i>Questions people ask</h2>
+      <div class="faq">
+        <details>
+          <summary>What makes an options backtest unreliable?</summary>
+          <p>Costs applied as a lump-sum estimate rather than per fill; slippage on one side or none;
+            an assumed expiry calendar that ignores holiday shifts; and repeated adjustment after seeing
+            out-of-sample results, which converts that period into an in-sample one. Any of these can turn a
+            losing strategy into a beautiful curve.</p>
+        </details>
+        <details>
+          <summary>What is walk-forward validation?</summary>
+          <p>Selecting a strategy on one block of history and evaluating it on the block immediately
+            following, which it has never seen, then rolling the window forward and repeating. It approximates
+            the real situation of choosing a strategy today and running it on data that has not happened yet.</p>
+        </details>
+        <details>
+          <summary>How do you know if a strategy is overfitted?</summary>
+          <p>Rank every candidate in-sample, rank the same candidates out-of-sample, and correlate the two
+            rankings. Near-zero correlation means your selection criterion carries no information and picking
+            the best backtest is equivalent to picking at random. In one search across 3.2 million
+            configurations, that correlation was &minus;0.001.</p>
+        </details>
+        <details>
+          <summary>How much slippage should you assume?</summary>
+          <p>Enough that live results would not surprise you, applied to every entry and every exit. We use
+            0.2% per fill on Indian index options plus full statutory charges and hedge cost. The right number
+            depends on strike liquidity, order type and time of day.</p>
+        </details>
+        <details>
+          <summary>Is a good backtest evidence a strategy will work?</summary>
+          <p>No. A backtest is evidence a strategy has not yet been ruled out. Live results differ because of
+            execution quality, liquidity, latency and changing market regimes. Backtested performance does not
+            predict live performance, and any figure on this site is backtested unless explicitly stated
+            otherwise.</p>
+        </details>
+      </div>
+    </section>
+
+    <div class="note warn">
+      <b class="lab">Important</b>
+      <p>QuantNifty is an algorithm development and consulting firm. We are <strong>not</strong> a
+        SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. This page is
+        educational and is not investment advice. All performance figures referenced anywhere on this site
+        are <strong>backtested</strong>, not a live track record, and backtested results do not predict live
+        results. Options trading can lose more than your initial capital. Full risk disclosure is in our
+        <a href="/terms">Terms</a>.</p>
+    </div>
+
+    <div class="related">
+      <b class="lab">Read next</b>
+      <ul>
+        <li><a href="/guides/sharpe-ratio">What is a good Sharpe ratio?</a> &mdash; reading the output properly</li>
+        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a> &mdash; what you are testing</li>
+        <li><a href="/guides/0-dte-options-india">0 DTE and 1 DTE options</a> &mdash; expiry calendars in practice</li>
+        <li><a href="/guides/algo-trading-india">Algo trading in India</a> &mdash; the cost stack in detail</li>
+      </ul>
+    </div>
+
+    <div class="cta">
+      <h2>Want your strategy tested properly?</h2>
+      <p>Slippage on both sides, statutory charges, hedge cost, real expiry calendars and walk-forward
+        validation &mdash; including an honest answer when the result is that the edge is not there.</p>
+      <a class="btn" href="/#contact">Tell us what you want tested</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <a href="/" class="brand" style="color:#fff">
+        <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+        QuantNifty
+      </a>
+      <nav class="fnav">
+        <a href="/">Home</a>
+        <a href="/guides">Guides</a>
+        <a href="/#ai">AI</a>
+        <a href="/#about">About</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="https://www.linkedin.com/company/quantnifty" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://wa.me/919601443663" target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
+    </div>
+    <div class="fb">
+      <span>&copy; 2026 QuantNifty. All rights reserved.</span>
+      <span>Not a SEBI-registered Research Analyst or Investment Adviser.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

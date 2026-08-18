@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pledged Margin for Algo Trading: Earn From Holdings Without Selling Them</title>
+<meta name="description" content="How pledging equity holdings releases interest-free trading margin in India, what the broker haircut costs, how the released margin can fund a systematic options strategy, and the risks of running a second engine on collateral you still own.">
+<link rel="canonical" href="https://quantnifty.com/guides/pledged-margin-algo-trading">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="theme-color" content="#04091A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pledged Margin for Algo Trading: Earn From Holdings Without Selling Them">
+<meta property="og:description" content="How pledging releases interest-free margin against holdings you keep, what the haircut costs, and the risk you take on.">
+<meta property="og:url" content="https://quantnifty.com/guides/pledged-margin-algo-trading">
+<meta property="og:image" content="https://quantnifty.com/og.png">
+<meta property="og:site_name" content="QuantNifty">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pledged margin for algo trading">
+<meta name="twitter:description" content="Interest-free margin against holdings you keep. How it works and what it risks.">
+<meta name="twitter:image" content="https://quantnifty.com/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter+Tight:wght@400;500;600;650&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/legal.css">
+<link rel="stylesheet" href="/guide.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://quantnifty.com/guides/pledged-margin-algo-trading#article",
+      "headline": "Pledged Margin for Algo Trading: Earn From Holdings Without Selling Them",
+      "description": "How pledging equity holdings releases interest-free trading margin in India, what the broker haircut costs, and how that margin can fund a systematic options strategy.",
+      "inLanguage": "en-IN",
+      "datePublished": "2026-08-18",
+      "dateModified": "2026-08-18",
+      "author": { "@id": "https://quantnifty.com/#anuj" },
+      "publisher": { "@id": "https://quantnifty.com/#org" },
+      "image": "https://quantnifty.com/og.png",
+      "mainEntityOfPage": { "@id": "https://quantnifty.com/guides/pledged-margin-algo-trading#page" },
+      "about": [
+        { "@type": "Thing", "name": "Pledged margin" },
+        { "@type": "Thing", "name": "Collateral margin" },
+        { "@type": "Thing", "name": "Algorithmic trading" }
+      ],
+      "isPartOf": { "@id": "https://quantnifty.com/#site" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://quantnifty.com/guides/pledged-margin-algo-trading#page",
+      "url": "https://quantnifty.com/guides/pledged-margin-algo-trading",
+      "name": "Pledged margin for algo trading",
+      "isPartOf": { "@id": "https://quantnifty.com/#site" },
+      "inLanguage": "en-IN",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://quantnifty.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://quantnifty.com/guides" },
+          { "@type": "ListItem", "position": 3, "name": "Pledged margin", "item": "https://quantnifty.com/guides/pledged-margin-algo-trading" }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://quantnifty.com/guides/pledged-margin-algo-trading#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is pledged margin?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pledged margin is trading margin a broker releases against securities you already own, after you formally pledge them as collateral. You keep ownership of the shares or units, you continue to receive dividends, and your holding period for capital-gains purposes is unaffected, because nothing is sold. The broker applies a haircut to the market value and credits the remainder as usable margin for derivatives positions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does pledged margin cost interest?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Pledging is a collateral arrangement, not a loan, so there is no interest charge on the margin released. Brokers typically levy a small per-instruction pledge or unpledge fee, and some charge for the cash-versus-collateral component required for derivatives margin, but there is no borrowing cost of the kind a loan against shares would carry."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much margin do you get after the haircut?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on the instrument. As a rough guide, ₹1 crore of liquid holdings typically releases in the region of ₹75–85 lakh of usable margin. Liquid large-cap stocks and index ETFs attract smaller haircuts; volatile or less liquid stocks attract larger ones. Brokers publish an approved collateral list with the applicable haircut per instrument, and both the list and the haircuts change."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the risk of trading on pledged margin?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The risk is that losses in the derivatives position are settled against your collateral. If the strategy loses enough, pledged holdings can be sold to meet the shortfall — which means a strategy failure can force liquidation of the long-term portfolio you pledged precisely because you did not want to sell it. A falling market compounds this, because collateral value drops at the same time margin requirements typically rise."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <a href="/" class="brand">
+      <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+      QuantNifty
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/guides">Guides</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="mast">
+  <div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/guides">Guides</a> <span>/</span> Pledged margin
+    </nav>
+    <span class="kicker">Capital</span>
+    <h1>Your portfolio appreciates. The margin behind it earns nothing.</h1>
+    <p class="sub">Pledging turns idle collateral into interest-free trading margin without selling a
+      single share. That is genuinely useful, and it is also how people lose portfolios they never
+      intended to touch.</p>
+    <div class="byline">
+      <span>By Anuj Baid</span><span class="dot"></span>
+      <span>Updated 18 August 2026</span><span class="dot"></span>
+      <span>9 min read</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <div class="answer">
+      <b class="lab">Short answer</b>
+      <p>Pledged margin is trading margin your broker releases against shares you already own and continue
+        to own. Because it is collateral rather than a loan, there is no interest. The broker applies a
+        haircut, so roughly &#8377;75&ndash;85 lakh of usable margin against &#8377;1 crore of liquid
+        holdings is a reasonable expectation. That margin can fund a systematic options strategy, so one
+        pool of capital produces two return streams. The cost is that trading losses are settled against
+        your collateral, and a bad enough loss can force the sale of the very holdings you pledged in order
+        to avoid selling.</p>
+    </div>
+
+    <div class="toc">
+      <b>On this page</b>
+      <ol>
+        <li><a href="#idle">The idle-collateral problem</a></li>
+        <li><a href="#how">How pledging works</a></li>
+        <li><a href="#keep">What you keep</a></li>
+        <li><a href="#haircut">The haircut</a></li>
+        <li><a href="#cash">The cash-collateral requirement</a></li>
+        <li><a href="#engine">Funding a second engine</a></li>
+        <li><a href="#risk">The risk, stated plainly</a></li>
+        <li><a href="#suits">Who this does not suit</a></li>
+        <li><a href="#faq">Questions people ask</a></li>
+      </ol>
+    </div>
+
+    <section id="idle">
+      <h2><i>01</i>The idle-collateral problem</h2>
+      <p>Nobody buys a flat and leaves it empty. It appreciates <em>and</em> it earns rent. A long-term
+        equity portfolio, by contrast, does exactly one job: it appreciates. The capital sitting inside it
+        does nothing else for the entire holding period.</p>
+      <p>That is not obviously wrong &mdash; appreciation is why you bought it. But the collateral value of
+        those holdings is a separate, unused asset. Your broker will lend trading margin against it at no
+        interest, and most portfolios never make use of that.</p>
+    </section>
+
+    <section id="how">
+      <h2><i>02</i>How pledging works</h2>
+      <p>Mechanically it is a depository instruction, not a transaction:</p>
+      <ul>
+        <li>You select holdings from your demat account and submit a pledge request through your broker.</li>
+        <li>The depository (NSDL or CDSL) sends you an authorisation link, typically confirmed with an
+          OTP against your registered contact details.</li>
+        <li>Once confirmed, the securities are marked as pledged in favour of the broker. They remain in
+          your demat account.</li>
+        <li>The broker values them, applies the prescribed haircut, and credits the balance as collateral
+          margin available for derivatives positions.</li>
+      </ul>
+      <p>Unpledging reverses this, usually with a settlement-cycle delay before the holdings are free to
+        sell again. There is generally a small per-instruction fee in each direction.</p>
+    </section>
+
+    <section id="keep">
+      <h2><i>03</i>What you keep</h2>
+      <p>Because nothing is sold, the things people worry about losing are not affected:</p>
+      <div class="tscroll">
+      <table>
+        <thead><tr><th>Retained</th><th>Status when pledged</th></tr></thead>
+        <tbody>
+          <tr><td>Ownership</td><td>Unchanged; shares stay in your demat account</td></tr>
+          <tr><td>Dividends</td><td>Continue to be credited to you</td></tr>
+          <tr><td>Bonus and split entitlements</td><td>Accrue to you as normal</td></tr>
+          <tr><td>Capital-gains holding period</td><td>Unbroken; no sale event occurs</td></tr>
+          <tr><td>Price appreciation</td><td>Entirely yours</td></tr>
+          <tr><td>Ability to sell instantly</td><td><strong>Lost</strong> until you unpledge</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>That last row is the real trade. Pledged holdings are not immediately sellable, which matters if
+        your equity portfolio doubles as your emergency liquidity.</p>
+    </section>
+
+    <section id="haircut">
+      <h2><i>04</i>The haircut</h2>
+      <p>The broker does not credit the full market value. It applies a haircut to protect itself against
+        the collateral falling in value between the moment a loss occurs and the moment it can be
+        liquidated.</p>
+      <div class="kpis">
+        <div class="kpi"><b>&#8377;1 crore</b><span>market value of liquid holdings pledged</span></div>
+        <div class="kpi"><b>&#8377;75&ndash;85 L</b><span>typical usable margin released</span></div>
+        <div class="kpi"><b>0%</b><span>interest charged on the released margin</span></div>
+      </div>
+      <p>Haircuts vary by instrument. Liquid large caps and index ETFs sit at the favourable end; volatile
+        or thinly traded stocks at the other, and some instruments are not accepted as collateral at all.
+        Brokers publish an approved list with the applicable haircut, and both the list and the percentages
+        are revised periodically &mdash; a stock that qualifies today may not next quarter.</p>
+    </section>
+
+    <section id="cash">
+      <h2><i>05</i>The cash-collateral requirement</h2>
+      <p>One detail that catches people out: you generally cannot run a derivatives book on pledged
+        collateral alone. Exchanges require a portion of the margin to be met in actual cash, with the
+        remainder allowed as collateral. The split is commonly around half and half.</p>
+      <p>Practically, this means pledging &#8377;1 crore does not give you &#8377;80 lakh of freely
+        deployable margin with no cash on hand. You need a cash component alongside it, and if your
+        strategy's losses eat into that cash, the broker may charge interest on the shortfall until it is
+        replenished. Budget for this before sizing anything.</p>
+    </section>
+
+    <section id="engine">
+      <h2><i>06</i>Funding a second engine</h2>
+      <p>Once released, that margin can fund a systematic options strategy that is entirely independent of
+        the equity portfolio. The portfolio keeps compounding at whatever the market delivers; the margin
+        behind it runs a separate return stream. One pool of capital, two engines.</p>
+      <p>The strategies that fit this role well share a particular profile: defined risk, hedged rather
+        than naked, and sized against a drawdown ceiling rather than against available margin. A strategy
+        that can lose an unbounded amount is a poor match for collateral you cannot afford to lose &mdash;
+        which is most of the point of running <a href="/guides/nifty-algo-strategies">hedged index option
+        structures</a> rather than naked ones.</p>
+      <div class="note">
+        <b class="lab">Sizing discipline</b>
+        <p>The available margin is not the correct position size. The correct position size is whatever
+          keeps the worst plausible drawdown inside a limit you set in advance and can actually tolerate.
+          Those two numbers are usually far apart, and the gap between them is the safety margin.</p>
+      </div>
+    </section>
+
+    <section id="risk">
+      <h2><i>07</i>The risk, stated plainly</h2>
+      <div class="note warn">
+        <b class="lab">Read this twice</b>
+        <p>Losses on the derivatives position are settled against your collateral. If the strategy loses
+          enough, <strong>your pledged holdings can be sold to cover the shortfall.</strong> The portfolio
+          you pledged specifically because you did not want to sell it is exactly what is at risk.</p>
+      </div>
+      <p>Three aggravating factors deserve attention:</p>
+      <ul>
+        <li><strong>Correlation.</strong> A sharp market fall reduces the value of your collateral at the
+          same moment a short-volatility strategy is most likely to be losing and margin requirements are
+          most likely to be raised. All three move against you together.</li>
+        <li><strong>Forced timing.</strong> Liquidation to meet a margin call happens on the broker's
+          schedule, not yours &mdash; typically at the worst available prices.</li>
+        <li><strong>Loss beyond capital.</strong> Short option positions can lose more than the margin
+          allocated to them. Pledging does not cap your downside at the pledged amount.</li>
+      </ul>
+      <p>This is why the honest framing is not "free money from idle assets." It is a deliberate decision
+        to take on a second, correlated risk in exchange for a second return stream, using capital you had
+        already committed to the market.</p>
+    </section>
+
+    <section id="suits">
+      <h2><i>08</i>Who this does not suit</h2>
+      <ul>
+        <li>Anyone whose equity portfolio is also their emergency fund. Pledged holdings are not quickly
+          sellable.</li>
+        <li>Anyone who would be forced to change their long-term plan if the pledged portion were
+          liquidated at a bad moment.</li>
+        <li>Anyone who cannot maintain the cash-collateral component comfortably alongside the pledge.</li>
+        <li>Anyone attracted specifically because the margin is interest-free. Zero borrowing cost does not
+          make the position low-risk; it only makes it cheap to hold.</li>
+      </ul>
+    </section>
+
+    <section id="faq">
+      <h2><i>09</i>Questions people ask</h2>
+      <div class="faq">
+        <details>
+          <summary>What is pledged margin?</summary>
+          <p>Trading margin a broker releases against securities you already own, after you formally pledge
+            them as collateral. You keep ownership, dividends continue, and your capital-gains holding period
+            is unbroken, because nothing is sold. The broker haircuts the market value and credits the
+            remainder as usable margin for derivatives.</p>
+        </details>
+        <details>
+          <summary>Does pledged margin cost interest?</summary>
+          <p>No. It is a collateral arrangement, not a loan, so no interest accrues on the released margin.
+            Brokers charge a small per-instruction pledge and unpledge fee, and there may be charges if your
+            cash-collateral component falls short, but there is no borrowing cost of the kind a loan against
+            shares carries.</p>
+        </details>
+        <details>
+          <summary>How much margin do you get after the haircut?</summary>
+          <p>Roughly &#8377;75&ndash;85 lakh of usable margin against &#8377;1 crore of liquid holdings, as a
+            general guide. Liquid large caps and index ETFs attract smaller haircuts; volatile or illiquid
+            stocks attract larger ones, and some are not accepted at all. Your broker publishes the approved
+            list and applicable haircuts, and both change.</p>
+        </details>
+        <details>
+          <summary>What is the risk of trading on pledged margin?</summary>
+          <p>Losses are settled against your collateral, so a large enough loss can force the sale of the
+            holdings you pledged. A falling market makes this worse: collateral value drops while margin
+            requirements typically rise and short-volatility strategies are losing. Short options can also
+            lose more than the margin allocated to them.</p>
+        </details>
+        <details>
+          <summary>Can I still sell pledged shares?</summary>
+          <p>Not immediately. You must unpledge first, which takes a settlement cycle. If instant liquidity
+            matters to you, pledge only the portion you are certain you will not need to touch.</p>
+        </details>
+      </div>
+    </section>
+
+    <div class="note warn">
+      <b class="lab">Important</b>
+      <p>QuantNifty is an algorithm development and consulting firm. We are <strong>not</strong> a
+        SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. This page is
+        educational and is not investment, tax or legal advice, and it is not a recommendation to pledge
+        securities or to trade. Pledging equity as collateral places those holdings at risk, and options
+        trading can lose more than your initial capital. Confirm all mechanics, fees and haircuts with your
+        own broker. Full risk disclosure is in our <a href="/terms">Terms</a>.</p>
+    </div>
+
+    <div class="related">
+      <b class="lab">Read next</b>
+      <ul>
+        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a> &mdash; what the margin would actually run</li>
+        <li><a href="/guides/sharpe-ratio">What is a good Sharpe ratio?</a> &mdash; judging a second engine properly</li>
+        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a> &mdash; before you commit collateral to anything</li>
+        <li><a href="/guides/algo-trading-india">Algo trading in India</a> &mdash; the rules and the cost structure</li>
+      </ul>
+    </div>
+
+    <div class="cta">
+      <h2>Thinking about the second engine?</h2>
+      <p>We build and test the software. We do not manage money, take custody of your capital, or tell you
+        whether to pledge &mdash; that decision is yours and your adviser's.</p>
+      <a class="btn" href="/#contact">Tell us what you want built</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <a href="/" class="brand" style="color:#fff">
+        <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+        QuantNifty
+      </a>
+      <nav class="fnav">
+        <a href="/">Home</a>
+        <a href="/guides">Guides</a>
+        <a href="/#ai">AI</a>
+        <a href="/#about">About</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="https://www.linkedin.com/company/quantnifty" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://wa.me/919601443663" target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
+    </div>
+    <div class="fb">
+      <span>&copy; 2026 QuantNifty. All rights reserved.</span>
+      <span>Not a SEBI-registered Research Analyst or Investment Adviser.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

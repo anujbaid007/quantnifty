@@ -1,5 +1,11 @@
 # Live Synthetic Index Prices Implementation Plan
 
+> **Archive note (2026-08-14):** This is a historical implementation plan, so the
+> original paths below are intentionally preserved. The active website now lives in
+> `/Users/anuj/Desktop/Projects/QuantNifty/Website`, and the active RVWAP application
+> lives in `/Users/anuj/Desktop/Projects/QuantNifty/RVWAP Live`. Do not use the old
+> `Projects/GoldMine` paths below for current operations.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Publish live put-call-parity synthetic levels for NIFTY and SENSEX from the bot machine, and show them with the basis against spot on a public `/live` page at quantnifty.com.

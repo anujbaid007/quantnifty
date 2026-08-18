@@ -510,7 +510,10 @@ input[type=range]:focus-visible{box-shadow:0 0 0 4px rgba(27,79,216,.24)}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(25,211,154,.5)}50%{opacity:.7;box-shadow:0 0 0 5px rgba(25,211,154,0)}}
 
 /* nav columns */
-.rf-cols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;padding:34px 0 30px}
+.rf-cols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:30px;padding:34px 0 30px}
+/* five columns need a wider viewport than four did; step down before the
+   900px rule below takes it to two */
+@media(max-width:1080px){.rf-cols{grid-template-columns:1.4fr 1fr 1fr;gap:28px}}
 .rf-cols h5{font-family:var(--d);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.02em;margin-bottom:13px}
 .rf-cols a{display:block;padding:5px 0;font-size:13.5px;color:var(--steel2);transition:color .2s}
 .rf-cols a:hover{color:var(--b400)}
@@ -760,6 +763,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
         }
       ],
       "sameAs": [
+        "https://www.linkedin.com/company/quantnifty",
         "https://wa.me/919601443663"
       ],
       "disambiguatingDescription": "QuantNifty is an algorithm development and consulting firm. It is not a SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker, does not manage client money, and does not sell trading tips or signals.",
@@ -844,7 +848,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       "description": "QuantNifty builds and backtests algorithmic options trading systems for NIFTY and SENSEX. Double engine capital design: your equity keeps compounding while its interest-free pledged margin runs systematic option strategies. We are an algo development and consulting firm, not SEBI registered, and we do not give advice.",
       "inLanguage": "en-IN",
       "datePublished": "2026-07-30",
-      "dateModified": "2026-08-01",
+      "dateModified": "2026-08-18",
       "speakable": {
         "@type": "SpeakableSpecification",
         "cssSelector": [
@@ -1033,7 +1037,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       <a href="#engines">Quant</a>
       <a href="#sharpe">Sharpe</a>
       <a href="#ai">AI</a>
-      <a href="#whale">Risk dial</a>
+      <a href="/guides">Guides</a>
       <a href="#about">About</a>
       <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
@@ -1050,7 +1054,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
   </button>
   <a href="#concept">Double engine</a><a href="#engines">Quant</a><a href="#sharpe">Sharpe</a>
-  <a href="#ai">AI</a><a href="#whale">Risk dial</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+  <a href="#ai">AI</a><a href="/guides">Guides</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
   <a href="#contact" class="pill">Talk to us</a>
 </div>
 
@@ -1772,11 +1776,15 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       <div><h5>Explore</h5>
         <a href="#concept">Double engine</a><a href="#engines">Quant</a><a href="#sharpe">Sharpe</a><a href="#ai">AI</a><a href="#whale">Risk dial</a>
       </div>
+      <div><h5>Guides</h5>
+        <a href="/guides">All guides</a><a href="/guides/nifty-algo-strategies">NIFTY algo strategies</a><a href="/guides/algo-trading-india">Algo trading in India</a><a href="/guides/pledged-margin-algo-trading">Pledged margin</a><a href="/guides/0-dte-options-india">0 DTE options</a><a href="/guides/options-backtesting">Backtesting</a><a href="/guides/sharpe-ratio">Sharpe ratio</a><a href="/guides/sensex-options-algo">SENSEX options algo</a>
+      </div>
       <div><h5>Company</h5>
         <a href="#about">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="#rf-disc">Disclosures</a><a href="/privacy">Privacy policy</a><a href="/terms">Terms &amp; conditions</a>
       </div>
       <div><h5>Connect</h5>
-        <a href="https://www.linkedin.com/in/anujbaid/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.linkedin.com/company/quantnifty" target="_blank" rel="noopener noreferrer">LinkedIn (company)</a>
+        <a href="https://www.linkedin.com/in/anujbaid/" target="_blank" rel="noopener noreferrer">LinkedIn (Anuj)</a>
         <a href="https://wa.me/919601443663?text=Hi%20i%20want%20to%20know%20more%20about%20the%20Algo%20Quant%20systems." target="_blank" rel="noopener">WhatsApp</a>
         <a href="https://wa.me/919601443663?text=Hi%20i%20want%20to%20know%20more%20about%20the%20Algo%20Quant%20systems." target="_blank" rel="noopener">+91 96014 43663</a>
         <a href="mailto:quantnifty.info@gmail.com">quantnifty.info@gmail.com</a>

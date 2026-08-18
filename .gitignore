@@ -9,3 +9,18 @@ node_modules/
 # regenerated chart data, pasted into index.html by hand
 tools/out/
 .playwright-mcp/
+
+# Local real-money trading platform.  It contains proprietary strategy code,
+# broker credentials, access tokens and multi-gigabyte tick recordings.
+/RVWAP Live/
+/RVWAP Pristine BT Engines/
+
+# Obsidian vault documenting the above.  Same reason: it records the exact
+# strategy rules, constants, execution logic and incident history.
+/QuantNifty Vault/
+
+# Per-client capital scaling plans.  This GitHub repo is public and these name
+# real individuals alongside their capital figures, so they stay local.  They
+# are already kept off the deployed site by .vercelignore.
+/Website/docs/clients/
+/Website/output/pdf/quantnifty-*-scaling.pdf

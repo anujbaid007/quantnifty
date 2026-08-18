@@ -1,0 +1,71 @@
+/* Guide pages. Loaded after legal.css, which supplies the shell: header,
+   masthead, section/h2/h3/p/ul, .note, tables and footer. Everything here is
+   the delta a long-form article needs on top of a legal document. */
+
+/* breadcrumb sits above the h1 in the masthead */
+.crumb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-family:var(--m);font-size:11.5px;
+  color:var(--steel);margin-bottom:14px}
+.crumb a{color:var(--steel)}
+.crumb span{color:var(--b400)}
+
+/* byline / freshness line under the masthead sub */
+.byline{margin-top:20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font-family:var(--m);font-size:11.5px;color:var(--steel)}
+.byline .dot{width:3px;height:3px;border-radius:50%;background:var(--steel2);flex:0 0 auto}
+
+/* answer-first block: the one-paragraph response an answer engine can lift */
+.answer{border-radius:var(--r);padding:22px 24px;margin:0 0 30px;
+  border:1px solid rgba(25,211,154,.3);background:linear-gradient(92deg,rgba(25,211,154,.09),rgba(25,211,154,.015))}
+.answer b.lab{display:block;font-family:var(--m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:#0E9E74;margin-bottom:9px;font-weight:500}
+.answer p{margin-bottom:0;font-size:16.2px;color:var(--ink)}
+
+/* key-number strip */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0 24px}
+.kpi{border:1px solid rgba(20,64,184,.13);border-radius:13px;padding:15px 16px;background:var(--ice2)}
+.kpi b{display:block;font-family:var(--m);font-size:1.32rem;font-variant-numeric:tabular-nums;
+  color:var(--ink);letter-spacing:-.02em;font-weight:600}
+.kpi span{display:block;margin-top:4px;font-size:12.5px;color:var(--steel);line-height:1.45}
+
+/* hub grid */
+.gcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:16px;margin:8px 0 10px}
+.gcard{display:block;border:1px solid rgba(20,64,184,.13);border-radius:var(--r);padding:22px;background:var(--paper);
+  transition:border-color .2s,transform .2s,box-shadow .2s}
+.gcard:hover{border-color:var(--b400);transform:translateY(-2px);text-decoration:none;
+  box-shadow:0 12px 30px -16px rgba(20,64,184,.4)}
+.gcard b{display:block;font-family:var(--d);font-size:1.04rem;font-weight:700;letter-spacing:-.02em;
+  color:var(--ink);margin-bottom:7px;line-height:1.28}
+.gcard span{display:block;font-size:14.2px;color:var(--steel);line-height:1.55}
+.gcard i{display:block;font-family:var(--m);font-style:normal;font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--b400);margin-bottom:11px}
+
+/* related links at the foot of an article */
+.related{border-top:1px solid rgba(20,64,184,.12);margin-top:40px;padding-top:26px}
+.related b.lab{display:block;font-family:var(--m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--steel);margin-bottom:14px;font-weight:500}
+.related ul{list-style:none;padding:0;margin:0}
+.related li{padding-left:0;margin-bottom:8px}
+.related li::before{display:none}
+
+/* closing call to action */
+.cta{border-radius:var(--r);padding:28px;margin:34px 0 0;background:var(--ink);color:#fff}
+.cta h2{color:#fff;margin-bottom:10px}
+.cta p{color:#CFDEFF}
+.cta p:last-of-type{margin-bottom:18px}
+.cta a.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;
+  background:var(--b500);color:#fff;font-size:14px;font-weight:600}
+.cta a.btn:hover{background:var(--b400);text-decoration:none}
+
+/* inline FAQ at the end of a guide, mirrors the FAQPage JSON-LD */
+.faq{margin-top:14px}
+.faq details{border:1px solid rgba(20,64,184,.12);border-radius:12px;padding:0;margin-bottom:10px;background:var(--ice2)}
+.faq summary{cursor:pointer;padding:15px 18px;font-weight:650;color:var(--ink);font-size:15px;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";float:right;font-family:var(--m);color:var(--b400);font-weight:500}
+.faq details[open] summary::after{content:"\2212"}
+.faq details > p{padding:0 18px 15px;margin:0}
+
+@media(max-width:760px){
+  .cta{padding:22px}
+  .answer p{font-size:15.4px}
+}

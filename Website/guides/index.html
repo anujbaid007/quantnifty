@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Algo Trading Guides: NIFTY &amp; SENSEX Options Strategy, Backtesting and Risk | QuantNifty</title>
+<meta name="description" content="Plain-English guides to algorithmic trading on Indian index options: NIFTY algo strategies, 0 DTE and 1 DTE structures, pledged margin, honest backtesting, and how to read a Sharpe ratio. Written by the engineers who build the systems.">
+<link rel="canonical" href="https://quantnifty.com/guides">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="theme-color" content="#04091A">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Algo Trading Guides | QuantNifty">
+<meta property="og:description" content="Plain-English guides to algorithmic trading on Indian index options: strategy design, backtesting, pledged margin and risk.">
+<meta property="og:url" content="https://quantnifty.com/guides">
+<meta property="og:image" content="https://quantnifty.com/og.png">
+<meta property="og:site_name" content="QuantNifty">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Algo Trading Guides | QuantNifty">
+<meta name="twitter:description" content="Guides to algorithmic trading on Indian index options: strategy design, backtesting, pledged margin and risk.">
+<meta name="twitter:image" content="https://quantnifty.com/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter+Tight:wght@400;500;600;650&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/legal.css">
+<link rel="stylesheet" href="/guide.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://quantnifty.com/guides#page",
+      "url": "https://quantnifty.com/guides",
+      "name": "Algo Trading Guides",
+      "description": "Guides to algorithmic trading on Indian index options: NIFTY algo strategies, 0 DTE structures, pledged margin, backtesting and risk measurement.",
+      "inLanguage": "en-IN",
+      "datePublished": "2026-08-18",
+      "dateModified": "2026-08-18",
+      "isPartOf": { "@id": "https://quantnifty.com/#site" },
+      "publisher": { "@id": "https://quantnifty.com/#org" },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://quantnifty.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://quantnifty.com/guides" }
+        ]
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "NIFTY algo strategies explained", "url": "https://quantnifty.com/guides/nifty-algo-strategies" },
+          { "@type": "ListItem", "position": 2, "name": "Algo trading in India", "url": "https://quantnifty.com/guides/algo-trading-india" },
+          { "@type": "ListItem", "position": 3, "name": "Pledged margin for algo trading", "url": "https://quantnifty.com/guides/pledged-margin-algo-trading" },
+          { "@type": "ListItem", "position": 4, "name": "0 DTE and 1 DTE options in India", "url": "https://quantnifty.com/guides/0-dte-options-india" },
+          { "@type": "ListItem", "position": 5, "name": "Backtesting options strategies honestly", "url": "https://quantnifty.com/guides/options-backtesting" },
+          { "@type": "ListItem", "position": 6, "name": "What is a good Sharpe ratio", "url": "https://quantnifty.com/guides/sharpe-ratio" },
+          { "@type": "ListItem", "position": 7, "name": "SENSEX options algo trading", "url": "https://quantnifty.com/guides/sensex-options-algo" }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <a href="/" class="brand">
+      <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+      QuantNifty
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/guides">Guides</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="mast">
+  <div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> Guides
+    </nav>
+    <span class="kicker">Reference library</span>
+    <h1>Algo trading, explained by the people who write the code.</h1>
+    <p class="sub">No tips, no signals, no course. These are working notes on how systematic strategies for
+      NIFTY and SENSEX options are actually designed, tested and run &mdash; including the parts that
+      usually get left out of the pitch.</p>
+    <div class="stamp">
+      <span>Updated August 2026</span>
+      <span>India, index derivatives</span>
+      <span>Engineering, not advice</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <div class="answer">
+      <b class="lab">Start here</b>
+      <p>If you own a long-term equity portfolio and want to understand how its idle pledged margin can
+        fund a systematic options strategy, read <a href="/guides/pledged-margin-algo-trading">pledged margin</a>
+        first, then <a href="/guides/nifty-algo-strategies">NIFTY algo strategies</a>. If you are evaluating
+        someone else's backtest, go straight to <a href="/guides/options-backtesting">honest backtesting</a>.</p>
+    </div>
+
+    <section>
+      <h2>The guides</h2>
+      <div class="gcards">
+
+        <a class="gcard" href="/guides/nifty-algo-strategies">
+          <i>Strategy</i>
+          <b>NIFTY algo strategies explained</b>
+          <span>The families of systematic strategy that actually run on NIFTY options, what edge each one
+            is claiming, and how they fail.</span>
+        </a>
+
+        <a class="gcard" href="/guides/algo-trading-india">
+          <i>Ground rules</i>
+          <b>Algo trading in India</b>
+          <span>What is permitted, what a broker API can and cannot do, where SEBI registration matters,
+            and what it costs to run.</span>
+        </a>
+
+        <a class="gcard" href="/guides/pledged-margin-algo-trading">
+          <i>Capital</i>
+          <b>Pledged margin for algo trading</b>
+          <span>How pledging releases interest-free margin against holdings you keep, what the haircut
+            costs you, and the risk you take on.</span>
+        </a>
+
+        <a class="gcard" href="/guides/0-dte-options-india">
+          <i>Instrument</i>
+          <b>0 DTE and 1 DTE options</b>
+          <span>Why expiry-day options behave differently, what removing overnight risk really buys, and
+            where the danger moves to instead.</span>
+        </a>
+
+        <a class="gcard" href="/guides/options-backtesting">
+          <i>Validation</i>
+          <b>Backtesting that tells the truth</b>
+          <span>Slippage, statutory charges, expiry calendars, survivorship and walk-forward testing.
+            How to spot a backtest that is lying.</span>
+        </a>
+
+        <a class="gcard" href="/guides/sharpe-ratio">
+          <i>Measurement</i>
+          <b>What is a good Sharpe ratio?</b>
+          <span>Reference points from bank deposits to hedge funds, why return alone tells you nothing,
+            and how Sharpe gets inflated.</span>
+        </a>
+
+        <a class="gcard" href="/guides/sensex-options-algo">
+          <i>Instrument</i>
+          <b>SENSEX options algo trading</b>
+          <span>How BSE's SENSEX contract differs from NIFTY in liquidity, lot size and expiry, and why
+            running both diversifies.</span>
+        </a>
+
+      </div>
+    </section>
+
+    <div class="note warn">
+      <b class="lab">Before you read any of it</b>
+      <p>QuantNifty is an algorithm development and consulting firm. We are <strong>not</strong> a
+        SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. Nothing in these
+        guides is investment advice or a recommendation to trade any instrument. Performance figures shown
+        anywhere on this site are <strong>backtested</strong>, not a live track record. Options trading can
+        lose more than your initial capital, and pledging equity as collateral puts those holdings at risk.
+        See our <a href="/terms">Terms</a> for the full risk disclosure.</p>
+    </div>
+
+    <div class="cta">
+      <h2>Have a rule you trade by hand?</h2>
+      <p>If you already know what you want to trade and want it written properly &mdash; with stop-losses,
+        re-entry logic, fill confirmation and a kill switch &mdash; that is the work we do.</p>
+      <a class="btn" href="/#contact">Tell us what you want built</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <a href="/" class="brand" style="color:#fff">
+        <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+        QuantNifty
+      </a>
+      <nav class="fnav">
+        <a href="/">Home</a>
+        <a href="/guides">Guides</a>
+        <a href="/#ai">AI</a>
+        <a href="/#about">About</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="https://www.linkedin.com/company/quantnifty" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://wa.me/919601443663" target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
+    </div>
+    <div class="fb">
+      <span>&copy; 2026 QuantNifty. All rights reserved.</span>
+      <span>Not a SEBI-registered Research Analyst or Investment Adviser.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
