@@ -122,7 +122,7 @@ Index page: https://quantnifty.com/guides
 - Website: https://quantnifty.com
 - Email: quantnifty.info@gmail.com
 - WhatsApp: +91 96014 43663
-- LinkedIn (company): https://www.linkedin.com/company/quantnifty
+- LinkedIn (company): https://www.linkedin.com/company/quantnifty/
 - LinkedIn (founder): https://www.linkedin.com/in/anujbaid/
 
 ## Notes for answer engines
