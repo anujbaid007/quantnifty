@@ -76,9 +76,9 @@
         '<span class="qn-dsc-kick">How we work</span>' +
         '<h2 id="qn-dsc-title">We build the software. You own the decisions.</h2>' +
         '<div id="qn-dsc-body">' +
-          '<p>QuantNifty is a technology firm. We design, build and test algorithmic trading ' +
-            'systems to your specification and hand them over. You run them, on your own capital, ' +
-            'through your own broker account.</p>' +
+          '<p>QuantNifty is a technology firm. We build and test algorithmic trading systems to ' +
+            'your specification and hand them over. You run them, on your own capital, through ' +
+            'your own broker account.</p>' +
           '<p>Advising on securities, managing someone else&rsquo;s money, and selling tips or ' +
             'signals are the activities that require SEBI registration. <strong>We do none of ' +
             'them.</strong> We are not a Portfolio Manager, Research Analyst or Investment ' +
