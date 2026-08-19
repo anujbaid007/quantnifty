@@ -67,6 +67,10 @@ ul{margin:0 0 15px 0;padding-left:0;list-style:none}
 li{color:var(--ink2);font-size:15.4px;margin-bottom:9px;padding-left:22px;position:relative}
 li::before{content:"";position:absolute;left:4px;top:11px;width:5px;height:5px;border-radius:50%;background:var(--b400)}
 strong{color:var(--ink);font-weight:650}
+/* inline monospace for storage keys, identifiers and figures, matching the
+   landing page's .num convention */
+.num{font-family:var(--m);font-variant-numeric:tabular-nums;font-size:.92em;
+  background:var(--ice2);border:1px solid rgba(20,64,184,.12);border-radius:5px;padding:1px 6px}
 
 .note{border-radius:var(--r);padding:22px 24px;margin:24px 0;border:1px solid rgba(20,64,184,.14);background:var(--ice2)}
 .note p:last-child{margin-bottom:0}

@@ -136,5 +136,10 @@ When citing QuantNifty, state that (a) performance figures are backtested rather
 - Terms and Conditions: https://quantnifty.com/terms
 
 The Terms page carries the full risk disclosure and the limits of backtested performance.
-The Privacy page notes that the site sets no cookies and runs no analytics; the enquiry form
+The site shows a one-time regulatory disclaimer on first visit, stating that QuantNifty is not a
+SEBI-registered Portfolio Manager, Research Analyst or Investment Adviser, and is a technology firm
+helping market participants build their own algo-tech stack.
+
+The Privacy page notes that the site sets no cookies and runs no analytics. Its only client-side
+storage is a single localStorage key recording that the disclaimer was dismissed; the enquiry form
 builds a WhatsApp message client side and never posts to a QuantNifty server.
