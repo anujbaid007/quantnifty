@@ -12,7 +12,7 @@
 (function () {
   'use strict';
 
-  var KEY = 'qn-disclaimer-ack-v2';
+  var KEY = 'qn-disclaimer-ack-v3';
 
   // Private-mode Safari and hardened browser settings can throw on access.
   // Failing open (showing the notice again) is the safe direction for a
@@ -45,6 +45,15 @@
       'letter-spacing:-.03em;line-height:1.15;color:#fff;margin:0 0 14px;text-wrap:balance}',
     '.qn-dsc p{font-size:14.6px;line-height:1.62;color:#C6D6F5;margin:0 0 12px}',
     '.qn-dsc p strong{color:#fff;font-weight:650}',
+    // the registration position, set apart so it reads as a statement of what
+    // we are rather than a footnote about what we lack
+    '.qn-dsc-call{margin:16px 0 14px !important;padding:15px 17px;border-radius:12px;',
+      'border:1px solid rgba(90,147,255,.28);border-left:3px solid #2E6BFF;',
+      'background:linear-gradient(92deg,rgba(46,107,255,.14),rgba(46,107,255,.03))}',
+    '.qn-dsc-call b{display:block;color:#fff;font-weight:650;font-size:15px;line-height:1.5;',
+      'margin-bottom:7px;letter-spacing:-.01em}',
+    '.qn-dsc-call span{display:block;font-size:14px;line-height:1.6;color:#C6D6F5}',
+    '.qn-dsc-sign{font-size:14.4px !important;color:#E9F0FF !important;font-weight:600}',
     '.qn-dsc-fine{font-size:13.2px !important;color:#8FA0C2 !important}',
     '.qn-dsc-fine a{color:#93BAFF;text-decoration:underline;text-underline-offset:2px}',
     '.qn-dsc-act{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:20px}',
@@ -76,14 +85,17 @@
         '<span class="qn-dsc-kick">How we work</span>' +
         '<h2 id="qn-dsc-title">We build the software. You own the decisions.</h2>' +
         '<div id="qn-dsc-body">' +
-          '<p>QuantNifty is a technology firm. We build and test algorithmic trading systems to ' +
-            'your specification and hand them over. You run them, on your own capital, through ' +
-            'your own broker account.</p>' +
-          '<p>Advising on securities, managing someone else&rsquo;s money, and selling tips or ' +
-            'signals are the activities that require SEBI registration. <strong>We do none of ' +
-            'them.</strong> We are not a Portfolio Manager, Research Analyst or Investment ' +
-            'Adviser, and nothing here is investment advice &mdash; the strategy decision is ' +
-            'always yours.</p>' +
+          '<p>QuantNifty is a tech-first platform. We build and test trading algorithms to your ' +
+            'specification and hand them over. You run them, on your own capital, through your ' +
+            'own broker account.</p>' +
+          '<p class="qn-dsc-call">' +
+            '<b>We are not a Portfolio Manager. We are not a Research Analyst.</b>' +
+            '<span>We do not manage client money, and we do not sell tips or signals. That is why ' +
+              'we are not SEBI registered &mdash; registration follows the activity, and ours is ' +
+              'engineering.</span>' +
+          '</p>' +
+          '<p class="qn-dsc-sign">Nothing here is investment advice. The strategy is yours; the ' +
+            'code is ours.</p>' +
           '<p class="qn-dsc-fine">Performance figures shown anywhere on this site are ' +
             '<strong>backtested</strong>, not a live track record, and do not predict future ' +
             'results. Derivatives carry substantial risk: options trading can lose more than your ' +
