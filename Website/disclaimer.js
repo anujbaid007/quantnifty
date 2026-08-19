@@ -12,7 +12,7 @@
 (function () {
   'use strict';
 
-  var KEY = 'qn-disclaimer-ack-v1';
+  var KEY = 'qn-disclaimer-ack-v2';
 
   // Private-mode Safari and hardened browser settings can throw on access.
   // Failing open (showing the notice again) is the safe direction for a
@@ -73,14 +73,17 @@
 
     scrim.innerHTML =
       '<div class="qn-dsc">' +
-        '<span class="qn-dsc-kick">Please read</span>' +
-        '<h2 id="qn-dsc-title">We are not SEBI registered.</h2>' +
+        '<span class="qn-dsc-kick">How we work</span>' +
+        '<h2 id="qn-dsc-title">We build the software. You own the decisions.</h2>' +
         '<div id="qn-dsc-body">' +
-          '<p>QuantNifty is <strong>not</strong> a SEBI-registered Portfolio Manager, Research ' +
-            'Analyst or Investment Adviser. We do not manage client money, and we do not sell ' +
-            'tips, signals or recommendations.</p>' +
-          '<p>We are a technology-first firm. We help market participants build and test their ' +
-            'own algo-tech stack. <strong>Nothing on this site is investment advice.</strong></p>' +
+          '<p>QuantNifty is a technology firm. We design, build and test algorithmic trading ' +
+            'systems to your specification and hand them over. You run them, on your own capital, ' +
+            'through your own broker account.</p>' +
+          '<p>Advising on securities, managing someone else&rsquo;s money, and selling tips or ' +
+            'signals are the activities that require SEBI registration. <strong>We do none of ' +
+            'them.</strong> We are not a Portfolio Manager, Research Analyst or Investment ' +
+            'Adviser, and nothing here is investment advice &mdash; the strategy decision is ' +
+            'always yours.</p>' +
           '<p class="qn-dsc-fine">Performance figures shown anywhere on this site are ' +
             '<strong>backtested</strong>, not a live track record, and do not predict future ' +
             'results. Derivatives carry substantial risk: options trading can lose more than your ' +
