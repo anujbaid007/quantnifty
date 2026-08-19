@@ -82,7 +82,7 @@
           "name": "Why do traders use 0 DTE options?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Two reasons. First, the remaining time value in the option decays to zero within hours, so a net short position collects that decay quickly rather than over weeks. Second, closing the position before the session ends removes overnight gap risk entirely — historically the source of the largest single-day losses for Indian option sellers, because a weekend headline can reprice the index before any stop-loss can act."
+            "text": "Two reasons. First, the remaining time value in the option decays to zero within hours, so a net short position collects that decay quickly rather than over weeks. Second, closing the position before the session ends removes overnight gap risk entirely, historically the source of the largest single-day losses for Indian option sellers, because a weekend headline can reprice the index before any stop-loss can act."
           }
         },
         {
@@ -148,8 +148,7 @@
       <b class="lab">Short answer</b>
       <p>DTE means days to expiry. A 0 DTE option expires the same day it is traded; a 1 DTE option expires
         the next session. Systematic strategies use them because time value decays to zero within hours,
-        and because closing before the bell removes overnight gap risk &mdash; historically the largest
-        single source of catastrophic loss for Indian option sellers. The trade-off is that an option's
+        and because closing before the bell removes overnight gap risk, historically the largest single source of catastrophic loss for Indian option sellers. The trade-off is that an option's
         sensitivity to index movement rises steeply near expiry, so the danger shifts from an overnight gap
         you cannot act on to an intraday move you can, but which arrives fast.</p>
     </div>
@@ -182,7 +181,7 @@
       <h2><i>02</i>The Indian expiry landscape</h2>
       <p>Both NIFTY 50 on the NSE and SENSEX on the BSE run weekly expiry cycles alongside monthly
         contracts. In practice this means a near-expiry session is available most weeks of the year, which
-        is what makes expiry-focused systematic strategies viable here at all &mdash; there are enough
+        is what makes expiry-focused systematic strategies viable here at all: there are enough
         occurrences to build a statistically meaningful sample.</p>
       <div class="note warn">
         <b class="lab">Do not hard-code the weekday</b>
@@ -200,7 +199,7 @@
         money before expiry.</p>
       <p>Time value does not decay linearly. It decays slowly when expiry is distant and rapidly as expiry
         approaches, because the range of outcomes still possible collapses. On expiry day, the entire
-        remaining time value must reach zero by the close &mdash; a matter of hours.</p>
+        remaining time value must reach zero by the close, a matter of hours.</p>
       <p>A net short option position collects that decay. This is the mechanical basis of expiry-day theta
         capture: you are being paid to hold a decaying liability through the window where it decays fastest.
         The reason that is not free money is that the same collapse in possible outcomes is what makes the
@@ -209,8 +208,7 @@
 
     <section id="overnight">
       <h2><i>04</i>What removing overnight risk buys</h2>
-      <p>The largest single-day losses in Indian index option selling have overwhelmingly come from gaps
-        &mdash; the index opening materially away from the previous close, driven by something that happened
+      <p>The largest single-day losses in Indian index option selling have overwhelmingly come from gaps, the index opening materially away from the previous close, driven by something that happened
         while the market was shut.</p>
       <p>A gap is unhedgeable in a specific and important sense: <strong>your stop-loss cannot execute at
         your stop level, because no trading occurred between the close and the open.</strong> A short option
@@ -233,8 +231,7 @@
         outcome for that session can be decided in minutes.</p>
       <div class="note">
         <b class="lab">The honest comparison</b>
-        <p>Overnight risk is <em>slow but unactionable</em>. Expiry-day sensitivity is <em>fast but
-          actionable</em> &mdash; the market is open, you can trade, stops can fill. Preferring the second is
+        <p>Overnight risk is <em>slow but unactionable</em>. Expiry-day sensitivity is <em>fast but actionable</em>: the market is open, you can trade, stops can fill. Preferring the second is
           defensible. Believing you have eliminated risk rather than exchanged one kind for another is not.</p>
       </div>
     </section>
@@ -248,7 +245,7 @@
       <p>This costs part of the premium and therefore lowers the headline return. That is the correct trade.
         A strategy whose worst case is bounded can be sized rationally; one whose worst case is open-ended
         cannot be sized at all, only gambled with. This is also why every performance figure we publish is
-        net of hedge cost &mdash; an unhedged comparison would flatter the numbers and misrepresent the
+        net of hedge cost. An unhedged comparison would flatter the numbers and misrepresent the
         risk.</p>
     </section>
 
@@ -284,8 +281,7 @@
         <details>
           <summary>Why do traders use 0 DTE options?</summary>
           <p>Remaining time value decays to zero within hours, so a net short position collects that decay
-            quickly instead of over weeks. And closing before the session ends removes overnight gap risk
-            entirely &mdash; historically the largest source of catastrophic single-day losses for Indian
+            quickly instead of over weeks. And closing before the session ends removes overnight gap risk entirely, historically the largest source of catastrophic single-day losses for Indian
             option sellers, because a gap prices through your stop before it can execute.</p>
         </details>
         <details>
@@ -298,8 +294,7 @@
         <details>
           <summary>Which Indian indices have frequent expiries?</summary>
           <p>NIFTY 50 on the NSE and SENSEX on the BSE both run weekly cycles alongside monthly contracts, so
-            near-expiry sessions occur most weeks. Expiry days and cycles have been revised more than once
-            &mdash; confirm the current schedule with the exchange rather than assuming a fixed weekday.</p>
+            near-expiry sessions occur most weeks. Expiry days and cycles have been revised more than once. Confirm the current schedule with the exchange rather than assuming a fixed weekday.</p>
         </details>
         <details>
           <summary>Can you run 0 DTE strategies on pledged margin?</summary>
@@ -323,10 +318,10 @@
     <div class="related">
       <b class="lab">Read next</b>
       <ul>
-        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a> &mdash; where theta capture fits</li>
-        <li><a href="/guides/sensex-options-algo">SENSEX options algo trading</a> &mdash; the second expiry cycle</li>
-        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a> &mdash; expiry calendars and slippage</li>
-        <li><a href="/guides/sharpe-ratio">What is a good Sharpe ratio?</a> &mdash; judging risk-adjusted return</li>
+        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a>: where theta capture fits</li>
+        <li><a href="/guides/sensex-options-algo">SENSEX options algo trading</a>: the second expiry cycle</li>
+        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a>: expiry calendars and slippage</li>
+        <li><a href="/guides/sharpe-ratio">What is a good Sharpe ratio?</a>: judging risk-adjusted return</li>
       </ul>
     </div>
 

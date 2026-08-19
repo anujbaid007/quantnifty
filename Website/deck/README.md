@@ -1,6 +1,6 @@
 # QuantNifty investor deck
 
-Live at **quantnifty.com/deck**. `index.html` — 7 slides, one self-contained file. No external
+Live at **quantnifty.com/deck**. `index.html`: 7 slides, one self-contained file. No external
 assets, no build step. The founder photo and every graphic are embedded, so it
 works offline and survives being emailed.
 

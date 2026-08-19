@@ -98,7 +98,7 @@
           "name": "What is the risk of trading on pledged margin?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The risk is that losses in the derivatives position are settled against your collateral. If the strategy loses enough, pledged holdings can be sold to meet the shortfall — which means a strategy failure can force liquidation of the long-term portfolio you pledged precisely because you did not want to sell it. A falling market compounds this, because collateral value drops at the same time margin requirements typically rise."
+            "text": "The risk is that losses in the derivatives position are settled against your collateral. If the strategy loses enough, pledged holdings can be sold to meet the shortfall, which means a strategy failure can force liquidation of the long-term portfolio you pledged precisely because you did not want to sell it. A falling market compounds this, because collateral value drops at the same time margin requirements typically rise."
           }
         }
       ]
@@ -176,7 +176,7 @@
       <p>Nobody buys a flat and leaves it empty. It appreciates <em>and</em> it earns rent. A long-term
         equity portfolio, by contrast, does exactly one job: it appreciates. The capital sitting inside it
         does nothing else for the entire holding period.</p>
-      <p>That is not obviously wrong &mdash; appreciation is why you bought it. But the collateral value of
+      <p>That is not obviously wrong: appreciation is why you bought it. But the collateral value of
         those holdings is a separate, unused asset. Your broker will lend trading margin against it at no
         interest, and most portfolios never make use of that.</p>
     </section>
@@ -230,7 +230,7 @@
       <p>Haircuts vary by instrument. Liquid large caps and index ETFs sit at the favourable end; volatile
         or thinly traded stocks at the other, and some instruments are not accepted as collateral at all.
         Brokers publish an approved list with the applicable haircut, and both the list and the percentages
-        are revised periodically &mdash; a stock that qualifies today may not next quarter.</p>
+        are revised periodically: a stock that qualifies today may not next quarter.</p>
     </section>
 
     <section id="cash">
@@ -251,8 +251,7 @@
         behind it runs a separate return stream. One pool of capital, two engines.</p>
       <p>The strategies that fit this role well share a particular profile: defined risk, hedged rather
         than naked, and sized against a drawdown ceiling rather than against available margin. A strategy
-        that can lose an unbounded amount is a poor match for collateral you cannot afford to lose &mdash;
-        which is most of the point of running <a href="/guides/nifty-algo-strategies">hedged index option
+        that can lose an unbounded amount is a poor match for collateral you cannot afford to lose, which is most of the point of running <a href="/guides/nifty-algo-strategies">hedged index option
         structures</a> rather than naked ones.</p>
       <div class="note">
         <b class="lab">Sizing discipline</b>
@@ -276,7 +275,7 @@
           same moment a short-volatility strategy is most likely to be losing and margin requirements are
           most likely to be raised. All three move against you together.</li>
         <li><strong>Forced timing.</strong> Liquidation to meet a margin call happens on the broker's
-          schedule, not yours &mdash; typically at the worst available prices.</li>
+          schedule, not yours, typically at the worst available prices.</li>
         <li><strong>Loss beyond capital.</strong> Short option positions can lose more than the margin
           allocated to them. Pledging does not cap your downside at the pledged amount.</li>
       </ul>
@@ -350,17 +349,17 @@
     <div class="related">
       <b class="lab">Read next</b>
       <ul>
-        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a> &mdash; what the margin would actually run</li>
-        <li><a href="/guides/sharpe-ratio">What is a good Sharpe ratio?</a> &mdash; judging a second engine properly</li>
-        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a> &mdash; before you commit collateral to anything</li>
-        <li><a href="/guides/algo-trading-india">Algo trading in India</a> &mdash; the rules and the cost structure</li>
+        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a>: what the margin would actually run</li>
+        <li><a href="/guides/sharpe-ratio">What is a good Sharpe ratio?</a>: judging a second engine properly</li>
+        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a>: before you commit collateral to anything</li>
+        <li><a href="/guides/algo-trading-india">Algo trading in India</a>: the rules and the cost structure</li>
       </ul>
     </div>
 
     <div class="cta">
       <h2>Thinking about the second engine?</h2>
       <p>We build and test the software. We do not manage money, take custody of your capital, or tell you
-        whether to pledge &mdash; that decision is yours and your adviser's.</p>
+        whether to pledge. That decision is yours and your adviser's.</p>
       <a class="btn" href="/#contact">Tell us what you want built</a>
     </div>
 

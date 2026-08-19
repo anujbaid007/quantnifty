@@ -90,7 +90,7 @@
           "name": "Does running both NIFTY and SENSEX actually diversify?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Partially, and it is important to be precise about how. The two indices are highly correlated, so a strategy running the same signals on both is not diversified against a market-wide shock — a sharp fall hurts both books simultaneously. What running both does diversify is timing and execution: different expiry days spread event risk across the week and reduce dependence on any single session or venue."
+            "text": "Partially, and it is important to be precise about how. The two indices are highly correlated, so a strategy running the same signals on both is not diversified against a market-wide shock: a sharp fall hurts both books simultaneously. What running both does diversify is timing and execution: different expiry days spread event risk across the week and reduce dependence on any single session or venue."
           }
         },
         {
@@ -98,7 +98,7 @@
           "name": "What should you check before running an algo on SENSEX options?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Confirm the current contract specification with the exchange rather than assuming it matches NIFTY — lot size, strike interval, expiry day and tick size have all been revised at various points. Check strike liquidity at the distances your strategy actually trades, not just at the money. Verify your broker supports BSE derivatives through the same API path. And backtest on SENSEX data specifically; parameters fitted on NIFTY do not transfer."
+            "text": "Confirm the current contract specification with the exchange rather than assuming it matches NIFTY. Lot size, strike interval, expiry day and tick size have all been revised at various points. Check strike liquidity at the distances your strategy actually trades, not just at the money. Verify your broker supports BSE derivatives through the same API path. And backtest on SENSEX data specifically; parameters fitted on NIFTY do not transfer."
           }
         }
       ]
@@ -150,8 +150,7 @@
         track 50. They share most large constituents and are highly correlated, so running the same strategy
         on both does <em>not</em> protect you from a market-wide shock. What it does diversify is timing:
         the two carry separate expiry cycles, which spreads event risk across the week. The differences that
-        matter operationally are liquidity depth, contract specifications and execution quality &mdash; and
-        parameters fitted on one index should never be assumed to hold on the other.</p>
+        matter operationally are liquidity depth, contract specifications and execution quality, and parameters fitted on one index should never be assumed to hold on the other.</p>
     </div>
 
     <div class="toc">
@@ -186,8 +185,7 @@
       <div class="note warn">
         <b class="lab">Do not hard-code these</b>
         <p>Lot sizes, strike intervals and expiry days for Indian index derivatives have been revised
-          several times, on both exchanges. Any figure quoted in an article &mdash; including one written
-          today &mdash; will eventually be wrong. Contract specifications belong in configuration sourced from
+          several times, on both exchanges. Any figure quoted in an article, including one written today, will eventually be wrong. Contract specifications belong in configuration sourced from
           the exchange, not in constants in your strategy code. Confirm the current specification with the BSE
           before sizing anything.</p>
       </div>
@@ -204,7 +202,7 @@
         lower slippage, particularly away from the money and particularly when you need to exit quickly.</p>
       <p>SENSEX liquidity has grown substantially and is more than adequate near the money on active
         expiries, but it thins faster as you move away from spot. For a strategy that sells strikes at a
-        distance, this is not a cosmetic difference &mdash; it is the difference between an exit that fills
+        distance, this is not a cosmetic difference: it is the difference between an exit that fills
         near your intended level and one that does not.</p>
       <ul>
         <li>Check depth at the strikes your strategy <em>actually</em> trades, not at the money.</li>
@@ -265,8 +263,7 @@
       <p>Every parameter has to be re-derived on the index it will trade, and validated
         <a href="/guides/options-backtesting">out-of-sample on that index's own data</a>. Our own SENSEX
         research was run as a separate search precisely for this reason, and the finding that in-sample
-        rank had no predictive power out-of-sample &mdash; a Spearman correlation of &minus;0.001 across 3.2
-        million configurations &mdash; came from that SENSEX work specifically.</p>
+        rank had no predictive power out-of-sample, a Spearman correlation of &minus;0.001 across 3.2 million configurations, came from that SENSEX work specifically.</p>
     </section>
 
     <section id="checklist">
@@ -303,7 +300,7 @@
         <details>
           <summary>Does running both actually diversify?</summary>
           <p>Partly, and precision matters. The indices are highly correlated, so the same signals on both are
-            not diversified against a market-wide shock &mdash; a sharp fall hits both books at once. What it
+            not diversified against a market-wide shock: a sharp fall hits both books at once. What it
             does diversify is timing and operations: different expiry days spread event risk, and separate
             exchanges reduce single-venue dependence.</p>
         </details>
@@ -329,10 +326,10 @@
     <div class="related">
       <b class="lab">Read next</b>
       <ul>
-        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a> &mdash; the strategy families</li>
-        <li><a href="/guides/0-dte-options-india">0 DTE and 1 DTE options</a> &mdash; why expiry timing matters</li>
-        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a> &mdash; the SENSEX search in detail</li>
-        <li><a href="/guides/algo-trading-india">Algo trading in India</a> &mdash; brokers, APIs and costs</li>
+        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a>: the strategy families</li>
+        <li><a href="/guides/0-dte-options-india">0 DTE and 1 DTE options</a>: why expiry timing matters</li>
+        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a>: the SENSEX search in detail</li>
+        <li><a href="/guides/algo-trading-india">Algo trading in India</a>: brokers, APIs and costs</li>
       </ul>
     </div>
 

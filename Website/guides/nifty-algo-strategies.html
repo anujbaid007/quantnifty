@@ -150,8 +150,7 @@
         software instead of by hand. The strategies that survive fall into three families: selling
         volatility that is priced above what actually gets realised, mean reversion around an intraday
         reference price, and expiry-day theta capture. Each is compensation for carrying a specific risk.
-        If you cannot say who is paying you and what you are absorbing in return, you do not have a
-        strategy &mdash; you have a fitted curve.</p>
+        If you cannot say who is paying you and what you are absorbing in return, you do not have a strategy: you have a fitted curve.</p>
     </div>
 
     <div class="toc">
@@ -182,8 +181,7 @@
         that against four years of tick data and get an answer you did not choose.</p>
       <p>A complete NIFTY algo specifies at minimum: the entry condition, the instrument and strike
         selection rule, the position size, the stop-loss level and where it lives (in your code or on the
-        broker's book), the exit condition, and the behaviour when something goes wrong &mdash; a missed
-        fill, a disconnect, a stuck order. That last category is where most home-built systems are thin,
+        broker's book), the exit condition, and the behaviour when something goes wrong: a missed fill, a disconnect, a stuck order. That last category is where most home-built systems are thin,
         and it is the part that costs real money.</p>
     </section>
 
@@ -274,8 +272,7 @@
         most weeks. On those sessions, the time value remaining in an option decays to zero over a handful
         of hours. A strategy that is net short options through that window collects the decay.</p>
       <p>The appeal is that the position opens and closes within a single session, so nothing is carried
-        overnight and the gap between one day's close and the next day's open &mdash; historically the
-        source of the largest single-day losses in Indian option selling &mdash; is removed from the risk
+        overnight and the gap between one day's close and the next day's open, historically the source of the largest single-day losses in Indian option selling, is removed from the risk
         picture entirely.</p>
       <p>The risk does not disappear, though. It relocates. On expiry day the option's sensitivity to price
         movement rises sharply as expiry approaches, so a move that would be unremarkable on a Monday can
@@ -291,7 +288,7 @@
         horizon has historically been difficult, because the index spends a large share of sessions in a
         range and a breakout system pays a small cost on each false signal.</p>
       <p>Where the family earns its place is as a hedge on the rest of the portfolio. Trend systems tend to
-        perform best exactly when short-volatility systems perform worst &mdash; during sustained
+        perform best exactly when short-volatility systems perform worst, during sustained
         directional moves and volatility expansion. Running a small trend sleeve alongside a larger
         premium-selling book is a structural diversification rather than a return enhancement, and it
         should be judged on that basis.</p>
@@ -302,8 +299,7 @@
       <p>The failure modes are worth stating plainly, because they are what position sizing has to be built
         around.</p>
       <ul>
-        <li><strong>Short volatility</strong> fails on a discontinuous move. Not a large move &mdash; a
-          <em>fast</em> one, where the price gaps through your stop level and you are filled well beyond
+        <li><strong>Short volatility</strong> fails on a discontinuous move. Not a large move: a <em>fast</em> one, where the price gaps through your stop level and you are filled well beyond
           where you intended. This is why a stop-loss resting on the broker's book behaves differently from
           a stop-loss evaluated in your own code, and why spike detection matters.</li>
         <li><strong>Mean reversion</strong> fails on information. The system cannot distinguish a
@@ -317,8 +313,7 @@
       </ul>
       <div class="note warn">
         <b class="lab">The common thread</b>
-        <p>Three of these four failures are survivable with correct position sizing and hedging. One of them
-          &mdash; the fast gap in an unhedged short-option book &mdash; is not. That asymmetry is the single
+        <p>Three of these four failures are survivable with correct position sizing and hedging. One of them, the fast gap in an unhedged short-option book, is not. That asymmetry is the single
           most important thing to understand before deploying capital into this market.</p>
       </div>
     </section>
@@ -329,8 +324,7 @@
         hindsight. The question is whether the result survives contact with data it was not chosen on.</p>
       <p>In one SENSEX-focused search we ran across roughly 3.2 million configurations, about 20,000
         cleared a walk-forward gate. We then checked whether ranking well in-sample predicted ranking well
-        out-of-sample. The Spearman rank correlation between the two was <strong>&minus;0.001</strong>
-        &mdash; statistically indistinguishable from zero.</p>
+        out-of-sample. The Spearman rank correlation between the two was <strong>&minus;0.001</strong>, statistically indistinguishable from zero.</p>
       <div class="kpis">
         <div class="kpi"><b>3.2M</b><span>configurations searched</span></div>
         <div class="kpi"><b>~20,000</b><span>cleared the walk-forward gate</span></div>
@@ -377,7 +371,7 @@
           <p>A fixed set of rules for trading NIFTY 50 index options or futures, executed by software rather
             than by hand. The rules define when a position opens, which strike and expiry it uses, where the
             stop sits, and when it closes. Because the logic is code, identical conditions always produce an
-            identical decision &mdash; which is what makes it testable on historical data.</p>
+            identical decision, which is what makes it testable on historical data.</p>
         </details>
         <details>
           <summary>Which NIFTY algo strategies actually work?</summary>
@@ -403,8 +397,7 @@
         <details>
           <summary>Is algo trading on NIFTY legal in India?</summary>
           <p>Yes, for retail participants using broker-approved automation within the framework the exchanges
-            and SEBI set out. The details &mdash; what needs approval, what a broker API permits, and where
-            registration becomes relevant &mdash; are covered in
+            and SEBI set out. The details, what needs approval, what a broker API permits, and where registration becomes relevant, are covered in
             <a href="/guides/algo-trading-india">algo trading in India</a>.</p>
         </details>
       </div>
@@ -423,17 +416,16 @@
     <div class="related">
       <b class="lab">Read next</b>
       <ul>
-        <li><a href="/guides/0-dte-options-india">0 DTE and 1 DTE options in India</a> &mdash; why expiry-day structures behave differently</li>
-        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a> &mdash; how to check whether a curve is real</li>
-        <li><a href="/guides/sharpe-ratio">What is a good Sharpe ratio?</a> &mdash; why return alone tells you nothing</li>
-        <li><a href="/guides/pledged-margin-algo-trading">Pledged margin for algo trading</a> &mdash; funding the strategy without selling holdings</li>
+        <li><a href="/guides/0-dte-options-india">0 DTE and 1 DTE options in India</a>: why expiry-day structures behave differently</li>
+        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a>: how to check whether a curve is real</li>
+        <li><a href="/guides/sharpe-ratio">What is a good Sharpe ratio?</a>: why return alone tells you nothing</li>
+        <li><a href="/guides/pledged-margin-algo-trading">Pledged margin for algo trading</a>: funding the strategy without selling holdings</li>
       </ul>
     </div>
 
     <div class="cta">
       <h2>Have a rule you trade by hand?</h2>
-      <p>If you already know what you want to trade, the work we do is turning it into production code
-        &mdash; stop-losses, re-entry logic, fill confirmation, kill switch &mdash; and testing it against
+      <p>If you already know what you want to trade, the work we do is turning it into production code (stop-losses, re-entry logic, fill confirmation, kill switch) and testing it against
         data honestly enough that you can trust the answer.</p>
       <a class="btn" href="/#contact">Tell us what you want built</a>
     </div>

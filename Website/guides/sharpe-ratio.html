@@ -132,7 +132,7 @@
     <span class="kicker">Measurement</span>
     <h1>Return is loud. Sharpe is honest.</h1>
     <p class="sub">Anyone can raise a return by taking more risk. The only interesting question is how much
-      risk was taken to get there &mdash; and whether you could have stayed in the seat.</p>
+      risk was taken to get there, and whether you could have stayed in the seat.</p>
     <div class="byline">
       <span>By Anuj Baid</span><span class="dot"></span>
       <span>Updated 18 August 2026</span><span class="dot"></span>
@@ -146,8 +146,7 @@
 
     <div class="answer">
       <b class="lab">Short answer</b>
-      <p>The Sharpe ratio measures return per unit of volatility above the risk-free rate &mdash; how much
-        you were paid for the bumpiness of the ride. Useful reference points: bank deposit around 0.3,
+      <p>The Sharpe ratio measures return per unit of volatility above the risk-free rate: how much you were paid for the bumpiness of the ride. Useful reference points: bank deposit around 0.3,
         buy-and-hold equity index around 0.6, good equity mutual fund around 1.0, strong hedge fund around
         2.0. Above 3 is rare. Above 4, the correct first reaction is to look for the measurement error, not
         to be impressed.</p>
@@ -194,7 +193,7 @@
         <p>Because Sharpe does not change with position size, a strategy's Sharpe ratio tells you about the
           quality of the edge, while position sizing tells you about the risk you have chosen to take. These
           are separate decisions. A strategy sized down to fit a drawdown ceiling has the same Sharpe ratio
-          as the same strategy sized up &mdash; it simply moves along one risk-return line.</p>
+          as the same strategy sized up. It simply moves along one risk-return line.</p>
       </div>
     </section>
 
@@ -241,8 +240,7 @@
         <li><strong>Infrequent valuation.</strong> Measuring returns monthly instead of daily smooths away
           volatility that was genuinely experienced. The ride was not calmer; you simply looked less often.</li>
         <li><strong>Selection from a large search.</strong> Test enough configurations and some will show a
-          high Sharpe ratio through luck alone. This is the most dangerous case, because nothing was
-          falsified &mdash; the number is real, it just does not generalise. It is why we test whether
+          high Sharpe ratio through luck alone. This is the most dangerous case, because nothing was falsified: the number is real, it just does not generalise. It is why we test whether
           in-sample ranking predicts out-of-sample ranking at all; in one search across 3.2 million
           configurations, that correlation was &minus;0.001. See
           <a href="/guides/options-backtesting">honest backtesting</a>.</li>
@@ -254,8 +252,7 @@
       <p>Sharpe treats upside and downside variation identically. A strategy that occasionally surges gets
         penalised the same as one that occasionally collapses, which is not how anyone actually experiences
         risk.</p>
-      <p>More seriously, it handles asymmetric return distributions poorly &mdash; and short-option
-        strategies are the textbook case. Collecting small premiums consistently produces low measured
+      <p>More seriously, it handles asymmetric return distributions poorly, and short-option strategies are the textbook case. Collecting small premiums consistently produces low measured
         volatility and therefore a high Sharpe ratio, right up until the rare large loss the structure was
         always exposed to. <strong>A high Sharpe ratio on a short-volatility strategy is partly a
         description of the risk that has not yet materialised.</strong></p>
@@ -264,7 +261,7 @@
 
     <section id="drawdown">
       <h2><i>06</i>Read it with drawdown</h2>
-      <p>Maximum drawdown &mdash; the largest peak-to-trough fall over the period &mdash; answers the
+      <p>Maximum drawdown, the largest peak-to-trough fall over the period, answers the
         question Sharpe cannot: how bad did it actually get?</p>
       <p>Together the two are much harder to fake. A high Sharpe ratio with a large drawdown indicates
         smooth returns punctuated by something severe. A high Sharpe ratio with a small drawdown is a
@@ -281,8 +278,7 @@
         Sharpe ratio can be run at many sizes; each size delivers a different return and a proportionally
         different drawdown, but the same risk-adjusted quality.</p>
       <p>This is what makes drawdown-targeted sizing coherent. You choose the maximum drawdown you are
-        willing to tolerate, and position size follows from it. The strategy is not made safer or more
-        aggressive &mdash; only larger or smaller along a fixed line. Sharpe is what tells you whether that
+        willing to tolerate, and position size follows from it. The strategy is not made safer or more aggressive, only larger or smaller along a fixed line. Sharpe is what tells you whether that
         line is worth being on at all.</p>
       <p>The practical discipline: decide the drawdown ceiling first, in advance, in writing. Sizing chosen
         after seeing an attractive return figure is not risk management, it is optimism.</p>
@@ -299,7 +295,7 @@
         </details>
         <details>
           <summary>What does the Sharpe ratio actually measure?</summary>
-          <p>Return per unit of volatility, above the risk-free rate &mdash; how much you were compensated for
+          <p>Return per unit of volatility, above the risk-free rate: how much you were compensated for
             the bumpiness of the ride. A strategy returning 20% steadily scores higher than one returning 20%
             through wild swings, because the second took more risk to reach the same place.</p>
         </details>
@@ -307,8 +303,7 @@
           <summary>Why is annual return a bad way to judge a strategy?</summary>
           <p>Because return rises with risk, and leverage scales it without improving anything. Two strategies
             with identical returns can carry completely different drawdowns. Return tells you where a strategy
-            arrived, not whether you could have stayed invested through the journey &mdash; and staying
-            invested is what determines the return you actually receive.</p>
+            arrived, not whether you could have stayed invested through the journey, and staying invested is what determines the return you actually receive.</p>
         </details>
         <details>
           <summary>How does a Sharpe ratio get inflated?</summary>
@@ -318,8 +313,7 @@
         </details>
         <details>
           <summary>Is a Sharpe ratio above 4 believable?</summary>
-          <p>Occasionally, for short-horizon intraday strategies measured at high frequency &mdash; but it
-            should never be accepted without the window, the number of observations, whether it is net of all
+          <p>Occasionally, for short-horizon intraday strategies measured at high frequency, but it should never be accepted without the window, the number of observations, whether it is net of all
             costs, whether it is backtested or live, and how many candidates were searched before this one was
             chosen. Ours are backtested, and we publish those details alongside.</p>
         </details>
@@ -338,17 +332,17 @@
     <div class="related">
       <b class="lab">Read next</b>
       <ul>
-        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a> &mdash; where inflated Sharpe ratios come from</li>
-        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a> &mdash; why short-vol Sharpe flatters</li>
-        <li><a href="/guides/pledged-margin-algo-trading">Pledged margin for algo trading</a> &mdash; sizing against a drawdown ceiling</li>
-        <li><a href="/guides/0-dte-options-india">0 DTE and 1 DTE options</a> &mdash; the risk Sharpe cannot see</li>
+        <li><a href="/guides/options-backtesting">Backtesting that tells the truth</a>: where inflated Sharpe ratios come from</li>
+        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a>: why short-vol Sharpe flatters</li>
+        <li><a href="/guides/pledged-margin-algo-trading">Pledged margin for algo trading</a>: sizing against a drawdown ceiling</li>
+        <li><a href="/guides/0-dte-options-india">0 DTE and 1 DTE options</a>: the risk Sharpe cannot see</li>
       </ul>
     </div>
 
     <div class="cta">
       <h2>Want the number checked, not sold to you?</h2>
       <p>We will tell you what a strategy's Sharpe ratio survives once costs, slippage and out-of-sample
-        testing are applied &mdash; including when the answer is that it does not.</p>
+        testing are applied, including when the answer is that it does not.</p>
       <a class="btn" href="/#contact">Tell us what you want tested</a>
     </div>
 

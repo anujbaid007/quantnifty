@@ -87,7 +87,7 @@
           '<p class="qn-dsc-call">' +
             '<b>We are not a Portfolio Manager. We are not a Research Analyst.</b>' +
             '<span>We are a tech-first platform building algos to your specification. We do not ' +
-              'manage money or sell signals &mdash; which is why we are not SEBI registered. ' +
+              'manage money or sell signals, which is why we are not SEBI registered. ' +
               'Registration follows the activity; ours is engineering.</span>' +
           '</p>' +
           '<p class="qn-dsc-fine">Figures shown are <strong>backtested</strong>, not a live track ' +

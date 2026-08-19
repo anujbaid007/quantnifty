@@ -98,7 +98,7 @@
           "name": "How much slippage should you assume in a backtest?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Enough that you would be unsurprised by live results, applied to every entry and every exit rather than once per round trip. We model 0.2% per fill on Indian index options alongside full statutory charges and hedge cost. The correct figure depends on strike liquidity, order type and time of day — a near-the-money weekly strike at 10:00 behaves very differently from a far strike in the final minutes of expiry."
+            "text": "Enough that you would be unsurprised by live results, applied to every entry and every exit rather than once per round trip. We model 0.2% per fill on Indian index options alongside full statutory charges and hedge cost. The correct figure depends on strike liquidity, order type and time of day: a near-the-money weekly strike at 10:00 behaves very differently from a far strike in the final minutes of expiry."
           }
         }
       ]
@@ -173,7 +173,7 @@
       <p>A backtest is an attempt to answer one question: if I had run these exact rules over this period,
         without knowing what came next, what would have happened?</p>
       <p>Almost every way a backtest goes wrong is a way that the phrase "without knowing what came next"
-        quietly stops being true. Sometimes that is a technical leak &mdash; using a value that was not
+        quietly stops being true. Sometimes that is a technical leak, using a value that was not
         available at decision time. More often it is a human leak: the strategy was adjusted repeatedly
         until the curve looked good, which means the final rules encode knowledge of the whole period.</p>
       <div class="note">
@@ -191,8 +191,7 @@
         trades every session, sometimes several times, this is not a rounding error.</p>
       <p>The critical detail is <em>where</em> costs are applied. Subtracting an estimated annual cost from
         an annual gross return is not equivalent to charging each fill as it happens. The per-fill approach
-        compounds correctly, interacts properly with position sizing, and &mdash; most importantly &mdash;
-        changes which strategies survive selection. A high-frequency variant that looks best gross will
+        compounds correctly, interacts properly with position sizing, and, most importantly, changes which strategies survive selection. A high-frequency variant that looks best gross will
         often rank poorly net, and you only discover that if costs are inside the simulation.</p>
       <p>The same applies to hedge cost. If the live strategy buys a protective option, the backtest must
         pay for it on every trade. Comparing an unhedged backtest against a hedged live implementation is
@@ -214,7 +213,7 @@
       </ul>
       <p>We model <strong>0.2% slippage per fill</strong> on Indian index options, on entry and on exit,
         alongside full statutory charges and hedge cost. Whether 0.2% is right for a given strategy depends
-        on strike liquidity, order type and time of day &mdash; a near-the-money weekly strike at 10:00 is a
+        on strike liquidity, order type and time of day: a near-the-money weekly strike at 10:00 is a
         completely different execution problem from a far strike in the closing minutes of expiry. The
         principle is to choose a figure you would not be embarrassed by if live results came in worse.</p>
     </section>
@@ -275,7 +274,7 @@
         whatsoever</strong>. Picking the top-ranked backtest from 3.2 million candidates would have been
         statistically equivalent to picking one at random.</p>
       <p>The consequence is that the selection method has to change. Instead of choosing by score, the final
-        basket was chosen by <em>structure</em> &mdash; which configuration families kept appearing across
+        basket was chosen by <em>structure</em>, which configuration families kept appearing across
         the surviving set, rather than which single configuration scored highest. Membership frequency across
         a robust region is a far more durable signal than a peak, because a peak is exactly what noise
         produces.</p>
@@ -370,17 +369,16 @@
     <div class="related">
       <b class="lab">Read next</b>
       <ul>
-        <li><a href="/guides/sharpe-ratio">What is a good Sharpe ratio?</a> &mdash; reading the output properly</li>
-        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a> &mdash; what you are testing</li>
-        <li><a href="/guides/0-dte-options-india">0 DTE and 1 DTE options</a> &mdash; expiry calendars in practice</li>
-        <li><a href="/guides/algo-trading-india">Algo trading in India</a> &mdash; the cost stack in detail</li>
+        <li><a href="/guides/sharpe-ratio">What is a good Sharpe ratio?</a>: reading the output properly</li>
+        <li><a href="/guides/nifty-algo-strategies">NIFTY algo strategies explained</a>: what you are testing</li>
+        <li><a href="/guides/0-dte-options-india">0 DTE and 1 DTE options</a>: expiry calendars in practice</li>
+        <li><a href="/guides/algo-trading-india">Algo trading in India</a>: the cost stack in detail</li>
       </ul>
     </div>
 
     <div class="cta">
       <h2>Want your strategy tested properly?</h2>
-      <p>Slippage on both sides, statutory charges, hedge cost, real expiry calendars and walk-forward
-        validation &mdash; including an honest answer when the result is that the edge is not there.</p>
+      <p>Slippage on both sides, statutory charges, hedge cost, real expiry calendars and walk-forward validation, including an honest answer when the result is that the edge is not there.</p>
       <a class="btn" href="/#contact">Tell us what you want tested</a>
     </div>
 
