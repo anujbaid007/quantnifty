@@ -12,7 +12,7 @@
 (function () {
   'use strict';
 
-  var KEY = 'qn-disclaimer-ack-v3';
+  var KEY = 'qn-disclaimer-ack-v4';
 
   // Private-mode Safari and hardened browser settings can throw on access.
   // Failing open (showing the notice again) is the safe direction for a
@@ -53,7 +53,6 @@
     '.qn-dsc-call b{display:block;color:#fff;font-weight:650;font-size:15px;line-height:1.5;',
       'margin-bottom:7px;letter-spacing:-.01em}',
     '.qn-dsc-call span{display:block;font-size:14px;line-height:1.6;color:#C6D6F5}',
-    '.qn-dsc-sign{font-size:14.4px !important;color:#E9F0FF !important;font-weight:600}',
     '.qn-dsc-fine{font-size:13.2px !important;color:#8FA0C2 !important}',
     '.qn-dsc-fine a{color:#93BAFF;text-decoration:underline;text-underline-offset:2px}',
     '.qn-dsc-act{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:20px}',
@@ -85,22 +84,15 @@
         '<span class="qn-dsc-kick">How we work</span>' +
         '<h2 id="qn-dsc-title">We build the software. You own the decisions.</h2>' +
         '<div id="qn-dsc-body">' +
-          '<p>QuantNifty is a tech-first platform. We build and test trading algorithms to your ' +
-            'specification and hand them over. You run them, on your own capital, through your ' +
-            'own broker account.</p>' +
           '<p class="qn-dsc-call">' +
             '<b>We are not a Portfolio Manager. We are not a Research Analyst.</b>' +
-            '<span>We do not manage client money, and we do not sell tips or signals. That is why ' +
-              'we are not SEBI registered &mdash; registration follows the activity, and ours is ' +
-              'engineering.</span>' +
+            '<span>We are a tech-first platform building algos to your specification. We do not ' +
+              'manage money or sell signals &mdash; which is why we are not SEBI registered. ' +
+              'Registration follows the activity; ours is engineering.</span>' +
           '</p>' +
-          '<p class="qn-dsc-sign">Nothing here is investment advice. The strategy is yours; the ' +
-            'code is ours.</p>' +
-          '<p class="qn-dsc-fine">Performance figures shown anywhere on this site are ' +
-            '<strong>backtested</strong>, not a live track record, and do not predict future ' +
-            'results. Derivatives carry substantial risk: options trading can lose more than your ' +
-            'initial capital, and pledging equity as collateral places those holdings at risk. ' +
-            'Full terms and risk disclosure: <a href="/terms">Terms &amp; Conditions</a>.</p>' +
+          '<p class="qn-dsc-fine">Figures shown are <strong>backtested</strong>, not a live track ' +
+            'record. Options can lose more than your capital, and pledged holdings are at risk. ' +
+            'Full disclosure: <a href="/terms">Terms &amp; Conditions</a>.</p>' +
         '</div>' +
         '<div class="qn-dsc-act">' +
           '<button type="button" class="qn-dsc-btn" id="qn-dsc-ok">I understand</button>' +
