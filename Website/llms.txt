@@ -149,12 +149,16 @@ published for the live window.
 | Metric | Value |
 |---|--:|
 | Window | 20 Jul 2026 to 20 Aug 2026 |
-| Sessions | 13 (NIFTY 9, SENSEX 4) |
-| Net return | +11.70% |
-| Winning sessions | 10 of 13 |
+| Sessions | 15 (NIFTY 10, SENSEX 5) |
+| Net return | +12.25% |
+| Winning sessions | 11 of 15 |
 | Best session | +4.06% (11 Aug) |
-| Worst session | -0.43% (23 Jul) |
-| Max drawdown | -0.43% |
+| Worst session | -0.80% (4 Aug) |
+| Max drawdown | -0.80% |
+
+Thirteen of the fifteen sessions are the tick replay described above. The other two, 4 August (NIFTY)
+and 6 August (SENSEX), come from the trading record: the broker feed was down on both days so no
+ticks were recorded and the replay cannot reproduce them.
 
 Thirteen sessions is a sample, not a track record. No Sharpe ratio, annualised return or projection
 is published from this window, and none should be inferred.
