@@ -140,17 +140,20 @@ replaying the recorded live tick data for each session, net of slippage, hedge c
 charges, on the documented sleeve sizing. NIFTY trades 0-1 DTE and SENSEX 0 DTE, so the two books
 never share a session.
 
-Results are stated as a percentage of the margin deployed against the strategy, sized at one lot per
-sleeve on the published hedged per-sleeve margin. No rupee figures are published for the live window.
+A session's return is the equal-weight mean of its sleeve returns, each measured on the hedged margin
+a single lot of that sleeve requires, which is how every basket here is sized and reported. NIFTY runs
+two sleeves and SENSEX three, so each book is measured against its own margin rather than a shared
+pool. Exits use the 15:35 close-auction close from 3 August 2026 onward. No rupee figures are
+published for the live window.
 
 | Metric | Value |
 |---|--:|
 | Window | 20 Jul 2026 to 20 Aug 2026 |
 | Sessions | 13 (NIFTY 9, SENSEX 4) |
-| Net return | +8.20% |
+| Net return | +11.70% |
 | Winning sessions | 10 of 13 |
-| Best session | +2.71% |
-| Worst session | -0.43% |
+| Best session | +4.06% (11 Aug) |
+| Worst session | -0.43% (23 Jul) |
 | Max drawdown | -0.43% |
 
 Thirteen sessions is a sample, not a track record. No Sharpe ratio, annualised return or projection
