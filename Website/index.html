@@ -608,7 +608,10 @@ input[type=range]:focus-visible{box-shadow:0 0 0 4px rgba(27,79,216,.24)}
 /* giant wordmark */
 .mark-wrap{position:relative;z-index:2;width:100%;overflow:hidden;padding:6px 0 0}
 .mark-word{display:block;width:100%;height:auto}
-.mark-word text{font-family:var(--d);font-weight:800;letter-spacing:-.045em;
+/* -.045em was tight enough that two pairs collided at this size: F's arm ran into
+   T's, and T's arm touched Y. -.015em clears both and still reads as a tight
+   display setting. */
+.mark-word text{font-family:var(--d);font-weight:800;letter-spacing:-.015em;
   fill:url(#markGrad);opacity:.92}
 
 /* bottom bar */
