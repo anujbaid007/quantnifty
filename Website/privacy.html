@@ -30,7 +30,7 @@
   "description": "How QuantNifty collects, uses and protects personal data submitted through quantnifty.com, written to the Digital Personal Data Protection Act, 2023.",
   "inLanguage": "en-IN",
   "datePublished": "2026-08-01",
-  "dateModified": "2026-08-01",
+  "dateModified": "2026-08-20",
   "isPartOf": { "@id": "https://quantnifty.com/#site" },
   "publisher": { "@id": "https://quantnifty.com/#org" },
   "breadcrumb": {
@@ -41,6 +41,15 @@
     ]
   }
 }
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1G452T34XD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1G452T34XD');
 </script>
 </head>
 <body>
@@ -67,7 +76,7 @@
     <p class="sub">This page explains what happens to your information when you visit quantnifty.com or send us an enquiry. It is short because we collect very little.</p>
     <div class="stamp">
       <span>Effective 1 August 2026</span>
-      <span>Last updated 1 August 2026</span>
+      <span>Last updated 20 August 2026</span>
       <span>DPDP Act, 2023</span>
     </div>
   </div>
@@ -103,13 +112,17 @@
 
   <section id="collect">
     <h2><i>02</i>What we collect</h2>
-    <p>Two things, and nothing else.</p>
+    <p>Three things, and nothing else.</p>
 
     <h3>Information you type into the enquiry form</h3>
     <p>Your name, a phone number or email address, the type of work you are asking about, and whatever you write in the message field. All of it is optional in the sense that nobody is required to fill in the form; you can message us directly instead.</p>
 
     <h3>Standard server logs</h3>
-    <p>Our host, Vercel, records ordinary request data when a page is served: IP address, browser and device type, the page requested, and a timestamp. This happens for every website on the internet and we do not use those logs to build a profile of you. We do not run any analytics product on this site.</p>
+    <p>Our host, Vercel, records ordinary request data when a page is served: IP address, browser and device type, the page requested, and a timestamp. This happens for every website on the internet and we do not use those logs to build a profile of you.</p>
+
+    <h3>Google Analytics</h3>
+    <p>We run Google Analytics 4 to see which pages get read and roughly where visitors come from. It records the pages you view, how long you stay, the referring site or search, your approximate location from your IP address, and your device and browser type. It sets its own cookies to recognise a returning browser, described in the next section.</p>
+    <p>We use it to decide what to write next, not to identify you. We do not upload your enquiry details, your name or your email into it, we do not run Google Ads or any advertising integration, and we have not enabled Google Signals or any cross-device advertising feature. If you would rather not be counted, any browser-level tracking blocker or Google's own <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">opt-out add-on</a> will stop it, and nothing on this site breaks if you do.</p>
 
     <div class="note">
       <b class="lab">What we never collect</b>
@@ -133,7 +146,8 @@
 
   <section id="cookies">
     <h2><i>05</i>Cookies and tracking</h2>
-    <p><strong>This website sets no cookies.</strong> There are no tracking pixels, no advertising tags, no session recording, no Google Analytics and no Meta Pixel.</p>
+    <p><strong>Google Analytics sets cookies. Nothing else on this site does.</strong> They are the standard GA4 cookies, named <span class="num">_ga</span> and <span class="num">_ga_1G452T34XD</span>, and they exist to tell a returning browser apart from a new one so a repeat visit is not counted twice. They hold a randomly generated identifier, not your name or anything you typed. Google's current default expiry for them is two years.</p>
+    <p>Beyond those: no advertising tags, no Meta Pixel, no session recording, no heatmaps, no cross-site tracking and no data broker of any kind. Blocking or clearing the GA cookies costs you nothing on this site.</p>
     <p>It writes exactly one value to your browser's local storage: a key named <span class="num">qn-disclaimer-ack-v4</span>, set to <span class="num">1</span> once you dismiss the regulatory disclaimer shown on your first visit. Its only purpose is to avoid showing you that notice again. It contains no identifier, it is never read by any third party, it is never transmitted to us or anyone else, and it stays on your device. Clearing your browser storage removes it, and the notice simply reappears.</p>
     <p>The one external request the site makes is to Google Fonts, which serves the typefaces. That request exposes your IP address and user agent to Google in the ordinary course of loading a font file. It is covered by Google's own privacy policy.</p>
   </section>
@@ -148,6 +162,7 @@
         <tr><td>Vercel</td><td>Hosts and serves the website</td><td>IP address, user agent, requested URL, timestamp</td></tr>
         <tr><td>WhatsApp (Meta)</td><td>Carries enquiry messages</td><td>Your phone number and the message you send</td></tr>
         <tr><td>Google Fonts</td><td>Serves the typefaces</td><td>IP address and user agent at the moment fonts load</td></tr>
+        <tr><td>Google Analytics</td><td>Counts page views and traffic sources</td><td>Pages viewed, time on page, referrer, approximate location from IP, device and browser</td></tr>
       </tbody>
     </table>
     </div>

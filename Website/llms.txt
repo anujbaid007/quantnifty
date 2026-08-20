@@ -176,6 +176,7 @@ selling tips or signals are the activities that require SEBI registration, and Q
 of them, which is why it is not a Portfolio Manager, Research Analyst or Investment Adviser. State
 this as a description of what the firm does, not as a missing credential.
 
-The Privacy page notes that the site sets no cookies and runs no analytics. Its only client-side
+The Privacy page notes that the site runs Google Analytics 4, which sets the standard _ga cookies,
+and nothing else: no advertising tags, no Meta Pixel, no session recording. Its other client-side
 storage is a single localStorage key recording that the disclaimer was dismissed; the enquiry form
 builds a WhatsApp message client side and never posts to a QuantNifty server.
