@@ -194,6 +194,80 @@ header{position:fixed;inset:0 0 auto 0;z-index:80;display:flex;justify-content:c
 .band-i b.mint{color:var(--mint)}
 .band-i span{font-family:var(--m);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--steel2);display:block;margin-top:9px}
 
+/* ============ live results ============ */
+/* Diverging P&L scale. The two poles were checked for colour-vision separation
+   against this section's light surface (deutan ΔE 8.4, normal 29.7); every cell
+   also carries its exact rupee value in a tooltip and in the session table, so
+   nothing here is encoded by colour alone. */
+.lv-l3{--lv:#C4373B} .lv-l1{--lv:#F0908F} .lv-n{--lv:#E8ECF4}
+.lv-p1{--lv:#A8E3CC} .lv-p2{--lv:#4FC79C} .lv-p3{--lv:#0E9E74}
+.lv-pos{color:#0E9E74} .lv-neg{color:#C4373B}
+
+.lv-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:14px;margin:36px 0 30px}
+.lv-kpi{border:1px solid rgba(20,64,184,.13);border-radius:14px;padding:17px 18px;background:var(--paper)}
+.lv-kpi span{display:block;font-family:var(--m);font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--steel);margin-bottom:9px}
+.lv-kpi b{display:block;font-family:var(--m);font-size:1.42rem;font-weight:600;letter-spacing:-.02em;
+  color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1}
+.lv-kpi b em{font-style:normal;color:var(--steel2);font-weight:400}
+.lv-kpi i{display:block;font-style:normal;font-size:12.4px;color:var(--steel);margin-top:6px}
+
+.lv-grid2{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:18px;align-items:start}
+.lv-card{margin:0;border:1px solid rgba(20,64,184,.13);border-radius:var(--r);background:var(--paper);padding:22px}
+.lv-card figcaption{margin-bottom:18px}
+.lv-card figcaption b{display:block;font-family:var(--d);font-size:1.02rem;font-weight:700;
+  letter-spacing:-.02em;color:var(--ink);margin-bottom:6px}
+.lv-card figcaption span{display:block;font-size:13px;line-height:1.55;color:var(--steel)}
+
+.lv-hmwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.lv-hm{max-width:280px;height:auto}
+.lv-c{fill:var(--lv);transition:opacity .15s}
+.lv-c.lv-out{opacity:.4}
+.lv-c[tabindex]{cursor:pointer}
+.lv-c[tabindex]:hover,.lv-c[tabindex]:focus-visible{stroke:var(--ink);stroke-width:1.6;outline:none}
+.lv-ml{font-family:var(--m);font-size:9.5px;fill:var(--steel);letter-spacing:.1em;text-transform:uppercase}
+.lv-dw{font-family:var(--m);font-size:9px;fill:var(--steel2);text-anchor:middle}
+.lv-leg{display:flex;align-items:center;gap:5px;margin-top:16px;
+  font-family:var(--m);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--steel)}
+.lv-leg i{width:13px;height:13px;border-radius:3px;background:var(--lv);display:inline-block}
+
+.lv-plot{position:relative}
+.lv-svg{display:block;width:100%;height:auto;overflow:visible}
+.lv-grid{stroke:rgba(20,64,184,.09);stroke-width:1}
+.lv-gl{font-family:var(--m);font-size:9.5px;fill:var(--steel2)}
+.lv-zero{stroke:rgba(20,64,184,.28);stroke-width:1;stroke-dasharray:3 3}
+.lv-line{fill:none;stroke:#2E6BFF;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.lv-dot{fill:#2E6BFF;stroke:var(--paper);stroke-width:2}
+.lv-hit{fill:transparent;cursor:pointer}
+.lv-hit:hover~.lv-dot,.lv-hit:focus-visible{outline:none}
+.lv-x{display:flex;justify-content:space-between;margin-top:8px;
+  font-family:var(--m);font-size:10px;color:var(--steel2)}
+/* fixed rather than absolute so one tooltip can serve both the heatmap and the
+   curve, which live in separate cards */
+.lv-tip{position:fixed;pointer-events:none;opacity:0;transition:opacity .12s;z-index:70;
+  background:var(--ink);color:#fff;border-radius:9px;padding:9px 12px;font-size:12.4px;line-height:1.5;
+  white-space:nowrap;box-shadow:0 10px 30px -12px rgba(4,9,26,.6)}
+.lv-tip.on{opacity:1}
+.lv-tip b{display:block;font-family:var(--m);font-size:11px;color:var(--b300);margin-bottom:3px;font-weight:500}
+
+.lv-log{margin-top:26px;border:1px solid rgba(20,64,184,.13);border-radius:var(--r);background:var(--paper)}
+.lv-log summary{cursor:pointer;padding:15px 20px;font-weight:650;font-size:14.5px;color:var(--ink);list-style:none}
+.lv-log summary::-webkit-details-marker{display:none}
+.lv-log summary::after{content:"+";float:right;font-family:var(--m);color:var(--b400)}
+.lv-log[open] summary::after{content:"\2212"}
+.lv-tscroll{overflow-x:auto;padding:0 20px 18px}
+.lv-log table{width:100%;border-collapse:collapse;font-size:13.6px}
+.lv-log th,.lv-log td{text-align:left;padding:9px 12px;border-bottom:1px solid rgba(20,64,184,.09);white-space:nowrap}
+.lv-log th{font-family:var(--m);font-size:10px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--steel);font-weight:500}
+.lv-log td.num{font-family:var(--m);font-variant-numeric:tabular-nums;text-align:right}
+
+@media(max-width:900px){
+  .lv-grid2{grid-template-columns:1fr}
+  .lv-hm{max-width:none}
+}
+@media(prefers-reduced-motion:reduce){.lv-c,.lv-tip{transition:none}}
+
 /* ============ sections ============ */
 section{padding:104px 0;scroll-margin-top:86px}
 .sec-h{max-width:60ch;margin-bottom:52px}
@@ -848,7 +922,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       "description": "QuantNifty builds and backtests algorithmic options trading systems for NIFTY and SENSEX. Double engine capital design: your equity keeps compounding while its interest-free pledged margin runs systematic option strategies. We are an algo development and consulting firm, not SEBI registered, and we do not give advice.",
       "inLanguage": "en-IN",
       "datePublished": "2026-07-30",
-      "dateModified": "2026-08-18",
+      "dateModified": "2026-08-20",
       "speakable": {
         "@type": "SpeakableSpecification",
         "cssSelector": [
@@ -1035,6 +1109,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
     <nav>
       <a href="#concept">Double engine</a>
       <a href="#engines">Quant</a>
+      <a href="#live">Live</a>
       <a href="#sharpe">Sharpe</a>
       <a href="#ai">AI</a>
       <a href="/guides">Guides</a>
@@ -1053,7 +1128,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
   <button class="sheet-x" id="sheetX" aria-label="Close menu">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
   </button>
-  <a href="#concept">Double engine</a><a href="#engines">Quant</a><a href="#sharpe">Sharpe</a>
+  <a href="#concept">Double engine</a><a href="#engines">Quant</a><a href="#live">Live</a><a href="#sharpe">Sharpe</a>
   <a href="#ai">AI</a><a href="/guides">Guides</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
   <a href="#contact" class="pill">Talk to us</a>
 </div>
@@ -1353,6 +1428,87 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
 
     <p class="fine">* Figures are <strong>backtested</strong> on ₹1 crore of deployed margin, net of 0.2% slippage per fill, the cost of the protective hedge, and all statutory charges. A backtest is not a live track record, and it is not a promise of future returns. These systems are built and run for our own capital. Full disclosures are below.</p>
     <p class="fine" style="margin-top:10px">The grey dashed line on each card is the NIFTY 50 with dividends reinvested, over that algo's own window. Each card is scaled to its own return range, so the benchmark is directly comparable to the algo beside it but not across cards.</p>
+  </div>
+</section>
+
+<!-- ══════════ LIVE RESULTS ══════════ -->
+<section id="live" class="light">
+  <div class="wrap">
+    <span class="eyebrow">Live since 20 July 2026</span>
+    <h2 style="margin:16px 0 14px">The backtest said one thing.<br>Here is what the market said.</h2>
+    <p class="lede" style="max-width:60ch">Alpha has been running on live market data since 20 July. Every session it has
+      traded is below, wins and losses both. 13 sessions is far too short to prove anything, and we would
+      rather show it than wait until the number flatters us.</p>
+
+    <div class="lv-kpis">
+      <div class="lv-kpi"><span>Net P&amp;L</span><b class="lv-pos">+₹39,353</b><i>13 sessions</i></div>
+      <div class="lv-kpi"><span>Return on capital</span><b class="lv-pos">+8.20%</b><i>on ₹4.8L deployed</i></div>
+      <div class="lv-kpi"><span>Winning sessions</span><b>10 of 13</b><i>77% of days</i></div>
+      <div class="lv-kpi"><span>Best day</span><b class="lv-pos">+₹12,984</b><i>11 Aug &middot; worst was &minus;₹2,060 on 23 Jul</i></div>
+      <div class="lv-kpi"><span>Max drawdown</span><b class="lv-neg">&minus;0.43%</b><i>−₹2,060 peak to trough</i></div>
+    </div>
+
+    <div class="lv-grid2">
+      <figure class="lv-card">
+        <figcaption><b>Every session, coloured by P&amp;L</b><span>Grey squares are days Alpha does not trade. NIFTY runs
+          0&ndash;1 DTE, SENSEX 0 DTE, so the two books never share a session.</span></figcaption>
+        <div class="lv-hmwrap">
+          <svg class="lv-hm" viewBox="-20 -20 121 121" width="100%" role="group" aria-label="Daily profit and loss calendar, 20 July to 20 August 2026">
+            <text class="lv-ml" x="0" y="-7">Jul</text><text class="lv-ml" x="38" y="-7">Aug</text>
+            <text class="lv-dw" x="-8" y="11">M</text><text class="lv-dw" x="-8" y="30">T</text><text class="lv-dw" x="-8" y="49">W</text><text class="lv-dw" x="-8" y="68">T</text><text class="lv-dw" x="-8" y="87">F</text>
+            <rect class="lv-c lv-p2" x="0" y="0" width="15" height="15" rx="3" tabindex="0" role="img" data-d="2026-07-20" data-net="3686" data-books="NIFTY" data-trades="2" aria-label="20 Jul 2026: +₹3,686 (NIFTY, 2 trades)"><title>20 Jul 2026: +₹3,686 (NIFTY, 2 trades)</title></rect><rect class="lv-c lv-p3" x="0" y="19" width="15" height="15" rx="3" tabindex="0" role="img" data-d="2026-07-21" data-net="5261" data-books="NIFTY" data-trades="4" aria-label="21 Jul 2026: +₹5,261 (NIFTY, 4 trades)"><title>21 Jul 2026: +₹5,261 (NIFTY, 4 trades)</title></rect><rect class="lv-c lv-n" x="0" y="38" width="15" height="15" rx="3" aria-hidden="true"><title>22 Jul 2026: no session</title></rect><rect class="lv-c lv-l3" x="0" y="57" width="15" height="15" rx="3" tabindex="0" role="img" data-d="2026-07-23" data-net="-2060" data-books="SENSEX" data-trades="8" aria-label="23 Jul 2026: −₹2,060 (SENSEX, 8 trades)"><title>23 Jul 2026: −₹2,060 (SENSEX, 8 trades)</title></rect><rect class="lv-c lv-n" x="0" y="76" width="15" height="15" rx="3" aria-hidden="true"><title>24 Jul 2026: no session</title></rect><rect class="lv-c lv-p2" x="19" y="0" width="15" height="15" rx="3" tabindex="0" role="img" data-d="2026-07-27" data-net="1481" data-books="NIFTY" data-trades="3" aria-label="27 Jul 2026: +₹1,481 (NIFTY, 3 trades)"><title>27 Jul 2026: +₹1,481 (NIFTY, 3 trades)</title></rect><rect class="lv-c lv-p3" x="19" y="19" width="15" height="15" rx="3" tabindex="0" role="img" data-d="2026-07-28" data-net="5339" data-books="NIFTY" data-trades="3" aria-label="28 Jul 2026: +₹5,339 (NIFTY, 3 trades)"><title>28 Jul 2026: +₹5,339 (NIFTY, 3 trades)</title></rect><rect class="lv-c lv-n" x="19" y="38" width="15" height="15" rx="3" aria-hidden="true"><title>29 Jul 2026: no session</title></rect><rect class="lv-c lv-p2" x="19" y="57" width="15" height="15" rx="3" tabindex="0" role="img" data-d="2026-07-30" data-net="4292" data-books="SENSEX" data-trades="13" aria-label="30 Jul 2026: +₹4,292 (SENSEX, 13 trades)"><title>30 Jul 2026: +₹4,292 (SENSEX, 13 trades)</title></rect><rect class="lv-c lv-n" x="19" y="76" width="15" height="15" rx="3" aria-hidden="true"><title>31 Jul 2026: no session</title></rect><rect class="lv-c lv-p1" x="38" y="0" width="15" height="15" rx="3" tabindex="0" role="img" data-d="2026-08-03" data-net="650" data-books="NIFTY" data-trades="4" aria-label="3 Aug 2026: +₹650 (NIFTY, 4 trades)"><title>3 Aug 2026: +₹650 (NIFTY, 4 trades)</title></rect><rect class="lv-c lv-n" x="38" y="19" width="15" height="15" rx="3" aria-hidden="true"><title>4 Aug 2026: no session</title></rect><rect class="lv-c lv-n" x="38" y="38" width="15" height="15" rx="3" aria-hidden="true"><title>5 Aug 2026: no session</title></rect><rect class="lv-c lv-n" x="38" y="57" width="15" height="15" rx="3" aria-hidden="true"><title>6 Aug 2026: no session</title></rect><rect class="lv-c lv-n" x="38" y="76" width="15" height="15" rx="3" aria-hidden="true"><title>7 Aug 2026: no session</title></rect><rect class="lv-c lv-p2" x="57" y="0" width="15" height="15" rx="3" tabindex="0" role="img" data-d="2026-08-10" data-net="4655" data-books="NIFTY" data-trades="3" aria-label="10 Aug 2026: +₹4,655 (NIFTY, 3 trades)"><title>10 Aug 2026: +₹4,655 (NIFTY, 3 trades)</title></rect><rect class="lv-c lv-p3" x="57" y="19" width="15" height="15" rx="3" tabindex="0" role="img" data-d="2026-08-11" data-net="12984" data-books="NIFTY" data-trades="2" aria-label="11 Aug 2026: +₹12,984 (NIFTY, 2 trades)"><title>11 Aug 2026: +₹12,984 (NIFTY, 2 trades)</title></rect><rect class="lv-c lv-n" x="57" y="38" width="15" height="15" rx="3" aria-hidden="true"><title>12 Aug 2026: no session</title></rect><rect class="lv-c lv-l1" x="57" y="57" width="15" height="15" rx="3" tabindex="0" role="img" data-d="2026-08-13" data-net="-15" data-books="SENSEX" data-trades="10" aria-label="13 Aug 2026: −₹15 (SENSEX, 10 trades)"><title>13 Aug 2026: −₹15 (SENSEX, 10 trades)</title></rect><rect class="lv-c lv-n" x="57" y="76" width="15" height="15" rx="3" aria-hidden="true"><title>14 Aug 2026: no session</title></rect><rect class="lv-c lv-l1" x="76" y="0" width="15" height="15" rx="3" tabindex="0" role="img" data-d="2026-08-17" data-net="-706" data-books="NIFTY" data-trades="7" aria-label="17 Aug 2026: −₹706 (NIFTY, 7 trades)"><title>17 Aug 2026: −₹706 (NIFTY, 7 trades)</title></rect><rect class="lv-c lv-p1" x="76" y="19" width="15" height="15" rx="3" tabindex="0" role="img" data-d="2026-08-18" data-net="244" data-books="NIFTY" data-trades="6" aria-label="18 Aug 2026: +₹244 (NIFTY, 6 trades)"><title>18 Aug 2026: +₹244 (NIFTY, 6 trades)</title></rect><rect class="lv-c lv-n" x="76" y="38" width="15" height="15" rx="3" aria-hidden="true"><title>19 Aug 2026: no session</title></rect><rect class="lv-c lv-p2" x="76" y="57" width="15" height="15" rx="3" tabindex="0" role="img" data-d="2026-08-20" data-net="3543" data-books="SENSEX" data-trades="3" aria-label="20 Aug 2026: +₹3,543 (SENSEX, 3 trades)"><title>20 Aug 2026: +₹3,543 (SENSEX, 3 trades)</title></rect><rect class="lv-c lv-n lv-out" x="76" y="76" width="15" height="15" rx="3" aria-hidden="true"><title>21 Aug 2026: no session</title></rect>
+          </svg>
+        </div>
+        <div class="lv-leg">
+          <span>Loss</span>
+          <i class="lv-l3"></i><i class="lv-l1"></i><i class="lv-n"></i><i class="lv-p1"></i><i class="lv-p2"></i><i class="lv-p3"></i>
+          <span>Profit</span>
+        </div>
+      </figure>
+
+      <figure class="lv-card">
+        <figcaption><b>Cumulative P&amp;L</b><span>Rupees on ₹4.8 lakh of deployed margin, net of slippage,
+          hedge cost and statutory charges. Plotted per session traded, not per calendar day.</span></figcaption>
+        <div class="lv-plot" id="lv-plot">
+          <svg class="lv-svg" viewBox="0 0 760 250" width="100%" role="img"
+               aria-label="Cumulative profit and loss for Alpha, 2026-07-20 to 2026-08-20, ending at +₹39,353">
+            <defs><linearGradient id="lvFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2E6BFF" stop-opacity=".22"/>
+              <stop offset="1" stop-color="#2E6BFF" stop-opacity="0"/>
+            </linearGradient></defs>
+            <line class="lv-grid" x1="8" y1="224.0" x2="752" y2="224.0"/><text class="lv-gl" x="8" y="219.0"></text><line class="lv-grid" x1="8" y1="172.0" x2="752" y2="172.0"/><text class="lv-gl" x="8" y="167.0">₹10k</text><line class="lv-grid" x1="8" y1="120.0" x2="752" y2="120.0"/><text class="lv-gl" x="8" y="115.0">₹20k</text><line class="lv-grid" x1="8" y1="68.0" x2="752" y2="68.0"/><text class="lv-gl" x="8" y="63.0">₹30k</text><line class="lv-grid" x1="8" y1="16.0" x2="752" y2="16.0"/><text class="lv-gl" x="8" y="11.0">₹39k</text>
+            <line class="lv-zero" x1="8" y1="224.0" x2="752" y2="224.0"/>
+            <path class="lv-area" d="M8.0,224.0 L8.0,204.5 L70.0,176.7 L132.0,187.6 L194.0,179.8 L256.0,151.6 L318.0,128.9 L380.0,125.4 L442.0,100.8 L504.0,32.2 L566.0,32.3 L628.0,36.0 L690.0,34.7 L752.0,16.0 L752.0,224.0 Z" fill="url(#lvFill)"/>
+            <path class="lv-line" d="M8.0,204.5 L70.0,176.7 L132.0,187.6 L194.0,179.8 L256.0,151.6 L318.0,128.9 L380.0,125.4 L442.0,100.8 L504.0,32.2 L566.0,32.3 L628.0,36.0 L690.0,34.7 L752.0,16.0"/>
+            <circle class="lv-dot" cx="8.0" cy="204.5" r="3.4"/><circle class="lv-dot" cx="70.0" cy="176.7" r="3.4"/><circle class="lv-dot" cx="132.0" cy="187.6" r="3.4"/><circle class="lv-dot" cx="194.0" cy="179.8" r="3.4"/><circle class="lv-dot" cx="256.0" cy="151.6" r="3.4"/><circle class="lv-dot" cx="318.0" cy="128.9" r="3.4"/><circle class="lv-dot" cx="380.0" cy="125.4" r="3.4"/><circle class="lv-dot" cx="442.0" cy="100.8" r="3.4"/><circle class="lv-dot" cx="504.0" cy="32.2" r="3.4"/><circle class="lv-dot" cx="566.0" cy="32.3" r="3.4"/><circle class="lv-dot" cx="628.0" cy="36.0" r="3.4"/><circle class="lv-dot" cx="690.0" cy="34.7" r="3.4"/><circle class="lv-dot" cx="752.0" cy="16.0" r="3.4"/>
+            <circle class="lv-hit" cx="8.0" cy="204.5" r="14" tabindex="0" role="img" data-i="0" data-d="2026-07-20" data-net="3686" data-cum="3686" data-books="NIFTY" aria-label="20 Jul: +₹3,686 on the day, +₹3,686 cumulative"><title>20 Jul: +₹3,686 on the day, +₹3,686 cumulative</title></circle><circle class="lv-hit" cx="70.0" cy="176.7" r="14" tabindex="0" role="img" data-i="1" data-d="2026-07-21" data-net="5261" data-cum="8946" data-books="NIFTY" aria-label="21 Jul: +₹5,261 on the day, +₹8,946 cumulative"><title>21 Jul: +₹5,261 on the day, +₹8,946 cumulative</title></circle><circle class="lv-hit" cx="132.0" cy="187.6" r="14" tabindex="0" role="img" data-i="2" data-d="2026-07-23" data-net="-2060" data-cum="6886" data-books="SENSEX" aria-label="23 Jul: −₹2,060 on the day, +₹6,886 cumulative"><title>23 Jul: −₹2,060 on the day, +₹6,886 cumulative</title></circle><circle class="lv-hit" cx="194.0" cy="179.8" r="14" tabindex="0" role="img" data-i="3" data-d="2026-07-27" data-net="1481" data-cum="8367" data-books="NIFTY" aria-label="27 Jul: +₹1,481 on the day, +₹8,367 cumulative"><title>27 Jul: +₹1,481 on the day, +₹8,367 cumulative</title></circle><circle class="lv-hit" cx="256.0" cy="151.6" r="14" tabindex="0" role="img" data-i="4" data-d="2026-07-28" data-net="5339" data-cum="13706" data-books="NIFTY" aria-label="28 Jul: +₹5,339 on the day, +₹13,706 cumulative"><title>28 Jul: +₹5,339 on the day, +₹13,706 cumulative</title></circle><circle class="lv-hit" cx="318.0" cy="128.9" r="14" tabindex="0" role="img" data-i="5" data-d="2026-07-30" data-net="4292" data-cum="17998" data-books="SENSEX" aria-label="30 Jul: +₹4,292 on the day, +₹17,998 cumulative"><title>30 Jul: +₹4,292 on the day, +₹17,998 cumulative</title></circle><circle class="lv-hit" cx="380.0" cy="125.4" r="14" tabindex="0" role="img" data-i="6" data-d="2026-08-03" data-net="650" data-cum="18647" data-books="NIFTY" aria-label="3 Aug: +₹650 on the day, +₹18,647 cumulative"><title>3 Aug: +₹650 on the day, +₹18,647 cumulative</title></circle><circle class="lv-hit" cx="442.0" cy="100.8" r="14" tabindex="0" role="img" data-i="7" data-d="2026-08-10" data-net="4655" data-cum="23303" data-books="NIFTY" aria-label="10 Aug: +₹4,655 on the day, +₹23,303 cumulative"><title>10 Aug: +₹4,655 on the day, +₹23,303 cumulative</title></circle><circle class="lv-hit" cx="504.0" cy="32.2" r="14" tabindex="0" role="img" data-i="8" data-d="2026-08-11" data-net="12984" data-cum="36287" data-books="NIFTY" aria-label="11 Aug: +₹12,984 on the day, +₹36,287 cumulative"><title>11 Aug: +₹12,984 on the day, +₹36,287 cumulative</title></circle><circle class="lv-hit" cx="566.0" cy="32.3" r="14" tabindex="0" role="img" data-i="9" data-d="2026-08-13" data-net="-15" data-cum="36272" data-books="SENSEX" aria-label="13 Aug: −₹15 on the day, +₹36,272 cumulative"><title>13 Aug: −₹15 on the day, +₹36,272 cumulative</title></circle><circle class="lv-hit" cx="628.0" cy="36.0" r="14" tabindex="0" role="img" data-i="10" data-d="2026-08-17" data-net="-706" data-cum="35566" data-books="NIFTY" aria-label="17 Aug: −₹706 on the day, +₹35,566 cumulative"><title>17 Aug: −₹706 on the day, +₹35,566 cumulative</title></circle><circle class="lv-hit" cx="690.0" cy="34.7" r="14" tabindex="0" role="img" data-i="11" data-d="2026-08-18" data-net="244" data-cum="35810" data-books="NIFTY" aria-label="18 Aug: +₹244 on the day, +₹35,810 cumulative"><title>18 Aug: +₹244 on the day, +₹35,810 cumulative</title></circle><circle class="lv-hit" cx="752.0" cy="16.0" r="14" tabindex="0" role="img" data-i="12" data-d="2026-08-20" data-net="3543" data-cum="39353" data-books="SENSEX" aria-label="20 Aug: +₹3,543 on the day, +₹39,353 cumulative"><title>20 Aug: +₹3,543 on the day, +₹39,353 cumulative</title></circle>
+          </svg>
+          <div class="lv-tip" id="lv-tip" aria-hidden="true"></div>
+        </div>
+        <div class="lv-x"><span>20 Jul</span><span>20 Aug 2026</span></div>
+      </figure>
+    </div>
+
+    <details class="lv-log">
+      <summary>Session by session, all 13 of them</summary>
+      <div class="lv-tscroll">
+        <table>
+          <thead><tr><th>Date</th><th>Book</th><th>Trades</th><th>Net P&amp;L</th><th>Cumulative</th></tr></thead>
+          <tbody><tr><td>20 Jul 2026</td><td>NIFTY</td><td class="num">2</td><td class="num lv-pos">+₹3,686</td><td class="num">+₹3,686</td></tr><tr><td>21 Jul 2026</td><td>NIFTY</td><td class="num">4</td><td class="num lv-pos">+₹5,261</td><td class="num">+₹8,946</td></tr><tr><td>23 Jul 2026</td><td>SENSEX</td><td class="num">8</td><td class="num lv-neg">−₹2,060</td><td class="num">+₹6,886</td></tr><tr><td>27 Jul 2026</td><td>NIFTY</td><td class="num">3</td><td class="num lv-pos">+₹1,481</td><td class="num">+₹8,367</td></tr><tr><td>28 Jul 2026</td><td>NIFTY</td><td class="num">3</td><td class="num lv-pos">+₹5,339</td><td class="num">+₹13,706</td></tr><tr><td>30 Jul 2026</td><td>SENSEX</td><td class="num">13</td><td class="num lv-pos">+₹4,292</td><td class="num">+₹17,998</td></tr><tr><td>3 Aug 2026</td><td>NIFTY</td><td class="num">4</td><td class="num lv-pos">+₹650</td><td class="num">+₹18,647</td></tr><tr><td>10 Aug 2026</td><td>NIFTY</td><td class="num">3</td><td class="num lv-pos">+₹4,655</td><td class="num">+₹23,303</td></tr><tr><td>11 Aug 2026</td><td>NIFTY</td><td class="num">2</td><td class="num lv-pos">+₹12,984</td><td class="num">+₹36,287</td></tr><tr><td>13 Aug 2026</td><td>SENSEX</td><td class="num">10</td><td class="num lv-neg">−₹15</td><td class="num">+₹36,272</td></tr><tr><td>17 Aug 2026</td><td>NIFTY</td><td class="num">7</td><td class="num lv-neg">−₹706</td><td class="num">+₹35,566</td></tr><tr><td>18 Aug 2026</td><td>NIFTY</td><td class="num">6</td><td class="num lv-pos">+₹244</td><td class="num">+₹35,810</td></tr><tr><td>20 Aug 2026</td><td>SENSEX</td><td class="num">3</td><td class="num lv-pos">+₹3,543</td><td class="num">+₹39,353</td></tr></tbody>
+        </table>
+      </div>
+    </details>
+
+    <p class="fine" style="margin-top:26px">These figures come from our validation engine replaying the
+      <strong>recorded live tick data</strong> for each session, so entries, exits and stops are the ones the market
+      actually offered rather than a historical estimate. They are net of slippage, hedge cost and all statutory
+      charges, on the sleeve sizing documented for each book. Three sessions in the window are missing because the
+      tick recorder dropped the spot feed; every one of them fell on a day Alpha does not trade, so none were
+      excluded for being unfavourable.</p>
+    <p class="fine" style="margin-top:10px"><strong>13 sessions is a sample, not a track record.</strong>
+      We publish no Sharpe ratio, no annualised return and no projection from this window, because none of them would
+      mean anything yet. The backtested figures on the cards above cover four years; this covers one month. Judge them
+      accordingly.</p>
   </div>
 </section>
 
@@ -1774,7 +1930,7 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
         <p>Algorithmic trading system development and consulting for Indian index derivatives. Running on the NSE and BSE.</p>
       </div>
       <div><h5>Explore</h5>
-        <a href="#concept">Double engine</a><a href="#engines">Quant</a><a href="#sharpe">Sharpe</a><a href="#ai">AI</a><a href="#whale">Risk dial</a>
+        <a href="#concept">Double engine</a><a href="#engines">Quant</a><a href="#live">Live</a><a href="#sharpe">Sharpe</a><a href="#ai">AI</a><a href="#whale">Risk dial</a>
       </div>
       <div><h5>Guides</h5>
         <a href="/guides">All guides</a><a href="/guides/nifty-algo-strategies">NIFTY algo strategies</a><a href="/guides/algo-trading-india">Algo trading in India</a><a href="/guides/pledged-margin-algo-trading">Pledged margin</a><a href="/guides/0-dte-options-india">0 DTE options</a><a href="/guides/options-backtesting">Backtesting</a><a href="/guides/sharpe-ratio">Sharpe ratio</a><a href="/guides/sensex-options-algo">SENSEX options algo</a>
@@ -1796,7 +1952,8 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
       <div class="dbody">
         <p><strong>We are not SEBI registered.</strong> QuantNifty is not a SEBI-registered Research Analyst, Investment Adviser, Portfolio Manager or Broker. Nothing on this website is investment advice, a research report, or a recommendation to buy or sell any security.</p>
         <p><strong>The algos shown are for our own use.</strong> Apex, Alpha and Whale are proprietary systems built and operated on our own capital. They are shown here to demonstrate engineering capability. They are not offered for subscription, licensing or sale, and we do not trade on anyone else's behalf.</p>
-        <p><strong>All figures are backtested.</strong> Performance shown is simulated on historical data over the windows stated on each algo, assuming ₹1 crore of deployed margin, 0.2% slippage per fill, the cost of the protective hedge and all statutory charges. A backtest is not a live track record. Past or simulated performance does not indicate future results. Live results will differ because of execution, liquidity, latency and changes in market regime.</p>
+        <p><strong>The algo card figures are backtested.</strong> Performance on the Apex, Alpha and Whale cards is simulated on historical data over the windows stated on each algo, assuming ₹1 crore of deployed margin, 0.2% slippage per fill, the cost of the protective hedge and all statutory charges. A backtest is not a live track record. Past or simulated performance does not indicate future results. Live results will differ because of execution, liquidity, latency and changes in market regime.</p>
+        <p><strong>The live results section is separate, and much shorter.</strong> Those figures come from our validation engine replaying the recorded live tick data for each session from 20 July 2026 onward, on the sleeve sizing documented for each book, net of slippage, hedge cost and statutory charges. They cover a handful of sessions, not a track record, and we publish no Sharpe ratio, annualised return or projection from that window. Do not read one month as evidence about the next.</p>
         <p><strong>What we sell is engineering.</strong> We are an algorithm development and consulting firm. Clients engage us to build, test and automate trading systems to their own specification. The client owns the strategy decision and bears the risk of trading it.</p>
         <p><strong>Derivatives carry substantial risk.</strong> Options trading can result in losses exceeding your initial capital. Pledging equity as collateral places those holdings at risk. Consult a SEBI-registered adviser and evaluate your own suitability before deploying capital.</p>
         <p>The full documents live on their own pages: <a href="/privacy" style="color:var(--b300)">Privacy Policy</a> and <a href="/terms" style="color:var(--b300)">Terms and Conditions</a>.</p>
@@ -2131,6 +2288,55 @@ html.js .rv.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,
     var msg='Hi i want to know more about the Algo Quant systems.\n\nName: '+n+'\nContact: '+c+'\nNeed: '+D.getElementById('f-topic').value+(cap?('\nCapital: '+cap):'')+(D.getElementById('f-msg').value?('\nDetails: '+D.getElementById('f-msg').value):'');
     open('https://wa.me/919601443663?text='+encodeURIComponent(msg),'_blank','noopener');
   });
+})();
+</script>
+<script>
+/* Live results: one tooltip shared by the calendar cells and the curve markers.
+   Both already carry aria-label and <title>, so this is a presentation upgrade
+   rather than the only way to read a value. */
+(function(){
+  var tip = document.getElementById('lv-tip');
+  var sec = document.getElementById('live');
+  if(!tip || !sec) return;
+  document.body.appendChild(tip);                 // escape the card's stacking context
+
+  var INR = function(v){
+    v = Number(v);
+    return (v > 0 ? '+' : v < 0 ? '−' : '') + '₹' + Math.abs(v).toLocaleString('en-IN');
+  };
+  var fmt = function(iso){
+    var p = iso.split('-'), M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return Number(p[2]) + ' ' + M[Number(p[1]) - 1] + ' ' + p[0];
+  };
+
+  function show(el){
+    var d = el.dataset, html;
+    if(d.cum !== undefined){
+      html = '<b>' + fmt(d.d) + ' · ' + d.books + '</b>' +
+             INR(d.net) + ' on the day<br>' + INR(d.cum) + ' cumulative';
+    } else {
+      html = '<b>' + fmt(d.d) + ' · ' + d.books + '</b>' +
+             INR(d.net) + ' over ' + d.trades + ' trade' + (d.trades === '1' ? '' : 's');
+    }
+    tip.innerHTML = html;
+    tip.classList.add('on');
+    var r = el.getBoundingClientRect(), t = tip.getBoundingClientRect();
+    var x = r.left + r.width / 2 - t.width / 2;
+    var y = r.top - t.height - 10;
+    if(y < 8) y = r.bottom + 10;                                  // flip below near the top
+    x = Math.max(8, Math.min(x, window.innerWidth - t.width - 8)); // keep inside the viewport
+    tip.style.left = x + 'px';
+    tip.style.top  = y + 'px';
+  }
+  function hide(){ tip.classList.remove('on'); }
+
+  sec.querySelectorAll('.lv-hit, .lv-c[tabindex]').forEach(function(el){
+    el.addEventListener('mouseenter', function(){ show(el); });
+    el.addEventListener('focus',      function(){ show(el); });
+    el.addEventListener('mouseleave', hide);
+    el.addEventListener('blur',       hide);
+  });
+  window.addEventListener('scroll', hide, {passive:true});
 })();
 </script>
 <script defer src="/disclaimer.js"></script>

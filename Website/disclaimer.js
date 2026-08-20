@@ -91,8 +91,9 @@
               'manage money or sell signals, which is why we are not SEBI registered. ' +
               'Registration follows the activity; ours is engineering.</span>' +
           '</p>' +
-          '<p class="qn-dsc-fine">Figures shown are <strong>backtested</strong>, not a live track ' +
-            'record. Options can lose more than your capital, and pledged holdings are at risk. ' +
+          '<p class="qn-dsc-fine">The headline algo figures are <strong>backtested</strong>. The live ' +
+            'section covers a few weeks and is not a track record. Options can lose more than your ' +
+            'capital, and pledged holdings are at risk. ' +
             'Full disclosure: <a href="/terms">Terms &amp; Conditions</a>.</p>' +
         '</div>' +
         '<div class="qn-dsc-act">' +
