@@ -150,7 +150,7 @@ published for the live window.
 |---|--:|
 | Window | 20 Jul 2026 to 20 Aug 2026 |
 | Sessions | 15 (NIFTY 10, SENSEX 5) |
-| Net return | +12.25% |
+| Net return | +12.65% |
 | Winning sessions | 11 of 15 |
 | Best session | +4.06% (11 Aug) |
 | Worst session | -0.80% (4 Aug) |
