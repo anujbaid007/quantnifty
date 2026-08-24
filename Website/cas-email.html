@@ -377,14 +377,15 @@
   }
 
   /* Gmail's compose URL treats &body as plain text — there is no parameter that
-     carries HTML — so the link opens an empty compose with the recipients and
-     subject filled in, and the click puts the formatted letter on the clipboard
-     for the paste. */
+     carries HTML, and no page can dispatch a paste into another origin — so the
+     click puts the formatted letter on the clipboard and the compose window
+     opens on a marker showing where it goes. */
   var gmailBtn = document.getElementById('gmail');
   gmailBtn.href =
     'https://mail.google.com/mail/?view=cm&fs=1'
     + '&to=' + encodeURIComponent(recipients())
-    + '&su=' + encodeURIComponent(SUBJECT);
+    + '&su=' + encodeURIComponent(SUBJECT)
+    + '&body=' + encodeURIComponent('// paste here');
 
   function flash(btn, msg){
     var span = btn.querySelector('span'), old = span.textContent;
