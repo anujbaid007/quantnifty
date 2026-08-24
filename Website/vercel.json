@@ -3,9 +3,9 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/cas-email", "destination": "/CAS-Email", "permanent": false },
-    { "source": "/CAS-email", "destination": "/CAS-Email", "permanent": false },
-    { "source": "/cas-Email", "destination": "/CAS-Email", "permanent": false },
+    { "source": "/CAS-Email", "destination": "/cas-email", "permanent": true },
+    { "source": "/CAS-email", "destination": "/cas-email", "permanent": true },
+    { "source": "/cas-Email", "destination": "/cas-email", "permanent": true },
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "quantnifty.in" }],
