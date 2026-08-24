@@ -67,6 +67,14 @@
 .btn.ok{background:var(--mint);color:#04291D;box-shadow:none}
 .btn.ok.sec{border-color:transparent}
 
+/* rewrite-first notice — red rather than the site's amber, because it is a
+   condition on using the letter, not background caution */
+.rewrite{margin-top:20px;max-width:64ch;padding:14px 18px;border-radius:0 12px 12px 0;
+  border:1px solid rgba(200,30,30,.26);border-left:3px solid #C81E1E;
+  background:linear-gradient(92deg,rgba(200,30,30,.075),rgba(200,30,30,.015))}
+.rewrite p{margin:0;font-size:14.2px;color:#8E1B1B}
+.rewrite b{color:#C81E1E;font-weight:700}
+
 /* the recipient block */
 .tos{border:1px solid rgba(20,64,184,.14);border-radius:var(--r);background:var(--ice2);padding:20px 22px;margin-bottom:30px}
 .tos .hdr{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:13px}
@@ -154,6 +162,9 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2.6"/><path d="M3 7l9 6 9-6"/></svg>
         <span>Copy recipients</span>
       </button>
+    </div>
+    <div class="rewrite">
+      <p><b>Please rewrite this before you send it.</b> Paste the letter into ChatGPT, or any similar tool, and ask for the same points in your own words. A few thousand word-for-word identical emails arriving together get treated as a spam campaign and filtered out. A few thousand distinct letters get read as a few thousand traders.</p>
     </div>
   </div>
 </div>
