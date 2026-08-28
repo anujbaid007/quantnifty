@@ -88,6 +88,14 @@
 @supports not (aspect-ratio: 16 / 9){
   .vid .frame{height:0;padding-bottom:56.25%}
 }
+
+/* embedded post: the widget centres itself, this just gives it room and a
+   readable fallback if platform.x.com never loads */
+.tweet{margin:26px 0 4px}
+.tweet blockquote{margin:0 auto;max-width:550px}
+.tweet blockquote:not(.twitter-tweet-rendered){border:1px solid rgba(20,64,184,.13);border-radius:var(--r);
+  background:var(--ice2);padding:20px 22px;font-size:14.6px;color:var(--ink2);line-height:1.62}
+.tweet blockquote:not(.twitter-tweet-rendered) p{margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -159,6 +167,10 @@
       rounding error and turns into a real line in your P&amp;L, one you have to plan around before the first
       trade goes on.</p>
     <p>If your edge per trade was small and you made it up on volume, that doesn&rsquo;t cross over.</p>
+
+    <div class="tweet">
+      <blockquote class="twitter-tweet"><p lang="en" dir="ltr">To everyone who&#39;ve DM regarding intraday trading in US markets! <br><br>It is just not feasible! Why?<br><br>Commission for options is charged per contract basis and not per order basis. Any active intraday adjustments would really make you suffer in brokerage! <br><br>So can you do positional? <a href="https://t.co/THR3uOTONp">pic.twitter.com/THR3uOTONp</a></p>&mdash; Anuj Baid | QuantNifty.in (@anujbaid96) <a href="https://x.com/anujbaid96/status/1824091275383189898?ref_src=twsrc%5Etfw">August 15, 2024</a></blockquote>
+    </div>
   </section>
 
   <section>
@@ -266,6 +278,7 @@
     </div>
   </div>
 </footer>
+<script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
 <script defer src="/disclaimer.js"></script>
 </body>
 </html>
