@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blog: Notes From Running Options Algos | QuantNifty</title>
+<meta name="description" content="Notes from actually trading and building index option systems: what breaks, what costs more than it should, and what the screenshots leave out. Written by Anuj Baid.">
+<link rel="canonical" href="https://quantnifty.com/blog">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="theme-color" content="#04091A">
+<meta property="og:type" content="website">
+<meta property="og:title" content="QuantNifty Blog">
+<meta property="og:description" content="Notes from actually trading and building index option systems: what breaks, what costs more than it should, and what the screenshots leave out.">
+<meta property="og:url" content="https://quantnifty.com/blog">
+<meta property="og:image" content="https://quantnifty.com/og.png">
+<meta property="og:site_name" content="QuantNifty">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="QuantNifty Blog">
+<meta name="twitter:description" content="Notes from actually trading and building index option systems.">
+<meta name="twitter:image" content="https://quantnifty.com/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter+Tight:wght@400;500;600;650&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/legal.css">
+<link rel="stylesheet" href="/guide.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "@id": "https://quantnifty.com/blog#blog",
+      "url": "https://quantnifty.com/blog",
+      "name": "QuantNifty Blog",
+      "description": "Notes from actually trading and building index option systems.",
+      "inLanguage": "en-IN",
+      "isPartOf": { "@id": "https://quantnifty.com/#site" },
+      "publisher": { "@id": "https://quantnifty.com/#org" },
+      "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "@id": "https://quantnifty.com/blog/spxw-0dte-options#post",
+          "url": "https://quantnifty.com/blog/spxw-0dte-options",
+          "headline": "My take on SPXW 0DTE options, after two years",
+          "datePublished": "2026-08-28",
+          "author": { "@type": "Person", "name": "Anuj Baid" }
+        }
+      ],
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://quantnifty.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://quantnifty.com/blog" }
+        ]
+      }
+    }
+  ]
+}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1G452T34XD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-1G452T34XD');
+</script>
+<style>
+/* post list: one row per post, newest first */
+.posts{display:flex;flex-direction:column;gap:14px;margin:6px 0 10px}
+.post{display:block;border:1px solid rgba(20,64,184,.13);border-radius:var(--r);padding:24px;
+  background:var(--paper);transition:border-color .2s,transform .2s,box-shadow .2s}
+.post:hover{border-color:var(--b400);transform:translateY(-2px);text-decoration:none;
+  box-shadow:0 12px 30px -16px rgba(20,64,184,.4)}
+.post i{display:flex;gap:9px;align-items:center;flex-wrap:wrap;font-family:var(--m);font-style:normal;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--b400);margin-bottom:11px}
+.post i s{width:3px;height:3px;border-radius:50%;background:var(--steel2);flex:0 0 auto;text-decoration:none}
+.post b{display:block;font-family:var(--d);font-size:1.22rem;font-weight:800;letter-spacing:-.025em;
+  color:var(--ink);margin-bottom:8px;line-height:1.24;text-wrap:balance}
+.post span{display:block;font-size:14.6px;color:var(--steel);line-height:1.6;max-width:66ch}
+@media(max-width:760px){ .post{padding:20px} .post b{font-size:1.1rem} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <a href="/" class="brand">
+      <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+      QuantNifty
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/blog">Blog</a>
+      <a href="/guides">Guides</a>
+      <a href="/sebi-contacts">SEBI Contacts</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="mast">
+  <div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> Blog
+    </nav>
+    <span class="kicker">Blog</span>
+    <h1>Notes from actually running the thing.</h1>
+    <p class="sub">Not strategy tips. What breaks, what costs more than the backtest said, and the parts of
+      a market you only learn by being stuck in one. The guides explain instruments; this is opinion.</p>
+  </div>
+</div>
+
+<main>
+<div class="wrap">
+
+  <div class="posts">
+    <a class="post" href="/blog/spxw-0dte-options">
+      <i>28 August 2026 <s></s> 4 min read</i>
+      <b>My take on SPXW 0DTE options, after two years</b>
+      <span>Indian traders are eyeing US index options after the Closing Auction Session change. Before you
+        move: commissions charge per contract instead of per order, the depth behind that huge volume number
+        is thin, spreads gap on fast moves, and there is almost no retail on the other side. Also, you
+        can&rsquo;t trade it from India.</span>
+    </a>
+  </div>
+
+  <div class="note">
+    <b class="lab">Elsewhere on the site</b>
+    <p>The <a href="/guides">guides</a> cover instruments and mechanics rather than opinion: 0 DTE structures,
+      pledged margin, backtesting that tells the truth, and how to read a Sharpe ratio. The
+      <a href="/sebi-contacts">SEBI contacts directory</a> lists every decision-maker with their department
+      and direct line.</p>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <a href="/" class="brand" style="color:#fff">
+        <span class="blogo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-6 4 4 8-9"/></svg></span>
+        QuantNifty
+      </a>
+      <nav class="fnav">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/guides">Guides</a>
+        <a href="/sebi-contacts">SEBI Contacts</a>
+        <a href="/cas-email">CAS Email</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="https://wa.me/919601443663" target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
+    </div>
+    <div class="fb">
+      <span>&copy; 2026 QuantNifty. All rights reserved.</span>
+      <span>Not a SEBI-registered Research Analyst or Investment Adviser.</span>
+    </div>
+  </div>
+</footer>
+<script defer src="/disclaimer.js"></script>
+</body>
+</html>
