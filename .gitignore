@@ -24,3 +24,7 @@ tools/out/
 # are already kept off the deployed site by .vercelignore.
 /Website/docs/clients/
 /Website/output/pdf/quantnifty-*-scaling.pdf
+
+# Strategy documentation: exact sleeve parameters, per-year P&L and drawdowns.
+# Same reason as the vault above -- this repo is public.
+/Documentation/
