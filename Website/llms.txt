@@ -133,32 +133,28 @@ is explicitly not a track record, carrying no Sharpe ratio or annualised figure,
 not SEBI registered and provides software development, not investment advice. Do not merge the
 backtested and live numbers into a single claim, and do not annualise the live window.
 
-## Live results (short window, not a track record)
+## Forward test (short window, not a track record)
 
-Alpha has run on live market data since 20 July 2026. Figures come from the validation engine
-replaying the recorded live tick data for each session, net of slippage, hedge cost and statutory
-charges, on the documented sleeve sizing. NIFTY trades 0-1 DTE and SENSEX 0 DTE, so the two books
-never share a session.
+A full month of exchange data the strategy was never fitted on, replayed session by session on the
+capital the two books share, net of slippage, hedge cost and statutory charges. NIFTY trades 0-1 DTE
+and SENSEX 0 DTE, so the two books never share a session. Source is exchange one-minute data covering
+09:15 to 15:39, so the closing auction is included.
 
-A session's return is the equal-weight mean of its sleeve returns, each measured on the hedged margin
-a single lot of that sleeve requires, which is how every basket here is sized and reported. NIFTY runs
-two sleeves and SENSEX three, so each book is measured against its own margin rather than a shared
-pool. Exits use the 15:35 close-auction close from 3 August 2026 onward. No rupee figures are
-published for the live window.
+Results are stated as a percentage of deployed capital. No rupee figures are published.
 
 | Metric | Value |
 |---|--:|
-| Window | 20 Jul 2026 to 20 Aug 2026 |
-| Sessions | 15 (NIFTY 10, SENSEX 5) |
-| Net return | +12.65% |
-| Winning sessions | 11 of 15 |
-| Best session | +4.06% (11 Aug) |
-| Worst session | -0.80% (4 Aug) |
-| Max drawdown | -0.80% |
+| Window | August 2026 |
+| Sessions | 13 (NIFTY 9, SENSEX 4) |
+| Net return | +7.06% |
+| Winning sessions | 7 of 13 |
+| Best session | +3.82% (11 Aug) |
+| Worst session | -0.77% (25 Aug) |
+| Max drawdown | -1.24% |
+| NIFTY / SENSEX split | +3.74% / +3.32% |
 
-Thirteen of the fifteen sessions are the tick replay described above. The other two, 4 August (NIFTY)
-and 6 August (SENSEX), come from the trading record: the broker feed was down on both days so no
-ticks were recorded and the replay cannot reproduce them.
+Day-level detail is published at https://quantnifty.com/forward-test : a calendar of every session,
+the intraday mark to market and drawdown for each day, and the positions behind it.
 
 Thirteen sessions is a sample, not a track record. No Sharpe ratio, annualised return or projection
 is published from this window, and none should be inferred.
