@@ -12,3 +12,6 @@ tools
 live.html
 api
 test
+
+# generator + raw data, not part of the site
+forward-test/build

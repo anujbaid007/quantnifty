@@ -28,3 +28,8 @@ tools/out/
 # Strategy documentation: exact sleeve parameters, per-year P&L and drawdowns.
 # Same reason as the vault above -- this repo is public.
 /Documentation/
+
+# Generator for the forward-test page. It imports the research engine modules by
+# name and those names describe the strategy, so it stays out of a public repo.
+# The generated Website/forward-test/index.html is committed; this is not.
+/Website/forward-test/build/
